@@ -174,7 +174,7 @@ export interface Page {
   title: string;
   isHome?: boolean | null;
   isDynamic?: boolean | null;
-  layout?: (HomeType | DetailsType | ListType | HeroType)[] | null;
+  layout?: (HomeType | DetailsType | ListType | HeroType | FeaturedPostType)[] | null;
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -234,6 +234,16 @@ export interface HeroType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedPostType".
+ */
+export interface FeaturedPostType {
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'FeaturedPost';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
