@@ -31,13 +31,13 @@ const Home: React.FC<HomeProps> = ({ params, ...block }) => {
             {block?.heading}
           </h1>
           <h1 className='mt-3 w-full max-w-2xl text-center text-3xl font-bold text-base-content md:text-4xl lg:text-7xl'>
-            {block?.sub_heading}
+            {block?.subHeading}
           </h1>
         </div>
         <div className='flex flex-wrap items-center justify-center gap-8'>
           <Link
             href='/sign-in'
-            className='group w-full cursor-pointer space-y-4 rounded-rounded-box px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
+            className='rounded-rounded-box group w-full cursor-pointer space-y-4 px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
             <h1 className='inline-flex items-center gap-x-4 text-2xl font-bold transition-all duration-300'>
               Sign In
               <span className='group-hover:translate-x-2'>
@@ -51,7 +51,7 @@ const Home: React.FC<HomeProps> = ({ params, ...block }) => {
           </Link>
           <Link
             href='/authors'
-            className='group w-full cursor-pointer space-y-4 rounded-rounded-box px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
+            className='rounded-rounded-box group w-full cursor-pointer space-y-4 px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
             <h1 className='inline-flex items-center gap-x-4 text-2xl font-bold transition-all duration-300'>
               Authors
               <span className='group-hover:translate-x-2'>
@@ -65,7 +65,7 @@ const Home: React.FC<HomeProps> = ({ params, ...block }) => {
           </Link>
           <Link
             href='/blogs'
-            className='group w-full cursor-pointer space-y-4 rounded-rounded-box px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
+            className='rounded-rounded-box group w-full cursor-pointer space-y-4 px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
             <h1 className='inline-flex items-center gap-x-4 text-2xl font-bold transition-all duration-300'>
               Blogs
               <span className='group-hover:translate-x-2'>
@@ -79,7 +79,7 @@ const Home: React.FC<HomeProps> = ({ params, ...block }) => {
           </Link>
           <Link
             href='/tags'
-            className='group w-full cursor-pointer space-y-4 rounded-rounded-box px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
+            className='rounded-rounded-box group w-full cursor-pointer space-y-4 px-2  py-4 transition-all duration-300 hover:bg-base-content/10 md:w-1/5'>
             <h1 className='inline-flex items-center gap-x-4 text-2xl font-bold transition-all duration-300'>
               Tags
               <span className='group-hover:translate-x-2'>
