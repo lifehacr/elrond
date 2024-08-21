@@ -174,7 +174,7 @@ export interface Page {
   title: string;
   isHome?: boolean | null;
   isDynamic?: boolean | null;
-  layout?: (HomeType | DetailsType | ListType)[] | null;
+  layout?: (HomeType | DetailsType | ListType | HeroType)[] | null;
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -197,7 +197,7 @@ export interface Page {
  */
 export interface HomeType {
   heading?: string | null;
-  sub_heading?: string | null;
+  subHeading?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Home';
@@ -207,21 +207,33 @@ export interface HomeType {
  * via the `definition` "DetailsType".
  */
 export interface DetailsType {
-  collection_slug?: ('blogs' | 'tags' | 'users') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Details';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "List_type".
+ * via the `definition` "ListType".
  */
 export interface ListType {
   title?: string | null;
-  collection_slug?: ('blogs' | 'tags' | 'users') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'List';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroType".
+ */
+export interface HeroType {
+  image?: string | Media | null;
+  title?: string | null;
+  description?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
