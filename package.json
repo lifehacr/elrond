@@ -74,6 +74,7 @@
     "@types/nprogress": "^0.2.3",
     "@types/react": "npm:types-react@19.0.0-rc.0",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
+    "daisyui": "^4.12.10",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.0.0-rc.0",

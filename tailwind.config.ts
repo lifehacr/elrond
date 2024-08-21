@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,51 +10,37 @@ const config: Config = {
     './src/payload/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
-
     extend: {
-      colors: {
-        primary: '#A978DE',
-        'primary-focus': '#8C5DB9',
-        'primary-content': '#FFFFFF',
-
-        secondary: '#DE78C5',
-        'secondary-focus': '#B95DA3',
-        'secondary-content': '#ffffff',
-
-        accent: '#d99330',
-        'accent-focus': '#b57721',
-        'accent-content': '#ffffff',
-
-        neutral: '#110e0e',
-        'neutral-focus': '#060404',
-        'neutral-content': '#ffffff',
-
-        'base-100': '#171212',
-        'base-200': '#1f2937',
-        'base-300': '#060404',
-        'base-content': '#ffffff',
-
-        info: '#66c7ff',
-        success: '#87cf3a',
-        warning: '#e1d460',
-        error: '#ff6b6b',
+      animation: {
+        'grayscale-pulse': 'grayscale-pulse 3s ease-in-out forwards',
       },
-      borderRadius: {
-        'rounded-box': '1rem',
-        'rounded-btn': '.2rem',
-        'rounded-badge': '1.9rem',
+      keyframes: {
+        'grayscale-pulse': {
+          '0%': { filter: 'grayscale(0%)' },
+          '100%': { filter: 'grayscale(100%)' },
+        },
       },
     },
   },
-  prefix: '',
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  daisyui: {
+    themes: [
+      {
+        myLightTheme: {
+          primary: '#7248E6',
+          secondary: '#F4F4F5',
+          'base-content': '#18181B',
+          'neutral-content': '#52525B',
+          'base-100': '#FAFAFA',
+          info: '#0000ff',
+          success: '#00ff00',
+          warning: '#FFDEBE',
+          error: '#E56000',
+          'secondary-content': '#71717A',
+        },
+      },
+    ],
+  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 }
 
 export default config

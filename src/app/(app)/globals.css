@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  @apply rounded-lg;
+}
+
+@media (min-width: 768px) {
+  .md\:max-w-screen-container {
+    max-width: 940px;
+  }
+}
