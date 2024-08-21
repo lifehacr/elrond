@@ -2,6 +2,7 @@
 // Always prefer to individually import the required block or JSX in other parts of your application
 // Importing the block components and its configurations
 import { Details, DetailsConfig } from './Details'
+import { Hero, HeroConfig } from './Hero'
 import { Home, HomeConfig } from './Home'
 import { List, ListConfig } from './List'
 
@@ -11,8 +12,9 @@ export const blocksJSX = {
   Home,
   Details,
   List,
+  Hero,
 }
 
 // Exporting an array that consolidates all block configurations
 // This array is useful for registering or iterating over all blocks and their configurations in one place
-export const blocks = [HomeConfig, DetailsConfig, ListConfig]
+export const blocks = [HomeConfig, DetailsConfig, ListConfig, HeroConfig]
