@@ -8,6 +8,7 @@ import { trpc } from '@/trpc/client'
 const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
   const { data } = trpc.blog.getAllBlogs.useQuery()
   const featuredPost = data?.at(0)
+  console.log(featuredPost)
 
   return (
     <Container className='my-8 w-full px-4 sm:my-12 md:my-16 md:max-w-[940px] lg:my-20 lg:px-0'>
@@ -65,12 +66,16 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
             <p className='line-clamp-3 w-full text-base font-light leading-[1.48] tracking-[0.1px] text-neutral-content'>
               {featuredPost?.description}
             </p>
-            <Link href={`/tag/${(featuredPost?.tags?.value as Tag)?.title}`}>
-              <div
-                className={`badge badge-${(featuredPost?.tags?.value as Tag)?.color} badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80`}>
-                {(featuredPost?.tags?.value as Tag)?.title?.toUpperCase()}
-              </div>
-            </Link>
+            <div className='space-x-3'>
+              {featuredPost?.tags?.slice(0, 2)?.map((tag, index) => (
+                <Link
+                  key={index}
+                  href={`/tag/${(tag?.value as Tag)?.title}`}
+                  className={`badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80`}>
+                  {(tag?.value as Tag)?.title?.toUpperCase()}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
