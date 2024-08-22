@@ -58,7 +58,9 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                       className='text-[#3F3F46] hover:text-primary'>
                       {(author?.value as User)?.username}
                     </Link>
-                    {index === 0 && <span className='mx-1'>&</span>}
+                    {index === 0 && featuredPost?.author?.length! > 1 && (
+                      <span className='mx-1'>&</span>
+                    )}
                   </div>
                 ))}
               </div>

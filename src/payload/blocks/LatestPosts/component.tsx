@@ -87,7 +87,9 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                                 {(author?.value as User)?.username}
                               </p>
                             </Link>
-                            {index === 0 && <span className='mx-1'>&</span>}
+                            {index === 0 && blog?.author?.length! > 1 && (
+                              <span className='mx-1'>&</span>
+                            )}
                           </>
                         ))}
                       </div>
