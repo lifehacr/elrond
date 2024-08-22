@@ -173,7 +173,7 @@ export interface Page {
   title: string;
   isHome?: boolean | null;
   isDynamic?: boolean | null;
-  layout?: (HomeType | DetailsType | ListType | HeroType | FeaturedPostType)[] | null;
+  layout?: (HomeType | DetailsType | ListType | HeroType | FeaturedPostType | LatestPostsType)[] | null;
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -243,6 +243,20 @@ export interface FeaturedPostType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'FeaturedPost';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsType".
+ */
+export interface LatestPostsType {
+  titleOne?: string | null;
+  titleTwo?: string | null;
+  titleThree?: string | null;
+  buttonName: string;
+  buttonPath: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'LatestPosts';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

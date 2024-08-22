@@ -5,6 +5,7 @@ import { Details, DetailsConfig } from './Details'
 import { FeaturedPost, FeaturedPostConfig } from './FeaturedPost'
 import { Hero, HeroConfig } from './Hero'
 import { Home, HomeConfig } from './Home'
+import { LatestPosts, LatestPostsConfig } from './LatestPosts'
 import { List, ListConfig } from './List'
 
 // Exporting an object that maps block names (as keys) to their corresponding JSX components (as values)
@@ -15,6 +16,7 @@ export const blocksJSX = {
   List,
   Hero,
   FeaturedPost,
+  LatestPosts,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -25,4 +27,5 @@ export const blocks = [
   ListConfig,
   HeroConfig,
   FeaturedPostConfig,
+  LatestPostsConfig,
 ]
