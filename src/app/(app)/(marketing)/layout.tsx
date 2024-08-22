@@ -2,6 +2,8 @@ import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { headers } from 'next/headers'
 
+import Footer from '@/payload/blocks/common/Footer'
+import Header from '@/payload/blocks/common/Header'
 import { getCurrentUser } from '@/utils/getCurrentUser'
 
 const MarketingLayout = async ({ children }: { children: React.ReactNode }) => {
@@ -14,10 +16,10 @@ const MarketingLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getCurrentUser(headersList)
 
   return (
-    <div className='flex min-h-screen flex-col'>
-      {/* Navbar */}
+    <div className='flex min-h-screen flex-col bg-white'>
+      <Header />
       <div className='flex-grow'>{children}</div>
-      {/* Footer */}
+      <Footer />
     </div>
   )
 }
