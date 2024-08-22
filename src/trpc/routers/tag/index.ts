@@ -8,7 +8,7 @@ import { publicProcedure, router } from '@/trpc'
 const payload = await getPayloadHMR({ config: configPromise })
 
 export const tagRouter = router({
-  getBlogs: publicProcedure
+  getTagBySlugAndItsBlogs: publicProcedure
     .input(
       z.object({
         tagSlug: z.string(),
@@ -18,7 +18,7 @@ export const tagRouter = router({
       try {
         const { tagSlug } = input
 
-        const { docs: tagData } = await payload.find({
+        const { docs: tagsData } = await payload.find({
           collection: 'tags',
           where: {
             slug: {
@@ -26,11 +26,12 @@ export const tagRouter = router({
             },
           },
         })
+        const tagData = tagsData.at(0)
         const { docs: blogsData } = await payload.find({
           collection: 'blogs',
           where: {
             'tags.value': {
-              contains: tagData?.at(0)?.id,
+              contains: tagData?.id,
             },
           },
         })
