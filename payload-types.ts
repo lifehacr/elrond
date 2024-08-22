@@ -125,7 +125,7 @@ export interface Tag {
   description: string;
   tagImage: string | Media;
   slug?: string | null;
-  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink') | null;
+  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink' | 'secondary') | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -142,20 +142,17 @@ export interface Blog {
         value: string | User;
       }[]
     | null;
-  selectBlogSize?: ('1' | '2') | null;
+  tags?: {
+    relationTo: 'tags';
+    value: string | Tag;
+  } | null;
   title: string;
-  slug?: string | null;
-  tags?:
-    | {
-        relationTo: 'tags';
-        value: string | Tag;
-      }[]
-    | null;
-  subTitle: string;
+  description: string;
   blogImage: string | Media;
   content: {
     [k: string]: unknown;
   }[];
+  slug?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;

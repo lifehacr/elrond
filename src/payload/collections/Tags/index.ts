@@ -60,6 +60,7 @@ export const Tags: CollectionConfig = {
         { label: 'Indigo', value: 'indigo' },
         { label: 'Purple', value: 'purple' },
         { label: 'Pink', value: 'pink' },
+        { label: 'Secondary', value: 'secondary' },
       ],
     },
   ],
