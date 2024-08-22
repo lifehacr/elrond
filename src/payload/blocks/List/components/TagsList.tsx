@@ -1,37 +1,37 @@
-import { Tag } from '@payload-types'
+import Container from '../../common/Container'
+import { Media, Tag } from '@payload-types'
+import Image from 'next/image'
 import Link from 'next/link'
-import { LiaBlogSolid } from 'react-icons/lia'
 
-import TabComponent, { TabContent } from '@/payload/blocks/common/Tabs'
-
-interface TagsListProps {
-  tags: Tag[]
+interface TagsListProps extends Tag {
+  count: number
 }
-const TagsList: React.FC<TagsListProps> = ({ tags }) => {
-  const tabs = [
-    {
-      title: 'Tags',
-      id: 'TagsDetails',
-      icon: <LiaBlogSolid size={24} />,
-      color: '#5d5dff',
-      content: TabContent,
-      data: tags,
-    },
-  ]
+const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
   return (
-    <div className='mx-auto max-h-screen min-h-screen max-w-7xl  gap-6 overflow-hidden px-2'>
-      <div className='mt-4 flex items-center justify-between'>
-        <p className='rounded-rounded-box border-2 border-base-content/10 bg-base-content/20 px-4 py-2'>
-          Get Started with src/app/(app)/(marketing)/tag
-        </p>
-        <Link
-          href={`/tag/${tags?.at(0)?.slug!}`}
-          className='rounded-rounded-box border-2 border-base-content/10 bg-base-content/20 px-4 py-2'>
-          View tag details
-        </Link>
+    <Container className='py-24'>
+      <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
+        {tags?.map((tag, index) => (
+          <Link
+            key={index}
+            href={`tag/${tag?.title}`}
+            className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>
+            <div className='flex flex-col items-center justify-center gap-2.5'>
+              <div className='avatar'>
+                <div className='relative w-24 rounded-full'>
+                  <Image alt='Post' src={(tag?.tagImage as Media)?.url!} fill />
+                </div>
+              </div>
+              <div className='text-base font-semibold sm:text-lg'>
+                {tag?.title}
+              </div>
+              <p className='font-medium text-neutral-content'>
+                {tag?.count} {tag?.count === 1 ? 'Post' : 'Posts'}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
-      <TabComponent tabs={tabs} />
-    </div>
+    </Container>
   )
 }
 
