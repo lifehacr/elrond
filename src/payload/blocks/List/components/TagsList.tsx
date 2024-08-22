@@ -13,7 +13,7 @@ const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
         {tags?.map((tag, index) => (
           <Link
             key={index}
-            href={`tag/${tag?.title}`}
+            href={`tag/${tag?.slug}`}
             className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>

@@ -24,13 +24,14 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
     }
 
     case 'tags': {
-      const { data: blogs } = trpc.tag.getBlogs.useQuery({
-        tagSlug: params?.route.at(-1)!,
-      })
+      const { data: tagDataAndBlogsData } =
+        trpc.tag.getTagBySlugAndItsBlogs.useQuery({
+          tagSlug: params?.route.at(-1)!,
+        })
       return (
         <TagDetails
-          blogs={blogs?.blogsData as Blog[]}
-          tagDetails={blogs?.tagData?.at(0)}
+          tagDetails={tagDataAndBlogsData?.tagData}
+          blogs={tagDataAndBlogsData?.blogsData}
         />
       )
     }
