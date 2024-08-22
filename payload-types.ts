@@ -142,10 +142,12 @@ export interface Blog {
         value: string | User;
       }[]
     | null;
-  tags?: {
-    relationTo: 'tags';
-    value: string | Tag;
-  } | null;
+  tags?:
+    | {
+        relationTo: 'tags';
+        value: string | Tag;
+      }[]
+    | null;
   title: string;
   description: string;
   blogImage: string | Media;

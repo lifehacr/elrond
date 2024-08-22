@@ -47,7 +47,7 @@ export const Blogs: CollectionConfig = {
       label: 'Tags',
       type: 'relationship',
       relationTo: ['tags'],
-      hasMany: false,
+      hasMany: true,
     },
     {
       name: 'title',
