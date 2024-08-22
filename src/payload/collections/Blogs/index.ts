@@ -1,3 +1,4 @@
+import { slateEditor } from '@payloadcms/richtext-slate'
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '@/payload/fields'
@@ -42,42 +43,21 @@ export const Blogs: CollectionConfig = {
       },
     },
     {
-      name: 'selectBlogSize',
-      type: 'select',
-      admin: {
-        isClearable: true,
-        isSortable: true, // use mouse to drag and drop different values, and sort them according to your choice
-      },
-      defaultValue: '1',
-      options: [
-        {
-          label: 'One',
-          value: '1',
-        },
-        {
-          label: 'Two',
-          value: '2',
-        },
-      ],
+      name: 'tags',
+      label: 'Tags',
+      type: 'relationship',
+      relationTo: ['tags'],
+      hasMany: false,
     },
-
     {
       name: 'title',
       label: 'Title',
       type: 'text',
       required: true,
     },
-    slugField(),
     {
-      name: 'tags',
-      label: 'Tags',
-      type: 'relationship',
-      relationTo: ['tags'],
-      hasMany: true,
-    },
-    {
-      name: 'subTitle',
-      label: 'Sub Title',
+      name: 'description',
+      label: 'Description',
       type: 'text',
       required: true,
     },
@@ -96,10 +76,12 @@ export const Blogs: CollectionConfig = {
       type: 'richText',
       label: 'Content',
       required: true,
+      editor: slateEditor({}),
       admin: {
         description:
           'Main content of the blog post. Use the rich text editor for formatting.',
       },
     },
+    slugField(),
   ],
 }
