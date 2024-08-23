@@ -27,11 +27,11 @@ const TagPosts = ({
     <div className='mx-auto my-16 flex w-full flex-col gap-5 px-4 md:max-w-screen-sm md:px-0'>
       <div className='flex'>
         <div className='text-sm font-semibold text-secondary-content '>
-          {tagDetails?.title?.toUpperCase()} &nbsp;
+          {tagDetails?.title?.toUpperCase()}
         </div>
-        {'-'}
+        <div className='mx-2'>-</div>
         <div className='text-sm font-semibold text-secondary-content  '>
-          &nbsp; {blogPosts?.length}{' '}
+          {blogPosts?.length}
           {blogPosts?.length === 1 ? 'POST' : 'POSTS'}
         </div>
       </div>
@@ -80,7 +80,7 @@ const TagPosts = ({
                         <Link
                           className='ml-2 hover:text-primary'
                           href={`/author/${(author?.value as User)?.username}`}>
-                          {(author?.value as User)?.username}
+                          {(author?.value as User)?.displayName}
                         </Link>
                         {index === 0 && post?.author?.length! > 1 && (
                           <span className='mx-1'>&</span>

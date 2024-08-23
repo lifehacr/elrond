@@ -84,7 +84,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
                               <p className='text-sm font-normal text-[#3F3F46] hover:text-primary'>
-                                {(author?.value as User)?.username}
+                                {(author?.value as User)?.displayName}
                               </p>
                             </Link>
                             {index === 0 && blog?.author?.length! > 1 && (

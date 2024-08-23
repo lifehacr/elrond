@@ -55,7 +55,7 @@ const BlogView = ({ blog }: { blog: Blog }) => {
                 <Link
                   className='ml-2 hover:text-primary'
                   href={`/author/${(author?.value as User)?.username}`}>
-                  {(author?.value as User)?.username}
+                  {(author?.value as User)?.displayName}
                 </Link>
                 {index === 0 && blog?.author?.length! > 1 && (
                   <span className='mx-1'>&</span>
