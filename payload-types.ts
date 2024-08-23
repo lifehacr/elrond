@@ -57,6 +57,8 @@ export interface User {
   displayName?: string | null;
   username: string;
   imageUrl?: string | null;
+  city?: string | null;
+  description?: string | null;
   role?: ('admin' | 'user' | 'author') | null;
   emailVerified?: string | null;
   updatedAt: string;
