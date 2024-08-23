@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 
 import '@/app/(app)/globals.css'
 import '@/app/(app)/theme.scss'
 import Provider from '@/trpc/Provider'
 import ToastProvider from '@/utils/Toaster'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Space_Grotesk({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Cql App',

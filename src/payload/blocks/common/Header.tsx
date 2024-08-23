@@ -10,10 +10,12 @@ import LockIcon from '@/svg/LockIcon'
 import Logo from '@/svg/Logo'
 import MenuIcon from '@/svg/MenuIcon'
 import SearchIcon from '@/svg/SearchIcon'
+import { trpc } from '@/trpc/client'
 
 const Header = () => {
   const router = useRouter()
   const pathName = usePathname()
+  const { data } = trpc.user.getUser.useQuery()
 
   const handleSignPage = () => {
     router.push('/sign-in')
@@ -72,13 +74,22 @@ const Header = () => {
           <Button className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
             <SearchIcon />
           </Button>
-          <Button
-            className='h-[34px] !rounded-full bg-primary font-medium text-white'
-            onClick={handleSignPage}>
-            <span className='hidden text-inherit sm:inline'>✦</span>
-            <span className='hidden sm:inline'> Sign in</span>
-            <LockIcon className='inline sm:hidden' />
-          </Button>
+          {data?.username ? (
+            <Button
+              className='h-[34px] !rounded-full bg-primary font-medium text-white'
+              onClick={handleSignPage}>
+              <span className='hidden text-inherit sm:inline'>✦</span>
+              <span className='sm:inline'> logout</span>
+            </Button>
+          ) : (
+            <Button
+              className='h-[34px] !rounded-full bg-primary font-medium text-white'
+              onClick={handleSignPage}>
+              <span className='hidden text-inherit sm:inline'>✦</span>
+              <span className='hidden sm:inline'> Sign in</span>
+              <LockIcon className='inline sm:hidden' />
+            </Button>
+          )}
           <Button className='h-[34px] w-[34px] !rounded-full p-0 lg:hidden'>
             <MenuIcon />
           </Button>

@@ -1,13 +1,15 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
-import { Input, LabelInputContainer } from '../../common/fields'
 
-import { Alert, AlertDescription } from '@/components/common/Alert'
+import KeyDownIcon from '@/components/svg/KeyDownIcon'
+import Logo from '@/components/svg/Logo'
+import SignInImage from '@/public/assets/sign-in.jpeg'
 import { trpc } from '@/trpc/client'
 import { SignInSchema } from '@/trpc/routers/auth/validator'
 
@@ -30,20 +32,16 @@ const SignInForm: React.FC = () => {
     reset,
   } = form
 
-  const {
-    mutate: signInMutation,
-    isPending: isSignInPending,
-    isError: isSignInError,
-    error: signInError,
-    isSuccess: isSignInSuccess,
-  } = trpc.auth.signIn.useMutation({
-    onSuccess: () => {
-      router.push('/profile')
-    },
-    onError: () => {
-      reset()
-    },
-  })
+  const { mutate: signInMutation, isPending: isSignInPending } =
+    trpc.auth.signIn.useMutation({
+      onSuccess: () => {
+        router.push('/profile')
+        toast.success('logged in...')
+      },
+      onError: () => {
+        reset()
+      },
+    })
 
   const onSubmit = (data: z.infer<typeof SignInSchema>) => {
     signInMutation({
@@ -52,98 +50,74 @@ const SignInForm: React.FC = () => {
   }
 
   return (
-    <div className='flex w-full items-center justify-center'>
-      <div className='mx-auto w-full max-w-md  drop-shadow-2xl'>
-        <div className='w-full max-w-md p-6'>
-          {isSignInSuccess ? (
-            <Alert variant='success' className='mb-12'>
-              <AlertDescription>
-                Successfully logged in! Redirecting...
-              </AlertDescription>
-            </Alert>
-          ) : signInError ? (
-            <Alert variant='danger' className='mb-12'>
-              <AlertDescription>
-                Sign in failed. Check the details you provided are incorrect.
-              </AlertDescription>
-            </Alert>
-          ) : null}
-          <h1 className='mb-6 text-center text-3xl font-semibold text-base-content'>
-            Sign In
-          </h1>
-          <h1 className='mb-6 text-center text-sm font-semibold text-base-content'>
-            Join to Our Community with all time access and free{' '}
-          </h1>
-
-          <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-            <div>
-              <LabelInputContainer className='mb-4'>
-                <div className='inline-flex justify-between'>
-                  <label
-                    htmlFor='email'
-                    className='block text-sm font-medium text-base-content/70'>
-                    E-Mail
-                  </label>
-                  {errors?.email && (
-                    <p className='text-sm text-error'>{errors.email.message}</p>
-                  )}
-                </div>
-                <Input
-                  {...register('email')}
-                  type='text'
-                  id='email'
-                  name='email'
-                  placeholder='john.doe@example.com'
-                />
-              </LabelInputContainer>
-            </div>
-            <div>
-              <LabelInputContainer className='mb-8'>
-                <div className='inline-flex justify-between'>
-                  <label
-                    htmlFor='password'
-                    className='block text-sm font-medium text-base-content/70'>
-                    Password
-                  </label>
-                  {errors?.password && (
-                    <p className='text-sm text-error'>
-                      {errors.password.message}
-                    </p>
-                  )}
-                </div>
-                <Input
-                  {...register('password')}
-                  type='password'
-                  id='password'
-                  name='password'
-                  placeholder='● ● ● ● ● ● ● ● ●'
-                />
-              </LabelInputContainer>
-            </div>
-            <p className='text-sm text-base-content/70'>
-              Forgot your password?{' '}
-              <Link className='underline' href='/reset-password'>
-                Reset it.
-              </Link>
-            </p>
-            <div>
+    <div className='fixed flex h-full w-full bg-white'>
+      <div className='mx-auto flex h-full max-w-lg flex-col justify-between gap-10 px-6 sm:px-4 lg:w-96 lg:max-w-none lg:gap-0 lg:px-0'>
+        <div className='mt-6'>
+          <button
+            onClick={() => router.push('/')}
+            className='h-fit rounded-full bg-secondary py-[6px] pl-2 pr-3 text-[14px]'>
+            <KeyDownIcon className='mb-1 mr-1 h-[18px] w-[18px] rotate-90' />
+            Back to home
+          </button>
+        </div>
+        <div>
+          <Logo className={'flex h-[20px] w-fit items-center justify-start'} />
+          <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
+            Signin
+          </div>
+          <div className='mt-4 text-[1.5rem] font-semibold leading-8 text-base-content'>
+            A super minimal & lightweight theme with Premium Membership and
+            fully Ghost-compatible.
+          </div>
+          <form className='xs:mt-8 mt-6 pr-1' onSubmit={handleSubmit(onSubmit)}>
+            <div className='flex flex-col gap-3.5'>
+              <input
+                type='email'
+                placeholder='Email address'
+                {...register('email')}
+                className='text-one placeholder:text-four text-md focus: block w-full rounded-md border-0 bg-transparent px-3 py-1.5 leading-8 shadow-sm ring-1 ring-zinc-300 transition-shadow duration-300 focus:ring-2 focus:ring-primary focus-visible:outline-none'
+              />
+              <input
+                type='password'
+                {...register('password')}
+                placeholder='password'
+                className='text-one placeholder:text-four text-md focus: block w-full rounded-md border-0 bg-transparent px-3 py-1.5 leading-8 shadow-sm ring-1 ring-zinc-300 transition-shadow duration-300 focus:ring-2 focus:ring-primary focus-visible:outline-none'
+              />
               <button
                 type='submit'
-                className='w-full rounded-rounded-btn bg-primary  p-2 text-primary-content transition-all duration-500 hover:bg-primary-focus  focus:outline-none  disabled:cursor-not-allowed disabled:bg-opacity-50'
-                disabled={isSignInPending}>
-                {isSignInPending ? 'Signing in...' : 'Sign In'}
+                disabled={isSignInPending}
+                className='h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9]'>
+                ✦ &nbsp;Sign in
               </button>
             </div>
           </form>
-          <div className='mt-4 text-center text-sm text-base-content/70'>
-            <p>
-              Don&apos;t have an account?{' '}
-              <a href='/sign-up' className='text-base-content hover:underline'>
-                SignUp here
-              </a>
-            </p>
+          <div className='relative py-6'>
+            <div className='absolute inset-0 flex items-center'>
+              <span className='w-full border-t border-zinc-200'></span>
+            </div>
+            <div className='relative flex justify-center'>
+              <span className='bg-white px-2.5 text-[13px] text-secondary-content text-opacity-85'>
+                dont have an account yet?
+              </span>
+            </div>
           </div>
+          <button
+            type='button'
+            onClick={() => router.push('/sign-up')}
+            className='h-10 w-full rounded-md border-[1px] bg-secondary text-[0.875rem]'>
+            ✦ &nbsp;Sign up
+          </button>
         </div>
+        <div className='pb-4 text-center text-sm'>
+          © 2024 Elrond - Published with Ghost & Elrond
+        </div>
+      </div>
+      <div className='m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>
+        <Image
+          src={SignInImage}
+          className='h-full w-full object-cover'
+          alt='sign-in'
+        />
       </div>
     </div>
   )
