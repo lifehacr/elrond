@@ -19,7 +19,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
         <div className='flex w-full flex-col items-center gap-6 md:flex-row md:gap-10'>
           <div className='avatar w-full'>
             <div className='relative h-60 w-full rounded-xl md:h-80'>
-              <Link href={`/${featuredPost?.title!}`}>
+              <Link href={`/${featuredPost?.slug!}`}>
                 <Image
                   alt='/Featured Post'
                   fill
@@ -29,7 +29,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
             </div>
           </div>
           <div className='flex w-full flex-col gap-4'>
-            <Link href={`/${featuredPost?.title!}`}>
+            <Link href={`/${featuredPost?.slug!}`}>
               <h3 className='text-xl font-semibold text-base-content md:text-2xl'>
                 {featuredPost?.title}
               </h3>
@@ -72,7 +72,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
               {featuredPost?.tags?.slice(0, 2)?.map((tag, index) => (
                 <Link
                   key={index}
-                  href={`/tag/${(tag?.value as Tag)?.title}`}
+                  href={`/tag/${(tag?.value as Tag)?.slug}`}
                   className={`badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80`}>
                   {(tag?.value as Tag)?.title?.toUpperCase()}
                 </Link>
