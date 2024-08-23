@@ -16,6 +16,7 @@ export interface Config {
     tags: Tag;
     blogs: Blog;
     pages: Page;
+    search: Search;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -158,7 +159,7 @@ export interface Blog {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -227,7 +228,7 @@ export interface ListType {
  * via the `definition` "HeroType".
  */
 export interface HeroType {
-  image?: string | Media | null;
+  image?: (string | null) | Media;
   title?: string | null;
   description?: string | null;
   id?: string | null;
@@ -257,6 +258,21 @@ export interface LatestPostsType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'LatestPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: string;
+  title?: string | null;
+  priority?: number | null;
+  doc: {
+    relationTo: 'blogs';
+    value: string | Blog;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -301,7 +317,7 @@ export interface SiteSetting {
   appName?: string | null;
   appDescription?: string | null;
   header?: {
-    logo_image?: string | Media | null;
+    logo_image?: (string | null) | Media;
     primary_button_text?: string | null;
     primary_button_path?: string | null;
     secondary_button_text?: string | null;
@@ -3014,7 +3030,7 @@ export interface SiteSetting {
       | null;
   };
   footer?: {
-    logo_image?: string | Media | null;
+    logo_image?: (string | null) | Media;
     logo?: string | null;
     copyright?: string | null;
     menuItems?:

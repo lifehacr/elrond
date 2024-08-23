@@ -48,8 +48,9 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_46 } from '@payloa
 import { MetaImageComponent as MetaImageComponent_47 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_48 } from '@payloadcms/plugin-seo/client'
 import { default as default_49 } from 'src/payload/fields/CustomPathField.tsx'
-import { default as default_50 } from 'src/payload/style/icons/Icon.tsx'
-import { default as default_51 } from 'src/payload/style/icons/Logo.tsx'
+import { LinkToDoc as LinkToDoc_50 } from '@payloadcms/plugin-search/client'
+import { default as default_51 } from 'src/payload/style/icons/Icon.tsx'
+import { default as default_52 } from 'src/payload/style/icons/Logo.tsx'
 
 export const importMap = {
   "@payloadcms/richtext-slate/client#RichTextCell": RichTextCell_0,
@@ -102,6 +103,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_47,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_48,
   "/src/payload/fields/CustomPathField.tsx#default": default_49,
-  "/src/payload/style/icons/Icon.tsx#default": default_50,
-  "/src/payload/style/icons/Logo.tsx#default": default_51
+  "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_50,
+  "/src/payload/style/icons/Icon.tsx#default": default_51,
+  "/src/payload/style/icons/Logo.tsx#default": default_52
 }

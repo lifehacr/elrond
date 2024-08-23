@@ -25,6 +25,7 @@
     "@payloadcms/live-preview-react": "beta",
     "@payloadcms/next": "beta",
     "@payloadcms/plugin-nested-docs": "beta",
+    "@payloadcms/plugin-search": "beta",
     "@payloadcms/plugin-seo": "beta",
     "@payloadcms/richtext-slate": "beta",
     "@payloadcms/storage-s3": "beta",

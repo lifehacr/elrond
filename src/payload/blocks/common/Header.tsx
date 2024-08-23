@@ -5,7 +5,10 @@ import Container from '../common/Container'
 import DropDown from '../common/DropDown'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { IoSearch } from 'react-icons/io5'
 
+import Modal from '@/components/common/Modal'
 import LockIcon from '@/svg/LockIcon'
 import Logo from '@/svg/Logo'
 import MenuIcon from '@/svg/MenuIcon'
@@ -14,6 +17,8 @@ import { trpc } from '@/trpc/client'
 
 const Header = () => {
   const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const pathName = usePathname()
   const { data } = trpc.user.getUser.useQuery()
 
@@ -21,9 +26,29 @@ const Header = () => {
     router.push('/sign-in')
   }
 
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value)
+  }
+
   return (
     <div className='bg-base-100'>
-      <Container className='flex h-20 items-center justify-between bg-base-100 px-4 xl:px-0'>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false)
+        }}>
+        <div className='relative h-auto w-full md:w-96'>
+          <IoSearch className='text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 transform' />
+          <input
+            onChange={e => {
+              handleSearch(e)
+            }}
+            className='placeholder:text-muted-foreground border-cq-input bg-cq-foreground focus:border-cq-primary text-md flex h-16 w-full rounded-md border px-3 py-2 pl-10 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50'
+            placeholder='Search posts, tags and authors'
+          />
+        </div>
+      </Modal>
+      <Container className='z-50 flex h-20 items-center justify-between bg-base-100 px-4 xl:px-0'>
         <div className='flex-[1] justify-start'>
           <Link href={'/'}>
             <Logo className='h-5 w-fit' />
@@ -71,7 +96,9 @@ const Header = () => {
           </ul>
         </nav>
         <div className='xs:gap-x-4 flex h-full w-fit min-w-fit flex-[1] items-center justify-end gap-x-3'>
-          <Button className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
+          <Button
+            onClick={() => setOpen(true)}
+            className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
             <SearchIcon />
           </Button>
           {data?.username ? (

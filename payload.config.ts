@@ -3,6 +3,7 @@ import { env } from '@env'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { s3Storage } from '@payloadcms/storage-s3'
@@ -104,6 +105,7 @@ export default buildConfig({
       generateImage,
       generateURL,
     }),
+    searchPlugin({ collections: ['blogs'] }),
   ],
 
   email: resendAdapter({
