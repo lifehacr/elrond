@@ -84,12 +84,11 @@ export const authorRouter = router({
           collection: 'users',
           draft: false,
           where: {
-            name: {
+            username: {
               equals: authorName,
             },
           },
         })
-
         return user?.at(0)
       } catch (error: any) {
         console.log(error)
