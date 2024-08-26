@@ -11,6 +11,7 @@ import {
   RecommendationsList,
   RecommendationsListConfig,
 } from './RecommendationsList.tsx'
+import { Features, FeaturesConfig } from './features'
 
 // Exporting an object that maps block names (as keys) to their corresponding JSX components (as values)
 // This object allows dynamic rendering of components based on the block names
@@ -22,6 +23,7 @@ export const blocksJSX = {
   FeaturedPost,
   LatestPosts,
   RecommendationsList,
+  Features,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -34,4 +36,5 @@ export const blocks = [
   FeaturedPostConfig,
   LatestPostsConfig,
   RecommendationsListConfig,
+  FeaturesConfig,
 ]

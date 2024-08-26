@@ -176,7 +176,16 @@ export interface Page {
   isHome?: boolean | null;
   isDynamic?: boolean | null;
   layout?:
-    | (HomeType | DetailsType | ListType | HeroType | FeaturedPostType | LatestPostsType | RecommendationsListType)[]
+    | (
+        | HomeType
+        | DetailsType
+        | ListType
+        | HeroType
+        | FeaturedPostType
+        | LatestPostsType
+        | RecommendationsListType
+        | FeaturesType
+      )[]
     | null;
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
@@ -279,6 +288,27 @@ export interface RecommendationsListType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'RecommendationsList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesType".
+ */
+export interface FeaturesType {
+  features?:
+    | {
+        title?: string | null;
+        points?:
+          | {
+              point?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Features';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
