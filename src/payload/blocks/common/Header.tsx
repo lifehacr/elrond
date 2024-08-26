@@ -115,7 +115,7 @@ const Header = () => {
                         height={34}
                         width={34}
                         className='rounded-full'
-                        src={'/images/avatar/avatar_5.jpg'}
+                        src={result?.imageUrl || '/images/avatar/avatar_5.jpg'}
                       />
                       <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
                         {result?.title}
