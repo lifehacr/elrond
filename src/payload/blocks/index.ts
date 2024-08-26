@@ -7,6 +7,10 @@ import { Hero, HeroConfig } from './Hero'
 import { Home, HomeConfig } from './Home'
 import { LatestPosts, LatestPostsConfig } from './LatestPosts'
 import { List, ListConfig } from './List'
+import {
+  RecommendationsList,
+  RecommendationsListConfig,
+} from './RecommendationsList.tsx'
 
 // Exporting an object that maps block names (as keys) to their corresponding JSX components (as values)
 // This object allows dynamic rendering of components based on the block names
@@ -17,6 +21,7 @@ export const blocksJSX = {
   Hero,
   FeaturedPost,
   LatestPosts,
+  RecommendationsList,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -28,4 +33,5 @@ export const blocks = [
   HeroConfig,
   FeaturedPostConfig,
   LatestPostsConfig,
+  RecommendationsListConfig,
 ]
