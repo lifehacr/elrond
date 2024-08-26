@@ -9,7 +9,10 @@ export default function Modal({ open, onClose, children, className }: any) {
         open ? 'visible opacity-100' : 'invisible opacity-0',
       )}>
       <div
-        onClick={e => e.stopPropagation()}
+        onClick={e => {
+          e.stopPropagation()
+          onClose
+        }}
         className={cn(
           'bg-cq-background transform rounded-xl shadow transition-transform duration-300',
           open ? 'scale-100 opacity-100' : 'scale-125 opacity-0',

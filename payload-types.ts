@@ -269,16 +269,16 @@ export interface Search {
   priority?: number | null;
   doc:
     | {
-        relationTo: 'blogs';
-        value: string | Blog;
-      }
-    | {
         relationTo: 'users';
         value: string | User;
       }
     | {
         relationTo: 'tags';
         value: string | Tag;
+      }
+    | {
+        relationTo: 'blogs';
+        value: string | Blog;
       };
   updatedAt: string;
   createdAt: string;

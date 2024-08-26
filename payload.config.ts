@@ -107,7 +107,7 @@ export default buildConfig({
       generateURL,
     }),
     searchPlugin({
-      collections: ['blogs', 'users', 'tags'],
+      collections: ['users', 'tags', 'blogs'],
       defaultPriorities: { ['users']: 1, ['tags']: 2, ['blogs']: 3 },
 
       beforeSync: BeforeSyncConfig,

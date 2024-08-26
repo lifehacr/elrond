@@ -6,7 +6,8 @@ import DropDown from '../common/DropDown'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { IoMdClose } from 'react-icons/io'
 import { IoSearch } from 'react-icons/io5'
 import { toast } from 'sonner'
 
@@ -20,9 +21,9 @@ import { trpc } from '@/trpc/client'
 const Header = () => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [searchInput, setSearchInput] = useState<string>('')
   const pathName = usePathname()
   const { data } = trpc.user.getUser.useQuery()
-  const ref = useRef(null)
 
   const { mutate: getBlogsBySearch, data: searchResult } =
     trpc.search.getBlogsBySearch.useMutation({
@@ -31,15 +32,12 @@ const Header = () => {
       },
     })
 
-  console.log('Search result', searchResult)
-
   const handleSignPage = () => {
     router.push('/sign-in')
   }
 
-  console.log('frontend data: ', searchResult)
-
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value)
     e.target.value.length >= 1
       ? getBlogsBySearch({ searchParam: e.target.value })
       : ''
@@ -51,80 +49,87 @@ const Header = () => {
         open={open}
         onClose={() => {
           setOpen(false)
-          ref.current = null
+          setSearchInput('')
         }}>
         <div className='relative h-auto w-full rounded-lg bg-white md:w-[30rem]'>
-          <IoSearch
-            size={17}
-            className='text-muted-foreground absolute left-4 top-[1.41rem]  transform'
-          />
+          {searchInput.length === 0 ? (
+            <IoSearch
+              size={17}
+              className='text-muted-foreground absolute left-4 top-[1.41rem]  transform'
+            />
+          ) : (
+            <IoMdClose
+              size={17}
+              onClick={() => setSearchInput('')}
+              className='text-muted-foreground absolute left-4 top-[1.41rem] transform cursor-pointer'
+            />
+          )}
           <input
-            ref={ref}
-            onChange={e => {
-              handleSearch(e)
-            }}
-            className=' text-md  flex h-16 w-full  rounded-t-lg border-b-[1px] pl-10 shadow-sm outline-none'
+            onChange={handleSearch}
+            value={searchInput}
+            className='text-md flex h-16 w-full rounded-lg border-b-[1px] pl-10 shadow-sm outline-none'
             placeholder='Search posts, tags and authors'
           />
           <div
-            onClick={() => setOpen(false)}
-            className='flex max-h-96 flex-col gap-y-4 overflow-y-scroll pt-2'>
-            {searchResult?.map((result, index) => {
-              if (result?.doc?.relationTo === 'blogs') {
-                return (
-                  <div
-                    key={index}
-                    className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]
-              '>
-                    <Link href={result?.path || ''}>
-                      {' '}
-                      <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
-                        {result?.title}
-                      </h2>
-                    </Link>
-                    <p className='mb-0 mt-0 line-clamp-1 text-sm leading-normal text-neutral-400'>
-                      {result?.description}
-                    </p>
-                  </div>
-                )
-              } else if (result?.doc?.relationTo === 'tags') {
-                return (
-                  <div
-                    key={index}
-                    className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]
-              '>
-                    <Link href={result?.path || ''}>
-                      {' '}
-                      <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
-                        # {result?.title}
-                      </h2>
-                    </Link>
-                  </div>
-                )
-              } else if (result?.doc?.relationTo === 'users') {
-                return (
-                  <div
-                    key={index}
-                    className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]
-              '>
-                    <Link
-                      className='flex items-center space-x-1'
-                      href={result?.path || ''}>
-                      <Image
-                        alt='user image'
-                        height={34}
-                        width={34}
-                        className='rounded-full'
-                        src={result?.imageUrl || '/images/avatar/avatar_5.jpg'}
-                      />
-                      <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
-                        {result?.title}
-                      </h2>
-                    </Link>
-                  </div>
-                )
-              }
-            })}
+            onClick={() => {
+              setOpen(false)
+              setSearchInput('')
+            }}
+            className='flex max-h-96 flex-col gap-y-4 overflow-y-scroll'>
+            {searchInput.length >= 1 &&
+              searchResult?.map((result, index) => {
+                if (result?.doc?.relationTo === 'blogs') {
+                  return (
+                    <div
+                      key={index}
+                      className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
+                      <Link href={result?.path || ''}>
+                        <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
+                          {result?.title}
+                        </h2>
+                      </Link>
+                      <p className='mb-0 mt-0 line-clamp-1 text-sm leading-normal text-neutral-400'>
+                        {result?.description}
+                      </p>
+                    </div>
+                  )
+                } else if (result?.doc?.relationTo === 'tags') {
+                  return (
+                    <div
+                      key={index}
+                      className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
+                      <Link href={result?.path || ''}>
+                        <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
+                          # {result?.title}
+                        </h2>
+                      </Link>
+                    </div>
+                  )
+                } else if (result?.doc?.relationTo === 'users') {
+                  return (
+                    <div
+                      key={index}
+                      className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
+                      <Link
+                        className='flex items-center space-x-1'
+                        href={result?.path || ''}>
+                        <Image
+                          alt='user image'
+                          height={34}
+                          width={34}
+                          className='rounded-full'
+                          src={
+                            result?.imageUrl || '/images/avatar/avatar_5.jpg'
+                          }
+                        />
+                        <h2 className='text-[1.1rem] font-medium leading-tight text-neutral-800'>
+                          {result?.title}
+                        </h2>
+                      </Link>
+                    </div>
+                  )
+                }
+              })}
           </div>
         </div>
       </Modal>
