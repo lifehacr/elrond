@@ -156,8 +156,8 @@ const socialLinksField: Field = {
   fields: [
     {
       type: 'select',
-      name: 'platform',
-      label: 'Platform',
+      name: 'socialMedia',
+      label: 'Social Media',
       required: true,
       options: [
         {
@@ -165,70 +165,22 @@ const socialLinksField: Field = {
           value: 'facebook',
         },
         {
-          label: 'Instagram',
-          value: 'instagram',
-        },
-        {
           label: 'Twitter',
           value: 'twitter',
-        },
-        {
-          label: 'LinkedIn',
-          value: 'linkedin',
-        },
-        {
-          label: 'YouTube',
-          value: 'youtube',
-        },
-        {
-          label: 'TikTok',
-          value: 'tiktok',
-        },
-        {
-          label: 'Pinterest',
-          value: 'pinterest',
-        },
-        {
-          label: 'Snapchat',
-          value: 'snapchat',
-        },
-        {
-          label: 'Reddit',
-          value: 'reddit',
-        },
-        {
-          label: 'Tumblr',
-          value: 'tumblr',
-        },
-        {
-          label: 'WhatsApp',
-          value: 'whatsapp',
-        },
-        {
-          label: 'Telegram',
-          value: 'telegram',
         },
         {
           label: 'GitHub',
           value: 'github',
         },
-        {
-          label: 'Medium',
-          value: 'medium',
-        },
-        {
-          label: 'Quora',
-          value: 'quora',
-        },
       ],
     },
     {
       type: 'text',
-      name: 'value',
-      label: 'Link',
+      name: 'socialMediaLink',
+      label: 'Social Media Link',
       required: true,
-      validate: (value, args) => {
-        const { success } = validateURL.safeParse(value)
+      validate: (socialMediaLink, args) => {
+        const { success } = validateURL.safeParse(socialMediaLink)
         // console.log({ success, operation }, success || 'Link is not valid')
 
         // return text(value, args)
@@ -295,22 +247,10 @@ export const siteSettings: GlobalConfig = {
           name: 'footer',
           fields: [
             {
-              name: 'footerLinks',
-              label: 'Footer Links',
+              name: 'links',
               type: 'array',
-              fields: [
-                {
-                  name: 'title',
-                  label: 'Title',
-                  type: 'text',
-                },
-                {
-                  name: 'links',
-                  type: 'array',
-                  label: 'Links',
-                  fields: menuField,
-                },
-              ],
+              label: 'Links',
+              fields: menuField,
             },
             {
               type: 'array',

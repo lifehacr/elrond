@@ -391,13 +391,24 @@ export interface SiteSetting {
     buttonPath?: string | null;
   };
   footer?: {
-    footerLinks?:
+    links?:
       | {
-          title?: string | null;
-          links?:
-            | {
-                group?: boolean | null;
-                menuLink?: {
+          group?: boolean | null;
+          menuLink?: {
+            externalLink?: boolean | null;
+            newPage?: boolean | null;
+            page?: {
+              relationTo: 'pages';
+              value: string | Page;
+            } | null;
+            label?: string | null;
+            link?: string | null;
+            id?: string | null;
+          };
+          menuLinkGroup?: {
+            groupTitle: string;
+            groupLinks?:
+              | {
                   externalLink?: boolean | null;
                   newPage?: boolean | null;
                   page?: {
@@ -407,48 +418,16 @@ export interface SiteSetting {
                   label?: string | null;
                   link?: string | null;
                   id?: string | null;
-                };
-                menuLinkGroup?: {
-                  groupTitle: string;
-                  groupLinks?:
-                    | {
-                        externalLink?: boolean | null;
-                        newPage?: boolean | null;
-                        page?: {
-                          relationTo: 'pages';
-                          value: string | Page;
-                        } | null;
-                        label?: string | null;
-                        link?: string | null;
-                        id?: string | null;
-                      }[]
-                    | null;
-                };
-                id?: string | null;
-              }[]
-            | null;
+                }[]
+              | null;
+          };
           id?: string | null;
         }[]
       | null;
     socialLinks?:
       | {
-          platform:
-            | 'facebook'
-            | 'instagram'
-            | 'twitter'
-            | 'linkedin'
-            | 'youtube'
-            | 'tiktok'
-            | 'pinterest'
-            | 'snapchat'
-            | 'reddit'
-            | 'tumblr'
-            | 'whatsapp'
-            | 'telegram'
-            | 'github'
-            | 'medium'
-            | 'quora';
-          value: string;
+          socialMedia: 'facebook' | 'twitter' | 'github';
+          socialMediaLink: string;
           id?: string | null;
         }[]
       | null;
