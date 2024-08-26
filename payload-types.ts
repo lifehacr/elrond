@@ -267,10 +267,19 @@ export interface Search {
   id: string;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'blogs';
-    value: string | Blog;
-  };
+  doc:
+    | {
+        relationTo: 'blogs';
+        value: string | Blog;
+      }
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'tags';
+        value: string | Tag;
+      };
   updatedAt: string;
   createdAt: string;
 }

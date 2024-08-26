@@ -19,6 +19,7 @@ import { Tags } from '@/payload/collections/Tags'
 import { Users } from '@/payload/collections/Users'
 import { COLLECTION_SLUG_PAGE } from '@/payload/collections/constants'
 import { siteSettings } from '@/payload/globals/SiteSettings'
+import { BeforeSyncConfig } from '@/utils/beforeSync'
 import { generateBreadcrumbsUrl } from '@/utils/generateBreadcrumbsUrl'
 import {
   generateDescription,
@@ -105,7 +106,12 @@ export default buildConfig({
       generateImage,
       generateURL,
     }),
-    searchPlugin({ collections: ['blogs'] }),
+    searchPlugin({
+      collections: ['blogs', 'users', 'tags'],
+      defaultPriorities: { ['users']: 1, ['tags']: 2, ['blogs']: 3 },
+
+      beforeSync: BeforeSyncConfig,
+    }),
   ],
 
   email: resendAdapter({
