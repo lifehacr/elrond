@@ -1,49 +1,250 @@
 import { revalidateTag } from 'next/cache'
-import type { Field, GlobalConfig } from 'payload'
+import { Field, GlobalConfig } from 'payload'
+import { z } from 'zod'
 
 import { COLLECTION_SLUG_PAGE } from '@/payload/collections/constants'
-import iconField from '@/payload/fields/icon'
+
+// import iconField from '@/payload/fields/icon'
 
 export const GLOBAL_SETTINGS_SLUG = 'site-settings'
 
-const menuItemsField = (
-  name: 'subMenuItems' | 'menuItems',
-  depth: number = 2,
-): Field => {
-  const label = name === 'menuItems' ? 'Menu Items' : 'Sub Menu Items'
-  const fields: Field[] = [
-    {
-      type: 'row',
-      fields: [
-        {
-          type: 'relationship',
-          name: 'page',
-          relationTo: [COLLECTION_SLUG_PAGE],
+const validateURL = z
+  .string({
+    required_error: 'Name is required',
+    invalid_type_error: 'Name must be a string',
+  })
+  .url()
+
+const menuItem: Field[] = [
+  {
+    type: 'row',
+    fields: [
+      {
+        name: 'externalLink',
+        type: 'checkbox',
+        label: 'External Link',
+        defaultValue: false,
+        admin: {
+          description: 'Other website link',
         },
-        iconField(),
-        { type: 'text', name: 'description' },
+      },
+      {
+        name: 'newPage',
+        type: 'checkbox',
+        label: 'New Page',
+        defaultValue: true,
+        admin: {
+          condition: (_data, siblingData) => siblingData.externalLink,
+          description: 'Open website in new-page',
+        },
+      },
+    ],
+  },
+  {
+    type: 'relationship',
+    name: 'page',
+    relationTo: [COLLECTION_SLUG_PAGE],
+    admin: {
+      condition: (_data, siblingData) => !siblingData.externalLink,
+    },
+  },
+  {
+    type: 'row',
+    fields: [
+      {
+        name: 'label',
+        type: 'text',
+        label: 'Label',
+        admin: {
+          condition: (_data, siblingData) => siblingData.externalLink,
+        },
+      },
+      {
+        name: 'link',
+        type: 'text',
+        label: 'Link',
+        admin: {
+          condition: (_data, siblingData) => siblingData.externalLink,
+        },
+        validate: value => {
+          const { success } = validateURL.safeParse(value)
+          return success || 'Link is not valid'
+        },
+      },
+    ],
+  },
+]
+
+const menuGroupItem: Field = {
+  type: 'group',
+  name: 'menuLinkGroup',
+  label: 'Link Group',
+  fields: [
+    {
+      type: 'text',
+      name: 'groupTitle',
+      label: 'Group Title',
+      required: true,
+    },
+    {
+      type: 'array',
+      name: 'groupLinks',
+      label: 'Links',
+      fields: menuItem,
+    },
+  ],
+  admin: {
+    condition: (_data, siblingData) => siblingData.group,
+  },
+}
+
+const menuField: Field[] = [
+  {
+    type: 'checkbox',
+    name: 'group',
+    label: 'Group',
+    defaultValue: false,
+    admin: {
+      description: 'Check to create group of links',
+    },
+  },
+  {
+    name: 'menuLink',
+    type: 'group',
+    label: 'Link',
+    fields: menuItem,
+    admin: {
+      condition: (_data, siblingData) => !siblingData.group,
+    },
+  },
+  menuGroupItem,
+]
+
+const logoField: Field[] = [
+  {
+    name: 'imageUrl',
+    type: 'upload',
+    required: true,
+    relationTo: 'media',
+    label: 'Image',
+  },
+  {
+    type: 'row',
+    fields: [
+      {
+        label: 'Height',
+        name: 'height',
+        type: 'number',
+        admin: {
+          description: 'Adjust to the height of the logo',
+        },
+      },
+      {
+        label: 'Width',
+        name: 'width',
+        type: 'number',
+        admin: {
+          description: 'Adjust to the width of the logo',
+        },
+      },
+    ],
+  },
+]
+
+const socialLinksField: Field = {
+  type: 'row',
+  fields: [
+    {
+      type: 'select',
+      name: 'platform',
+      label: 'Platform',
+      required: true,
+      options: [
+        {
+          label: 'Facebook',
+          value: 'facebook',
+        },
+        {
+          label: 'Instagram',
+          value: 'instagram',
+        },
+        {
+          label: 'Twitter',
+          value: 'twitter',
+        },
+        {
+          label: 'LinkedIn',
+          value: 'linkedin',
+        },
+        {
+          label: 'YouTube',
+          value: 'youtube',
+        },
+        {
+          label: 'TikTok',
+          value: 'tiktok',
+        },
+        {
+          label: 'Pinterest',
+          value: 'pinterest',
+        },
+        {
+          label: 'Snapchat',
+          value: 'snapchat',
+        },
+        {
+          label: 'Reddit',
+          value: 'reddit',
+        },
+        {
+          label: 'Tumblr',
+          value: 'tumblr',
+        },
+        {
+          label: 'WhatsApp',
+          value: 'whatsapp',
+        },
+        {
+          label: 'Telegram',
+          value: 'telegram',
+        },
+        {
+          label: 'GitHub',
+          value: 'github',
+        },
+        {
+          label: 'Medium',
+          value: 'medium',
+        },
+        {
+          label: 'Quora',
+          value: 'quora',
+        },
       ],
     },
-  ]
+    {
+      type: 'text',
+      name: 'value',
+      label: 'Link',
+      required: true,
+      validate: (value, args) => {
+        const { success } = validateURL.safeParse(value)
+        // console.log({ success, operation }, success || 'Link is not valid')
 
-  if (depth > 0) {
-    fields.push(menuItemsField('subMenuItems', depth - 1))
-  }
+        // return text(value, args)
 
-  return {
-    type: 'array',
-    name,
-    label,
-    fields,
-  }
+        return success || 'Link is not valid'
+      },
+    },
+  ],
 }
 
 export const siteSettings: GlobalConfig = {
   slug: GLOBAL_SETTINGS_SLUG,
-  // access: {
-  //   read: isAdminOrCurrentUser,
-  //   update: isAdmin,
-  // },
+  access: {
+    read: () => true,
+    // update: isAdmin,
+  },
   hooks: {
     afterChange: [async () => revalidateTag('site-settings')],
   },
@@ -57,26 +258,67 @@ export const siteSettings: GlobalConfig = {
           fields: [
             { type: 'text', name: 'appName' },
             { type: 'text', name: 'appDescription' },
+            {
+              name: 'logoImage',
+              type: 'upload',
+              required: true,
+              relationTo: 'media',
+              label: 'Logo Image',
+              admin: {
+                description: 'We recommend a maximum size of 256 * 256 pixels',
+              },
+            },
           ],
         },
         {
           name: 'header',
           fields: [
-            { type: 'upload', name: 'logo_image', relationTo: 'media' },
-            { type: 'text', name: 'primary_button_text' },
-            { type: 'text', name: 'primary_button_path' },
-            { type: 'text', name: 'secondary_button_text' },
-            { type: 'text', name: 'secondary_button_path' },
-            menuItemsField('menuItems'),
+            {
+              name: 'menuLinks',
+              label: 'Menu Links',
+              type: 'array',
+              fields: menuField,
+            },
+            {
+              name: 'buttonName',
+              label: 'Button Text',
+              type: 'text',
+            },
+            {
+              name: 'buttonPath',
+              label: 'Button Path',
+              type: 'text',
+            },
           ],
         },
         {
           name: 'footer',
           fields: [
-            { type: 'upload', name: 'logo_image', relationTo: 'media' },
-            { type: 'text', name: 'logo' },
-            { type: 'text', name: 'copyright' },
-            menuItemsField('menuItems'),
+            {
+              name: 'footerLinks',
+              label: 'Footer Links',
+              type: 'array',
+              fields: [
+                {
+                  name: 'title',
+                  label: 'Title',
+                  type: 'text',
+                },
+                {
+                  name: 'links',
+                  type: 'array',
+                  label: 'Links',
+                  fields: menuField,
+                },
+              ],
+            },
+            {
+              type: 'array',
+              name: 'socialLinks',
+              label: 'Social Links',
+              fields: [socialLinksField],
+            },
+            { type: 'text', name: 'copyright', label: 'Copyright' },
           ],
         },
       ],
