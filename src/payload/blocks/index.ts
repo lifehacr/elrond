@@ -1,6 +1,7 @@
 // This is just to consolidate all the existing blocks and their respective JSX components
 // Always prefer to individually import the required block or JSX in other parts of your application
 // Importing the block components and its configurations
+import { Contact, ContactConfig } from './Contact'
 import { Details, DetailsConfig } from './Details'
 import { FeaturedPost, FeaturedPostConfig } from './FeaturedPost'
 import { Hero, HeroConfig } from './Hero'
@@ -24,6 +25,7 @@ export const blocksJSX = {
   LatestPosts,
   RecommendationsList,
   Features,
+  Contact,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -37,4 +39,5 @@ export const blocks = [
   LatestPostsConfig,
   RecommendationsListConfig,
   FeaturesConfig,
+  ContactConfig,
 ]

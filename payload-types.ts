@@ -185,6 +185,7 @@ export interface Page {
         | LatestPostsType
         | RecommendationsListType
         | FeaturesType
+        | ContactType
       )[]
     | null;
   slug?: string | null;
@@ -309,6 +310,18 @@ export interface FeaturesType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactType".
+ */
+export interface ContactType {
+  title?: string | null;
+  description?: string | null;
+  image?: string | Media | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Contact';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
