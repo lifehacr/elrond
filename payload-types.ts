@@ -387,8 +387,6 @@ export interface SiteSetting {
           id?: string | null;
         }[]
       | null;
-    buttonName?: string | null;
-    buttonPath?: string | null;
   };
   footer?: {
     links?:
