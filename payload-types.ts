@@ -186,6 +186,7 @@ export interface Page {
         | RecommendationsListType
         | FeaturesType
         | ContactType
+        | SubscribeType
       )[]
     | null;
   slug?: string | null;
@@ -322,6 +323,17 @@ export interface ContactType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscribeType".
+ */
+export interface SubscribeType {
+  title?: string | null;
+  image?: string | Media | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Subscribe';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -12,6 +12,7 @@ import {
   RecommendationsList,
   RecommendationsListConfig,
 } from './RecommendationsList.tsx'
+import { Subscribe, SubscribeConfig } from './Subscribe'
 import { Features, FeaturesConfig } from './features'
 
 // Exporting an object that maps block names (as keys) to their corresponding JSX components (as values)
@@ -26,6 +27,7 @@ export const blocksJSX = {
   RecommendationsList,
   Features,
   Contact,
+  Subscribe,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -40,4 +42,5 @@ export const blocks = [
   RecommendationsListConfig,
   FeaturesConfig,
   ContactConfig,
+  SubscribeConfig,
 ]
