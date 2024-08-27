@@ -14,6 +14,7 @@ const TagDetails: React.FC<TagDetailsProps> = ({ tagDetails, blogs }) => {
         title={tagDetails?.title}
         description={tagDetails?.description}
         image={tagDetails?.tagImage}
+        blockType={'Hero'}
       />
       <TagPosts blogPosts={blogs as Blog[]} tagDetails={tagDetails} />
     </div>

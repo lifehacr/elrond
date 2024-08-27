@@ -45,6 +45,8 @@ export const Users: CollectionConfig = {
       unique: true,
     },
     { name: 'imageUrl', type: 'text', saveToJWT: true },
+    { name: 'city', type: 'text', saveToJWT: true },
+    { name: 'description', type: 'text', saveToJWT: true },
     {
       name: 'role',
       type: 'select',

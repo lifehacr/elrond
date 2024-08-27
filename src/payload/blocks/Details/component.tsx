@@ -1,7 +1,7 @@
 'use client'
 
 import { Params } from '../types'
-import { Blog, DetailsType } from '@payload-types'
+import { Blog, DetailsType, User } from '@payload-types'
 
 import { trpc } from '@/trpc/client'
 
@@ -45,7 +45,10 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       })
 
       return (
-        <AuthorDetails author={author as any} blogsData={authorBlogs as any} />
+        <AuthorDetails
+          author={author as User}
+          blogsData={authorBlogs as Blog[]}
+        />
       )
     }
   }
