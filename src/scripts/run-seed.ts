@@ -12,6 +12,14 @@ import { MongoClient } from 'mongodb'
 // ? For displaying a loading spinner
 import ora, { Ora } from 'ora'
 
+import { seedAuthorDetailsPage } from '@/seed/author-details-page'
+import { seedAuthors } from '@/seed/authors'
+import { seedAuthorsPage } from '@/seed/authors-page'
+import { seedBlogs } from '@/seed/blogs'
+import { seedTagDetailsPage } from '@/seed/tag-details-page'
+import { seedTags } from '@/seed/tags'
+import { seedTagsPage } from '@/seed/tags-page'
+
 // ! For running shell commands (if needed for additional tasks)
 
 // Extract database name from the URI
@@ -66,19 +74,19 @@ const executeSeeding = async (): Promise<void> => {
 
   try {
     // await seedAndLog('Seeding Home Page', seedHomePage, spinner)
-    // await seedAndLog('Seeding Tags Page', seedTagsPage, spinner)
-    // await seedAndLog('Seeding Tag Details Page', seedTagDetailsPage, spinner)
-    // await seedAndLog('Seeding Tags', seedTags, spinner)
-    // await seedAndLog('Seeding Authors Page', seedAuthorsPage, spinner)
-    // await seedAndLog(
-    //   'Seeding Author Details Page',
-    //   seedAuthorDetailsPage,
-    //   spinner,
-    // )
-    // await seedAndLog('Seeding Authors', seedAuthors, spinner)
+    await seedAndLog('Seeding Tags Page', seedTagsPage, spinner)
+    await seedAndLog('Seeding Tag Details Page', seedTagDetailsPage, spinner)
+    await seedAndLog('Seeding Tags', seedTags, spinner)
+    await seedAndLog('Seeding Authors', seedAuthors, spinner)
+    await seedAndLog('Seeding Authors Page', seedAuthorsPage, spinner)
+    await seedAndLog(
+      'Seeding Author Details Page',
+      seedAuthorDetailsPage,
+      spinner,
+    )
+    await seedAndLog('Seeding Blogs', seedBlogs, spinner)
     // await seedAndLog('Seeding Blogs Page', seedBlogsPage, spinner)
     // await seedAndLog('Seeding Blog Details Page', seedBlogDetailsPage, spinner)
-    // await seedAndLog('Seeding Blogs', seedBlogs, spinner)
   } catch (error) {
     console.error(chalk.red('Error running seeds:'), error)
   } finally {

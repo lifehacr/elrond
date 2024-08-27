@@ -160,7 +160,7 @@ export interface Blog {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -240,7 +240,7 @@ export interface ListType {
  * via the `definition` "HeroType".
  */
 export interface HeroType {
-  image?: string | Media | null;
+  image?: (string | null) | Media;
   title?: string | null;
   description?: string | null;
   id?: string | null;
