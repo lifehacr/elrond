@@ -16,6 +16,7 @@ import { seedAuthorDetailsPage } from '@/seed/author-details-page'
 import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogs } from '@/seed/blogs'
+import { seedHomePage } from '@/seed/home-page'
 import { seedTagDetailsPage } from '@/seed/tag-details-page'
 import { seedTags } from '@/seed/tags'
 import { seedTagsPage } from '@/seed/tags-page'
@@ -85,7 +86,7 @@ const executeSeeding = async (): Promise<void> => {
     )
     await seedAndLog('Seeding Blogs', seedBlogs, spinner)
     console.log('completed blogs')
-    // await seedAndLog('Seeding Home Page', seedHomePage, spinner)
+    await seedAndLog('Seeding Home Page', seedHomePage, spinner)
     // await seedAndLog('Seeding Blogs Page', seedBlogsPage, spinner)
     // await seedAndLog('Seeding Blog Details Page', seedBlogDetailsPage, spinner)
   } catch (error) {

@@ -34,6 +34,7 @@ const seed = async (): Promise<Page> => {
         return block
       }),
     }
+    console.log('home result: ', homeResult)
 
     const result = await payload.create({
       collection: 'pages',

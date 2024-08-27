@@ -78,13 +78,13 @@ const seed = async (): Promise<(string | Blog)[]> => {
         : `Failed to seed: ${result.reason}`,
     )
 
-    const errors = formattedResults.filter(result => typeof result === 'string')
+    // const errors = formattedResults.filter(result => typeof result === 'string')
 
-    if (errors.length > 0) {
-      throw new Error(
-        `Seeding failed with the following errors:\n${errors.join('\n')}`,
-      )
-    }
+    // if (errors.length > 0) {
+    //   throw new Error(
+    //     `Seeding failed with the following errors:\n${errors.join('\n')}`,
+    //   )
+    // }
 
     return formattedResults
   } catch (error) {
