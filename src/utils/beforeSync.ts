@@ -1,4 +1,4 @@
-import { BeforeSync } from '@node_modules/@payloadcms/plugin-search/dist/types'
+import type { BeforeSync } from '@payloadcms/plugin-search/types'
 
 export const BeforeSyncConfig: BeforeSync = ({ originalDoc, searchDoc }) => {
   if (searchDoc?.doc?.relationTo === 'users')

@@ -24,6 +24,10 @@ export const searchRouter = router({
             },
           },
         })
+        /*Here we get the title as a JSON string. 
+          The attributes in the JSON change according to the collection. 
+          For example, 
+          for the user collection, it returns {"path":"/author/author-name","title":"author-name","image":"Media of image"}. */
 
         const formattedResult = searchResult?.map((result, idx) => {
           return { ...result, ...JSON.parse(result?.title as string) }
