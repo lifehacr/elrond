@@ -3,6 +3,7 @@ import { env } from '@env'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { s3Storage } from '@payloadcms/storage-s3'
@@ -18,6 +19,7 @@ import { Tags } from '@/payload/collections/Tags'
 import { Users } from '@/payload/collections/Users'
 import { COLLECTION_SLUG_PAGE } from '@/payload/collections/constants'
 import { siteSettings } from '@/payload/globals/SiteSettings'
+import { BeforeSyncConfig } from '@/utils/beforeSync'
 import { generateBreadcrumbsUrl } from '@/utils/generateBreadcrumbsUrl'
 import {
   generateDescription,
@@ -103,6 +105,12 @@ export default buildConfig({
       generateDescription,
       generateImage,
       generateURL,
+    }),
+    searchPlugin({
+      collections: ['users', 'tags', 'blogs'],
+      defaultPriorities: { ['users']: 1, ['tags']: 2, ['blogs']: 3 },
+
+      beforeSync: BeforeSyncConfig,
     }),
   ],
 
