@@ -8,9 +8,15 @@ const payload = await getPayloadHMR({ config: configPromise })
 
 const seed = async (): Promise<Page> => {
   try {
+    const { docs: pages } = await payload.find({
+      collection: 'pages',
+    })
+
+    const pageId = pages?.find(page => page?.slug === 'tags')?.id
+
     const result = await payload.create({
       collection: 'pages',
-      data: tagDetailsPageData,
+      data: { ...tagDetailsPageData, parent: pageId },
     })
 
     return result

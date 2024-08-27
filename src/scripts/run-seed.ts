@@ -73,7 +73,6 @@ const executeSeeding = async (): Promise<void> => {
   }).start()
 
   try {
-    // await seedAndLog('Seeding Home Page', seedHomePage, spinner)
     await seedAndLog('Seeding Tags Page', seedTagsPage, spinner)
     await seedAndLog('Seeding Tag Details Page', seedTagDetailsPage, spinner)
     await seedAndLog('Seeding Tags', seedTags, spinner)
@@ -85,6 +84,8 @@ const executeSeeding = async (): Promise<void> => {
       spinner,
     )
     await seedAndLog('Seeding Blogs', seedBlogs, spinner)
+    console.log('completed blogs')
+    // await seedAndLog('Seeding Home Page', seedHomePage, spinner)
     // await seedAndLog('Seeding Blogs Page', seedBlogsPage, spinner)
     // await seedAndLog('Seeding Blog Details Page', seedBlogDetailsPage, spinner)
   } catch (error) {

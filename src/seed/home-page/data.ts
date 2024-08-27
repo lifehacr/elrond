@@ -1,6 +1,12 @@
+import path from 'path'
 import { Page } from 'payload-types'
 
 export type HomePageDataType = Omit<Page, 'id' | 'createdAt' | 'updatedAt'>
+
+export type HomeImageType = {
+  alt: string
+  filePath: string
+}
 
 export const homePageData: HomePageDataType = {
   title: 'Home Page',
@@ -19,4 +25,9 @@ export const homePageData: HomePageDataType = {
       title: 'FEATURED POST',
     },
   ],
+}
+
+export const homePageHeroImageData: HomeImageType = {
+  alt: 'home page hero',
+  filePath: path.join(process.cwd(), '/public/images/seed/home/homeHero.svg'),
 }
