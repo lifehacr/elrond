@@ -32,7 +32,7 @@ const menuItem: Field[] = [
         name: 'newPage',
         type: 'checkbox',
         label: 'New Page',
-        defaultValue: true,
+        defaultValue: false,
         admin: {
           condition: (_data, siblingData) => siblingData.externalLink,
           description: 'Open website in new-page',
@@ -230,16 +230,6 @@ export const siteSettings: GlobalConfig = {
               label: 'Menu Links',
               type: 'array',
               fields: menuField,
-            },
-            {
-              name: 'buttonName',
-              label: 'Button Text',
-              type: 'text',
-            },
-            {
-              name: 'buttonPath',
-              label: 'Button Path',
-              type: 'text',
             },
           ],
         },
