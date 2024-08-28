@@ -9,39 +9,44 @@ export type AuthorImageType = {
 
 export const authorsData: AuthorDataType[] = [
   {
-    username: 'Author-1',
+    username: 'Celestia-Lily',
     email: 'author.1@gmail.com',
     password: 'Welcome@123',
     role: 'author',
     imageUrl: '',
+    displayName: 'Celestia Lily',
   },
   {
-    username: 'Author-2',
+    username: 'Eldritch-Thorn',
     email: 'author.2@gmail.com',
     password: 'Welcome@123',
     role: 'author',
     imageUrl: '',
+    displayName: 'Eldritch Thorn',
   },
   {
-    username: 'Author-3',
+    username: 'Evelyn-Mitchell',
     email: 'author.3@gmail.com',
     password: 'Welcome@123',
     role: 'author',
     imageUrl: '',
+    displayName: 'Evelyn Mitchell',
   },
   {
-    username: 'Author-4',
+    username: 'Noah-Cooper',
     email: 'author.4@gmail.com',
     password: 'Welcome@123',
     role: 'author',
     imageUrl: '',
+    displayName: 'Noah Cooper',
   },
   {
-    username: 'Author-5',
+    username: 'Patricia-Miles',
     email: 'author.5@gmail.com',
     password: 'Welcome@123',
     role: 'author',
     imageUrl: '',
+    displayName: 'Patricia Miles',
   },
   {
     username: 'Admin',
@@ -49,6 +54,7 @@ export const authorsData: AuthorDataType[] = [
     password: 'Welcome@123',
     role: 'admin',
     imageUrl: '',
+    displayName: '',
   },
 ]
 
