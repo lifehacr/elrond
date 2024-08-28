@@ -27,7 +27,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
   }
   return (
     <Container className='md:max-w-screen-container w-full px-4 sm:my-8 lg:my-12 lg:px-0'>
-      <div className='relative mx-auto my-4 flex w-full flex-col items-start gap-16 sm:my-12 md:max-w-[940px] lg:my-16 lg:flex-row lg:gap-16'>
+      <div className='relative mx-auto my-4 flex w-full flex-col items-start justify-between gap-16 sm:my-12 md:max-w-[940px] lg:my-16 lg:flex-row lg:gap-16'>
         <div className='flex flex-col gap-4 md:mx-0'>
           <h2 className='mb-2 text-sm font-medium uppercase tracking-widest text-secondary-content'>
             {block?.titleOne}
@@ -72,7 +72,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                               src={(author?.value as User)?.imageUrl!}
                               height={24}
                               width={24}
-                              className='rounded-full'
+                              className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
                             />
                           </Link>
                         ))}

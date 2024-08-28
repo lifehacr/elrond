@@ -8,7 +8,6 @@ import { trpc } from '@/trpc/client'
 const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
   const { data } = trpc.blog.getAllBlogs.useQuery()
   const featuredPost = data?.at(0)
-  console.log(featuredPost)
 
   return (
     <Container className='my-8 w-full px-4 sm:my-12 md:my-16 md:max-w-[940px] lg:my-20 lg:px-0'>
@@ -21,7 +20,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
             <div className='relative h-60 w-full rounded-xl md:h-80'>
               <Link href={`/${featuredPost?.slug!}`}>
                 <Image
-                  alt='/Featured Post'
+                  alt='Featured Post'
                   fill
                   src={(featuredPost?.blogImage as Media)?.url!}
                 />
@@ -45,7 +44,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                       src={(author?.value as User)?.imageUrl!}
                       height={26}
                       width={26}
-                      className='rounded-full transition-transform duration-200  hover:transform'
+                      className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
                     />
                   </Link>
                 ))}

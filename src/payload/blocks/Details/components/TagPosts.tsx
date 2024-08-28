@@ -69,7 +69,7 @@ const TagPosts = ({
                           src={(author?.value as User)?.imageUrl!}
                           height={26}
                           width={26}
-                          className='rounded-full'
+                          className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
                         />
                       </Link>
                     ))}
