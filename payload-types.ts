@@ -188,6 +188,8 @@ export interface Page {
         | FeaturesType
         | ContactType
         | SubscribeType
+        | PricingType
+        | FAQType
       )[]
     | null;
   slug?: string | null;
@@ -335,6 +337,50 @@ export interface SubscribeType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Subscribe';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingType".
+ */
+export interface PricingType {
+  pricingPlan?:
+    | {
+        planTitle: string;
+        freeDuration?: string | null;
+        planDescription: string;
+        planPrice: number;
+        planDuration: string;
+        planBtnText: string;
+        planBenifits?:
+          | {
+              benifit: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQType".
+ */
+export interface FAQType {
+  title: string;
+  description?: string | null;
+  questions?:
+    | {
+        question?: string | null;
+        answer?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'FAQ';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
