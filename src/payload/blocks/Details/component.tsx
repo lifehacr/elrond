@@ -3,6 +3,7 @@
 import { Params } from '../types'
 import { Blog, DetailsType, User } from '@payload-types'
 
+import PageNotFound from '@/components/404'
 import { trpc } from '@/trpc/client'
 
 import AuthorDetails from './components/AuthorDetails'
@@ -20,6 +21,9 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
         slug: params?.route.at(-1),
       })
       const { data: blogs } = trpc.blog.getAllBlogs.useQuery()
+      if (!blog) {
+        return <PageNotFound />
+      }
       return <BlogDetails blog={blog as Blog} blogsData={blogs as Blog[]} />
     }
 
@@ -28,6 +32,9 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
         trpc.tag.getTagBySlugAndItsBlogs.useQuery({
           tagSlug: params?.route.at(-1)!,
         })
+      if (!tagDataAndBlogsData?.tagData) {
+        return <PageNotFound />
+      }
       return (
         <TagDetails
           tagDetails={tagDataAndBlogsData?.tagData}
@@ -43,7 +50,9 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       const { data: authorBlogs } = trpc.author.getBlogsByAuthorName.useQuery({
         authorName: params?.route.at(-1)!,
       })
-
+      if (!author) {
+        return <PageNotFound />
+      }
       return (
         <AuthorDetails
           author={author as User}
