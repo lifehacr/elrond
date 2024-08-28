@@ -2,7 +2,7 @@
 
 import { Blog, Media, User } from '@payload-types'
 import { slateToHtml } from '@slate-serializers/html'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 import Image from 'next/image'
 import Link from 'next/link'
 
