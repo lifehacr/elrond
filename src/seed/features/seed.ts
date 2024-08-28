@@ -3,32 +3,27 @@ import { Page } from '@payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
-import { homePageData, homePageHeroImageData } from './data'
+import { featureHeroImageData, featurePageData } from './data'
 
 const payload = await getPayloadHMR({ config: configPromise })
 
 const seed = async (): Promise<Page> => {
   try {
-    const { docs: allTags, totalDocs: totalTags } = await payload.find({
-      collection: 'tags',
-    })
-
-    const { docs: allBlogs, totalDocs: totalBlogs } = await payload.find({
-      collection: 'blogs',
-    })
-    const homeHeroImageSeedResult = await payload.create({
+    const imageResult = await payload.create({
       collection: 'media',
-      data: { alt: homePageHeroImageData?.alt },
-      filePath: homePageHeroImageData?.filePath,
+      data: {
+        alt: featureHeroImageData.alt,
+      },
+      filePath: featureHeroImageData.filePath,
     })
 
-    const homeResult: RequiredDataFromCollectionSlug<'pages'> = {
-      ...homePageData,
-      layout: homePageData.layout?.map((block, idx) => {
+    const formattedFeature: RequiredDataFromCollectionSlug<'pages'> = {
+      ...featurePageData,
+      layout: featurePageData?.layout?.map(block => {
         if (block?.blockType === 'Hero') {
           return {
             ...block,
-            image: homeHeroImageSeedResult.id,
+            image: imageResult?.id,
           }
         }
         return block
@@ -37,7 +32,7 @@ const seed = async (): Promise<Page> => {
 
     const result = await payload.create({
       collection: 'pages',
-      data: homeResult,
+      data: formattedFeature,
     })
 
     return result

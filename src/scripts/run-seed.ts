@@ -17,6 +17,7 @@ import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
+import { seedFeaturePage } from '@/seed/features'
 import { seedHomePage } from '@/seed/home-page'
 import { seedSiteSetting } from '@/seed/site-settings'
 import { seedTagDetailsPage } from '@/seed/tag-details-page'
@@ -91,6 +92,7 @@ const executeSeeding = async (): Promise<void> => {
     await seedAndLog('Seeding Home Page', seedHomePage, spinner)
     await seedAndLog('Seeding Blog Details Page', seedBlogDetailsPage, spinner)
     // await seedAndLog('Seeding Blogs Page', seedBlogsPage, spinner)
+    await seedAndLog('Seeding Features Page', seedFeaturePage, spinner)
     await seedAndLog('Seeding site-settings', seedSiteSetting, spinner)
   } catch (error) {
     console.error(chalk.red('Error running seeds:'), error)

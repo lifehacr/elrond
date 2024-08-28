@@ -28,6 +28,13 @@ export const siteSettingsData: siteSettingsDataType = {
           page: { relationTo: 'pages', value: '' },
         },
       },
+      {
+        group: false,
+        menuLink: {
+          externalLink: false,
+          page: { relationTo: 'pages', value: '' },
+        },
+      },
     ],
   },
 
