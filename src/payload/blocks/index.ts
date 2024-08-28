@@ -3,11 +3,13 @@
 // Importing the block components and its configurations
 import { Contact, ContactConfig } from './Contact'
 import { Details, DetailsConfig } from './Details'
+import { FAQ, FAQConfig } from './FAQ'
 import { FeaturedPost, FeaturedPostConfig } from './FeaturedPost'
 import { Hero, HeroConfig } from './Hero'
 import { Home, HomeConfig } from './Home'
 import { LatestPosts, LatestPostsConfig } from './LatestPosts'
 import { List, ListConfig } from './List'
+import { Pricing, PricingConfig } from './Pricing'
 import {
   RecommendationsList,
   RecommendationsListConfig,
@@ -28,6 +30,8 @@ export const blocksJSX = {
   Features,
   Contact,
   Subscribe,
+  Pricing,
+  FAQ,
 }
 
 // Exporting an array that consolidates all block configurations
@@ -43,4 +47,6 @@ export const blocks = [
   FeaturesConfig,
   ContactConfig,
   SubscribeConfig,
+  PricingConfig,
+  FAQConfig,
 ]
