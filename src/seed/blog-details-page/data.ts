@@ -9,6 +9,8 @@ export const blogDetailsPageData: BlogDetailsPageDataType = {
   title: 'Blog Details',
   isHome: false,
   _status: 'published',
+  isDynamic: true,
+
   layout: [
     {
       blockType: 'Details',

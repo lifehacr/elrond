@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import { trpc } from '@/trpc/client'
 
@@ -18,10 +19,15 @@ const PageNotFound: React.FC = () => {
     },
     onSuccess: () => {
       // ! router.refresh() is not working as expected.
-      window.location.reload()
+      toast.success('seed data completed', {
+        onAutoClose: () => window.location.reload(),
+      })
     },
     onSettled: () => {
       setLoading(false)
+    },
+    onError: () => {
+      toast.error('seeding failed!!')
     },
   })
 

@@ -24,6 +24,14 @@ export const homePageData: HomePageDataType = {
       blockType: 'FeaturedPost',
       title: 'FEATURED POST',
     },
+    {
+      blockType: 'LatestPosts',
+      titleOne: 'LATEST POST',
+      titleTwo: 'POPULAR CATEGORIES',
+      titleThree: 'SUBSCRIBE',
+      buttonName: 'Subscribe',
+      buttonPath: '/',
+    },
   ],
 }
 
