@@ -16,7 +16,6 @@ export interface Config {
     tags: Tag;
     blogs: Blog;
     pages: Page;
-    search: Search;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -161,7 +160,7 @@ export interface Blog {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: (string | null) | Media;
+    image?: string | Media | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -186,8 +185,6 @@ export interface Page {
         | LatestPostsType
         | RecommendationsListType
         | FeaturesType
-        | ContactType
-        | SubscribeType
       )[]
     | null;
   slug?: string | null;
@@ -243,7 +240,7 @@ export interface ListType {
  * via the `definition` "HeroType".
  */
 export interface HeroType {
-  image?: (string | null) | Media;
+  image?: string | Media | null;
   title?: string | null;
   description?: string | null;
   id?: string | null;
@@ -312,53 +309,6 @@ export interface FeaturesType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Features';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactType".
- */
-export interface ContactType {
-  title?: string | null;
-  description?: string | null;
-  image?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Contact';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SubscribeType".
- */
-export interface SubscribeType {
-  title?: string | null;
-  image?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Subscribe';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "search".
- */
-export interface Search {
-  id: string;
-  title?: string | null;
-  priority?: number | null;
-  doc:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
-        relationTo: 'tags';
-        value: string | Tag;
-      }
-    | {
-        relationTo: 'blogs';
-        value: string | Blog;
-      };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -437,6 +387,8 @@ export interface SiteSetting {
           id?: string | null;
         }[]
       | null;
+    buttonName?: string | null;
+    buttonPath?: string | null;
   };
   footer?: {
     links?:
