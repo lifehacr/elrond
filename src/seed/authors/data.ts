@@ -54,7 +54,7 @@ export const authorsData: AuthorDataType[] = [
     password: 'Welcome@123',
     role: 'admin',
     imageUrl: '',
-    displayName: '',
+    displayName: 'admin',
   },
 ]
 

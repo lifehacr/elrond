@@ -1,7 +1,7 @@
 import type { BeforeSync } from '@payloadcms/plugin-search/types'
 
 export const BeforeSyncConfig: BeforeSync = ({ originalDoc, searchDoc }) => {
-  if (searchDoc?.doc?.relationTo === 'users' && originalDoc?.role !== 'admin') {
+  if (searchDoc?.doc?.relationTo === 'users') {
     // console.log('original doc', originalDoc, '\nsearchDoc', searchDoc)
     return {
       ...searchDoc,

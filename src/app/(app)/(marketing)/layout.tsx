@@ -17,9 +17,17 @@ const MarketingLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className='flex min-h-screen flex-col bg-white'>
-      <Header initData={initData} />
+      {initData?.header && !initData?.header?.menuLinks?.length ? null : (
+        <Header initData={initData} />
+      )}
       <div className='flex-grow'>{children}</div>
-      <Footer initData={initData} />
+      {initData?.footer &&
+      initData?.footer?.copyright !== '' &&
+      !initData?.footer?.links?.length ? (
+        null && !initData?.footer?.socialLinks?.length
+      ) : (
+        <Footer initData={initData} />
+      )}
     </div>
   )
 }
