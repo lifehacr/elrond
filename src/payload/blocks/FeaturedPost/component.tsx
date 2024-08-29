@@ -3,13 +3,16 @@ import { FeaturedPostType, Media, Tag, User } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import FeaturedPostSkeleton from '@/components/skeletons/FeaturedPostSkeleton'
 import { trpc } from '@/trpc/client'
 
 const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
-  const { data } = trpc.blog.getAllBlogs.useQuery()
+  const { data, isLoading } = trpc.blog.getAllBlogs.useQuery()
   const featuredPost = data?.at(0)
 
-  return (
+  return isLoading ? (
+    <FeaturedPostSkeleton />
+  ) : (
     <Container className='my-8 w-full px-4 sm:my-12 md:my-16 md:max-w-[940px] lg:my-20 lg:px-0'>
       <div className='xs:my-10 mx-auto my-8 flex w-full flex-col gap-4 sm:my-12 md:my-16 md:max-w-[940px] lg:my-20 lg:px-0'>
         <h2 className='text-four mb-1 text-sm font-medium uppercase tracking-widest text-secondary-content'>
