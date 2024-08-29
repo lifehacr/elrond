@@ -17,22 +17,29 @@ interface DetailsProps extends DetailsType {
 const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
   switch (block?.collectionSlug) {
     case 'blogs': {
-      const { data: blog } = trpc.blog.getBlogBySlug.useQuery({
+      const {
+        data: blog,
+        isPending: isBlogPending,
+        isError: isBlogError,
+      } = trpc.blog.getBlogBySlug.useQuery({
         slug: params?.route.at(-1),
       })
       const { data: blogs } = trpc.blog.getAllBlogs.useQuery()
-      if (!blog) {
+      if ((!blog && !isBlogPending) || isBlogError) {
         return <PageNotFound />
       }
       return <BlogDetails blog={blog as Blog} blogsData={blogs as Blog[]} />
     }
 
     case 'tags': {
-      const { data: tagDataAndBlogsData } =
-        trpc.tag.getTagBySlugAndItsBlogs.useQuery({
-          tagSlug: params?.route.at(-1)!,
-        })
-      if (!tagDataAndBlogsData?.tagData) {
+      const {
+        data: tagDataAndBlogsData,
+        isPending: isTagPending,
+        isError: isTagError,
+      } = trpc.tag.getTagBySlugAndItsBlogs.useQuery({
+        tagSlug: params?.route.at(-1)!,
+      })
+      if ((!tagDataAndBlogsData?.tagData && !isTagPending) || isTagError) {
         return <PageNotFound />
       }
       return (

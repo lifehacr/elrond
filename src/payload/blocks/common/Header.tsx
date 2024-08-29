@@ -159,7 +159,7 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
                 ) : (
                   <Link
                     target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                    href={(headerLink?.menuLink?.page?.value as Page)?.slug!}>
+                    href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
                     {capitalizeFirstLetter(
                       (headerLink?.menuLink?.page?.value as Page)?.title,
                     )}

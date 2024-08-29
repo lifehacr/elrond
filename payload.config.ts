@@ -19,6 +19,7 @@ import { Tags } from '@/payload/collections/Tags'
 import { Users } from '@/payload/collections/Users'
 import { COLLECTION_SLUG_PAGE } from '@/payload/collections/constants'
 import { siteSettings } from '@/payload/globals/SiteSettings'
+import { scheduleDocPublish } from '@/plugins/schedule-doc-publish'
 import { BeforeSyncConfig } from '@/utils/beforeSync'
 import { generateBreadcrumbsUrl } from '@/utils/generateBreadcrumbsUrl'
 import {
@@ -111,6 +112,11 @@ export default buildConfig({
       defaultPriorities: { ['users']: 1, ['tags']: 2, ['blogs']: 3 },
 
       beforeSync: BeforeSyncConfig,
+    }),
+    scheduleDocPublish({
+      enabled: true,
+      collections: ['blogs'],
+      position: 'sidebar',
     }),
   ],
 
