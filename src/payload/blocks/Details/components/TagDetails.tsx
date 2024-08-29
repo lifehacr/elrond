@@ -1,13 +1,20 @@
 import { Hero } from '../../Hero'
 import { Blog, Tag } from '@payload-types'
 
+import TagPostsSkeleton from '@/components/skeletons/TagPostsSkeleton'
+
 import TagPosts from './TagPosts'
 
 interface TagDetailsProps {
   tagDetails: Tag | undefined
   blogs: Blog[] | undefined
+  isLoading?: boolean
 }
-const TagDetails: React.FC<TagDetailsProps> = ({ tagDetails, blogs }) => {
+const TagDetails: React.FC<TagDetailsProps> = ({
+  tagDetails,
+  blogs,
+  isLoading,
+}) => {
   return (
     <div>
       <Hero
@@ -16,7 +23,11 @@ const TagDetails: React.FC<TagDetailsProps> = ({ tagDetails, blogs }) => {
         image={tagDetails?.tagImage}
         blockType={'Hero'}
       />
-      <TagPosts blogPosts={blogs as Blog[]} tagDetails={tagDetails} />
+      {isLoading ? (
+        <TagPostsSkeleton />
+      ) : (
+        <TagPosts blogPosts={blogs as Blog[]} tagDetails={tagDetails} />
+      )}
     </div>
   )
 }

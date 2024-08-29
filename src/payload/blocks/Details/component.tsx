@@ -34,6 +34,7 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
     case 'tags': {
       const {
         data: tagDataAndBlogsData,
+        isLoading,
         isPending: isTagPending,
         isError: isTagError,
       } = trpc.tag.getTagBySlugAndItsBlogs.useQuery({
@@ -46,6 +47,7 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
         <TagDetails
           tagDetails={tagDataAndBlogsData?.tagData}
           blogs={tagDataAndBlogsData?.blogsData}
+          isLoading={isLoading}
         />
       )
     }
@@ -54,6 +56,7 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       const {
         data: author,
         isPending: isAuthorPending,
+        isLoading,
         isError: isAuthorError,
       } = trpc.author.getAuthorByName.useQuery({
         authorName: params?.route.at(-1)!,
@@ -68,6 +71,7 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
         <AuthorDetails
           author={author as User}
           blogsData={authorBlogs as Blog[]}
+          isLoading={isLoading}
         />
       )
     }
