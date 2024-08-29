@@ -14,6 +14,17 @@ const PricingConfig: Block = {
       label: 'Pricing Table',
       fields: [
         {
+          name: 'planIcon',
+          label: 'Plan Icon',
+          required: true,
+          type: 'select',
+          options: [
+            { value: 'free', label: 'Free Plan' },
+            { value: 'gold', label: 'Gold Plan' },
+            { value: 'goldPlus', label: 'Gold Plus Icon' },
+          ],
+        },
+        {
           name: 'planTitle',
           label: 'Plan Title',
           required: true,
@@ -32,21 +43,20 @@ const PricingConfig: Block = {
           required: true,
         },
         {
-          name: 'planPrice',
-          label: 'Plan Price',
+          name: 'monthlyPlanPrice',
+          label: 'Monthly Plan Price',
           type: 'number',
           min: 0,
           max: 100000000,
           required: true,
         },
         {
-          name: 'planDuration',
-          label: 'Plan Duration',
-          type: 'text',
+          name: 'yearlyPlanPrice',
+          label: 'Yearly Plan Price',
+          type: 'number',
+          min: 0,
+          max: 100000000,
           required: true,
-          admin: {
-            placeholder: 'monthly / yearly',
-          },
         },
         {
           name: 'planBtnText',

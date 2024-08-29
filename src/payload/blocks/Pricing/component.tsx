@@ -4,8 +4,16 @@ import Container from '../common/Container'
 import { PricingType } from '@payload-types'
 import { useState } from 'react'
 
+import FreePlanIcon from '@/svg/FreePlanIcon'
+import GoldPlanIcon from '@/svg/GoldPlanIcon'
 import GoldPlusPlanIcon from '@/svg/GoldPlusPlanIcon'
 import ListItemTickIcon from '@/svg/ListItemTickIcon'
+
+const planIcons = {
+  free: <FreePlanIcon />,
+  gold: <GoldPlanIcon />,
+  goldPlus: <GoldPlusPlanIcon />,
+}
 
 const Pricing: React.FC<PricingType> = ({ ...block }) => {
   const [isMonthly, setIsMonthly] = useState<boolean>(true)
@@ -40,7 +48,7 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
               key={membershipPlan?.id}>
               <div className='flex flex-col gap-2'>
                 <div className='flex items-center justify-start gap-2.5'>
-                  <GoldPlusPlanIcon />
+                  {planIcons[membershipPlan?.planIcon || 'free']}
                   <div className='flex flex-col items-start justify-center gap-1.5'>
                     <div className='line-clamp-1 text-xl font-bold leading-none text-base-content'>
                       {membershipPlan?.planTitle}
@@ -54,14 +62,21 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
                   {membershipPlan?.planDescription}
                 </div>
                 <div className='my-3 flex flex-row items-center justify-start gap-2 text-3xl font-bold'>
-                  ${membershipPlan?.planPrice}{' '}
+                  {isMonthly
+                    ? membershipPlan?.monthlyPlanPrice
+                    : membershipPlan?.yearlyPlanPrice}{' '}
                   <span className='text-sm font-normal text-neutral-content'>
-                    / {membershipPlan?.planDuration}
+                    {membershipPlan?.monthlyPlanPrice === 0 &&
+                    membershipPlan?.yearlyPlanPrice === 0
+                      ? '/ forever'
+                      : isMonthly
+                        ? '/ monthly'
+                        : '/ yearly'}
                   </span>
                 </div>
                 <button
                   type='submit'
-                  className='h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9]'>
+                  className={`h-10 max-h-10 min-h-[40px] w-full rounded-md  text-[14px] font-medium  ${membershipPlan?.monthlyPlanPrice === 0 && membershipPlan?.yearlyPlanPrice === 0 ? 'bg-secondary text-secondary-content' : 'bg-primary text-white hover:bg-[#805AE9]'}`}>
                   ✦ &nbsp;{membershipPlan?.planBtnText}
                 </button>
               </div>
