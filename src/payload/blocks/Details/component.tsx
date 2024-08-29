@@ -51,13 +51,17 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
     }
 
     case 'users': {
-      const { data: author } = trpc.author.getAuthorByName.useQuery({
+      const {
+        data: author,
+        isPending: isAuthorPending,
+        isError: isAuthorError,
+      } = trpc.author.getAuthorByName.useQuery({
         authorName: params?.route.at(-1)!,
       })
       const { data: authorBlogs } = trpc.author.getBlogsByAuthorName.useQuery({
         authorName: params?.route.at(-1)!,
       })
-      if (!author) {
+      if ((!author && !isAuthorPending) || isAuthorError) {
         return <PageNotFound />
       }
       return (
