@@ -8,14 +8,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import BlogPostsSkeleton from '@/components/skeletons/BlogPostsSkeleton'
+import LatestTagsSkeleton from '@/components/skeletons/LatestTagsSkeleton'
 import { trpc } from '@/trpc/client'
 
 const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
   const [noOfPosts, setNoOfPosts] = useState(6)
   const [loading, setLoading] = useState(false)
 
-  const { data: AllBlogs } = trpc.blog.getAllBlogs.useQuery()
-  const { data: AllTags } = trpc.tag.getAllTags.useQuery()
+  const { data: AllBlogs, isLoading: isBlogsLoading } =
+    trpc.blog.getAllBlogs.useQuery()
+  const { data: AllTags, isLoading: isTagsLoading } =
+    trpc.tag.getAllTags.useQuery()
   const route = useRouter()
 
   const loadPosts = () => {
@@ -32,99 +36,103 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
           <h2 className='mb-2 text-sm font-medium uppercase tracking-widest text-secondary-content'>
             {block?.titleOne}
           </h2>
-          <div className='flex w-full flex-col gap-10'>
-            {AllBlogs?.slice(0, noOfPosts).map((blog, index) => (
-              <div
-                key={index}
-                className='flex w-full flex-col items-start gap-6 sm:flex-row'>
-                <div className='avatar w-full md:w-auto'>
-                  <div className='relative h-60 w-full md:h-28 md:w-28'>
-                    <Link href={`/${blog?.slug}`}>
-                      <Image
-                        src={(blog?.blogImage as Media)?.url!}
-                        alt={(blog?.blogImage as Media)?.url! || 'Blog'}
-                        fill
-                        className='rounded-xl md:rounded-full'
-                      />
-                    </Link>
+          {isBlogsLoading ? (
+            <BlogPostsSkeleton />
+          ) : (
+            <div className='flex w-full flex-col gap-10'>
+              {AllBlogs?.slice(0, noOfPosts).map((blog, index) => (
+                <div
+                  key={index}
+                  className='flex w-full flex-col items-start gap-6 sm:flex-row'>
+                  <div className='avatar w-full md:w-auto'>
+                    <div className='relative h-60 w-full md:h-28 md:w-28'>
+                      <Link href={`/${blog?.slug}`}>
+                        <Image
+                          src={(blog?.blogImage as Media)?.url!}
+                          alt={(blog?.blogImage as Media)?.url! || 'Blog'}
+                          fill
+                          className='rounded-xl md:rounded-full'
+                        />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className='flex flex-col gap-3 sm:mt-1'>
-                  <div className='flex flex-col gap-2'>
-                    <Link href={`/${blog?.slug}`}>
-                      <div className='text-lg font-semibold text-base-content'>
-                        {blog?.title}
-                        {index === 1 ? (
-                          <span className='inline-block bg-gradient-to-r from-[#FED7AA] to-[#F97316] bg-clip-text text-transparent'>
-                            &nbsp;✦
-                          </span>
-                        ) : null}
-                      </div>
-                    </Link>
-                    <div className='flex items-center'>
-                      <div className='flex -space-x-2'>
-                        {blog?.author?.slice(0, 2)?.map((author, index) => (
-                          <Link
-                            key={index}
-                            href={`/author/${(author?.value as User)?.username}`}>
-                            <Image
-                              alt='Author'
-                              src={(author?.value as User)?.imageUrl!}
-                              height={24}
-                              width={24}
-                              className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
-                            />
-                          </Link>
-                        ))}
-                      </div>
-                      <div className='ml-2 flex items-center'>
-                        {blog?.author?.slice(0, 2)?.map((author, index) => (
-                          <>
+                  <div className='flex flex-col gap-3 sm:mt-1'>
+                    <div className='flex flex-col gap-2'>
+                      <Link href={`/${blog?.slug}`}>
+                        <div className='text-lg font-semibold text-base-content'>
+                          {blog?.title}
+                          {index === 1 ? (
+                            <span className='inline-block bg-gradient-to-r from-[#FED7AA] to-[#F97316] bg-clip-text text-transparent'>
+                              &nbsp;✦
+                            </span>
+                          ) : null}
+                        </div>
+                      </Link>
+                      <div className='flex items-center'>
+                        <div className='flex -space-x-2'>
+                          {blog?.author?.slice(0, 2)?.map((author, index) => (
                             <Link
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
-                              <p className='text-sm font-normal text-[#3F3F46] hover:text-primary'>
-                                {(author?.value as User)?.displayName}
-                              </p>
+                              <Image
+                                alt='Author'
+                                src={(author?.value as User)?.imageUrl!}
+                                height={24}
+                                width={24}
+                                className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
+                              />
                             </Link>
-                            {index === 0 && blog?.author?.length! > 1 && (
-                              <span className='mx-1'>&</span>
-                            )}
-                          </>
+                          ))}
+                        </div>
+                        <div className='ml-2 flex items-center'>
+                          {blog?.author?.slice(0, 2)?.map((author, index) => (
+                            <>
+                              <Link
+                                key={index}
+                                href={`/author/${(author?.value as User)?.username}`}>
+                                <p className='text-sm font-normal text-[#3F3F46] hover:text-primary'>
+                                  {(author?.value as User)?.displayName}
+                                </p>
+                              </Link>
+                              {index === 0 && blog?.author?.length! > 1 && (
+                                <span className='mx-1'>&</span>
+                              )}
+                            </>
+                          ))}
+                        </div>
+                      </div>
+                      <p className='text-base font-light leading-normal tracking-[0.1px] text-neutral-content'>
+                        {blog?.description}
+                      </p>
+                    </div>
+                    <div className='flex gap-3'>
+                      <div className='space-x-3'>
+                        {blog?.tags?.slice(0, 2)?.map((tag, index) => (
+                          <Link
+                            key={index}
+                            href={`/tag/${(tag?.value as Tag)?.slug}`}>
+                            <div className='badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-medium uppercase tracking-wider text-zinc-700 hover:opacity-80'>
+                              {(tag?.value as Tag)?.title}
+                            </div>
+                          </Link>
                         ))}
                       </div>
+                      {index === 0 && (
+                        <div className='badge badge-warning badge-lg rounded-lg border border-[#FEC896] text-xs font-semibold text-error '>
+                          ✦ PREMIUM
+                        </div>
+                      )}
+                      {index === 2 && (
+                        <div className='badge badge-primary badge-lg rounded-lg border text-xs font-semibold text-base-100'>
+                          ✽ MEMBER
+                        </div>
+                      )}
                     </div>
-                    <p className='text-base font-light leading-normal tracking-[0.1px] text-neutral-content'>
-                      {blog?.description}
-                    </p>
-                  </div>
-                  <div className='flex gap-3'>
-                    <div className='space-x-3'>
-                      {blog?.tags?.slice(0, 2)?.map((tag, index) => (
-                        <Link
-                          key={index}
-                          href={`/tag/${(tag?.value as Tag)?.slug}`}>
-                          <div className='badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-medium uppercase tracking-wider text-zinc-700 hover:opacity-80'>
-                            {(tag?.value as Tag)?.title}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                    {index === 0 && (
-                      <div className='badge badge-warning badge-lg rounded-lg border border-[#FEC896] text-xs font-semibold text-error '>
-                        ✦ PREMIUM
-                      </div>
-                    )}
-                    {index === 2 && (
-                      <div className='badge badge-primary badge-lg rounded-lg border text-xs font-semibold text-base-100'>
-                        ✽ MEMBER
-                      </div>
-                    )}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
           {AllBlogs?.length! <= noOfPosts ? (
             ''
           ) : (
@@ -143,25 +151,29 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
             <h2 className='text-sm font-medium uppercase tracking-widest text-secondary-content'>
               {block?.titleTwo}
             </h2>
-            <div className=' grid grid-cols-2 gap-2 md:gap-4 lg:grid-cols-1'>
-              {AllTags?.map((tag, index) => (
-                <Link
-                  href={`/tag/${tag?.slug}`}
-                  key={index}
-                  className='flex w-fit select-none flex-row items-center justify-start gap-3.5 rounded-xl p-2 transition-all duration-300 ease-in-out hover:bg-secondary'>
-                  <Image
-                    src={(tag?.tagImage as Media)?.url!}
-                    alt={(tag?.tagImage as Media)?.url! || 'Tag Image'}
-                    height={32}
-                    width={32}
-                    className='rounded-full'
-                  />
-                  <span className='font-semibold text-base-content'>
-                    {tag?.title}
-                  </span>
-                </Link>
-              ))}
-            </div>
+            {isTagsLoading ? (
+              <LatestTagsSkeleton />
+            ) : (
+              <div className=' grid grid-cols-2 gap-2 md:gap-4 lg:grid-cols-1'>
+                {AllTags?.map((tag, index) => (
+                  <Link
+                    href={`/tag/${tag?.slug}`}
+                    key={index}
+                    className='flex w-fit select-none flex-row items-center justify-start gap-3.5 rounded-xl p-2 transition-all duration-300 ease-in-out hover:bg-secondary'>
+                    <Image
+                      src={(tag?.tagImage as Media)?.url!}
+                      alt={(tag?.tagImage as Media)?.url! || 'Tag Image'}
+                      height={32}
+                      width={32}
+                      className='rounded-full'
+                    />
+                    <span className='font-semibold text-base-content'>
+                      {tag?.title}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
           <div className='flex h-fit w-full max-w-md flex-col gap-4'>
             <div className='text-sm font-[450] uppercase tracking-widest text-secondary-content'>
