@@ -4,6 +4,7 @@ import { Params } from '../types'
 import { Blog, DetailsType, Tag, User } from '@payload-types'
 import React from 'react'
 
+import AllAuthorsTagsSkeleton from '@/components/skeletons/AllAuthorsTagsSkeleton'
 import { trpc } from '@/trpc/client'
 
 import AuthorsList from './components/AuthorsList'
@@ -30,14 +31,23 @@ const List: React.FC<ListProps> = ({ params, ...block }) => {
     }
 
     case 'tags': {
-      const { data: tags } = trpc.tag.getAllTags.useQuery()
-      return <TagsList tags={tags as GetAllBlogsWithCount[]} />
+      const { data: tags, isLoading } = trpc.tag.getAllTags.useQuery()
+      return isLoading ? (
+        <AllAuthorsTagsSkeleton />
+      ) : (
+        <TagsList tags={tags as GetAllBlogsWithCount[]} />
+      )
     }
 
     case 'users': {
-      const { data: authors } = trpc.author.getAllAuthorsWithCount.useQuery()
+      const { data: authors, isLoading } =
+        trpc.author.getAllAuthorsWithCount.useQuery()
 
-      return <AuthorsList authors={authors as AuthorsListProps[]} />
+      return isLoading ? (
+        <AllAuthorsTagsSkeleton />
+      ) : (
+        <AuthorsList authors={authors as AuthorsListProps[]} />
+      )
     }
   }
 }
