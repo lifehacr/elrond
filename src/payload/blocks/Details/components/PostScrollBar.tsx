@@ -40,13 +40,6 @@ const PostScrollBar = ({ blog }: { blog: Blog }) => {
     }
   }, [])
 
-  console.log(
-    'env variable:\n\n\n\n\n:',
-    env.NEXT_PUBLIC_PUBLIC_URL,
-    '\n\npathname:',
-    pathName,
-  )
-
   function copyText(pathName: string) {
     navigator.clipboard
       .writeText(`${env.NEXT_PUBLIC_PUBLIC_URL}${pathName}`)
