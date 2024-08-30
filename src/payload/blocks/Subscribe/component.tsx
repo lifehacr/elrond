@@ -57,7 +57,7 @@ const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
           {data?.footer?.copyright}
         </div>
       </div>
-      <div className='m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>
+      <div className='relative m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>
         <Image
           src={(block?.image as Media)?.url!}
           className='h-full w-full object-cover'
