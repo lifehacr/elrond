@@ -17,13 +17,14 @@ import LockIcon from '@/svg/LockIcon'
 import MenuIcon from '@/svg/MenuIcon'
 import SearchIcon from '@/svg/SearchIcon'
 import { trpc } from '@/trpc/client'
+import { signOut } from '@/utils/signOut'
 
 const Header = ({ initData }: { initData: SiteSetting }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [searchInput, setSearchInput] = useState<string>('')
-  const { data } = trpc.user.getUser.useQuery()
+  const { data: user } = trpc.user.getUser.useQuery()
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -50,6 +51,9 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
 
   const handleSignPage = () => {
     router.push('/sign-in')
+  }
+  const handleLogOut = () => {
+    signOut()
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,10 +196,10 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
             className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
             <SearchIcon />
           </Button>
-          {data?.username ? (
+          {user ? (
             <Button
               className='h-[34px] !rounded-full bg-primary font-medium text-white'
-              onClick={handleSignPage}>
+              onClick={handleLogOut}>
               <span className='hidden text-inherit sm:inline'>✦</span>
               <span className='sm:inline'> logout</span>
             </Button>
