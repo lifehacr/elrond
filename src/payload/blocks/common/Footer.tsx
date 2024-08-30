@@ -53,14 +53,14 @@ const Footer = ({ initData }: { initData: SiteSetting }) => {
                               <Link
                                 target={`${link?.newPage ? '_blank' : '_self'}`}
                                 key={index}
-                                href={link?.link!}>
+                                href={`/${link?.link!}`}>
                                 {link?.label}
                               </Link>
                             ) : (
                               <Link
                                 key={index}
                                 target={`${link?.newPage ? '_blank' : '_self'}`}
-                                href={(link?.page?.value as Page)?.slug!}>
+                                href={`/${(link?.page?.value as Page)?.slug!}`}>
                                 {(link?.page?.value as Page)?.title}
                               </Link>
                             ),
@@ -68,15 +68,14 @@ const Footer = ({ initData }: { initData: SiteSetting }) => {
                       ) : footerLink?.menuLink?.externalLink ? (
                         <Link
                           target={`${footerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                          href={footerLink?.menuLink?.link!}>
+                          href={`/${footerLink?.menuLink?.link!}`}>
                           {footerLink?.menuLink?.label}
                         </Link>
                       ) : (
                         <Link
                           target={`${footerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                          href={
-                            (footerLink?.menuLink?.page?.value as Page)?.slug!
-                          }>
+                          href={`/${(footerLink?.menuLink?.page?.value as Page)
+                            ?.slug!}`}>
                           {(footerLink?.menuLink?.page?.value as Page)?.title}
                         </Link>
                       )}
