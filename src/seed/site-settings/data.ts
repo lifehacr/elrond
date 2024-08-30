@@ -35,6 +35,21 @@ export const siteSettingsData: siteSettingsDataType = {
           page: { relationTo: 'pages', value: '' },
         },
       },
+
+      {
+        group: true,
+        menuLink: {
+          externalLink: false,
+        },
+        menuLinkGroup: {
+          groupTitle: 'more',
+          groupLinks: [
+            { externalLink: false, page: { relationTo: 'pages', value: '' } },
+            { externalLink: false, page: { relationTo: 'pages', value: '' } },
+            { externalLink: false, page: { relationTo: 'pages', value: '' } },
+          ],
+        },
+      },
     ],
   },
 

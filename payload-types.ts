@@ -346,16 +346,16 @@ export interface SubscribeType {
 export interface PricingType {
   pricingPlan?:
     | {
-        planIcon?: ('free' | 'gold' | 'goldPlus') | null;
+        planIcon: 'free' | 'gold' | 'goldPlus';
         planTitle: string;
         freeDuration?: string | null;
         planDescription: string;
         monthlyPlanPrice: number;
         yearlyPlanPrice: number;
         planBtnText: string;
-        planBenifits?:
+        planBenefits?:
           | {
-              benifit: string;
+              benefit: string;
               id?: string | null;
             }[]
           | null;

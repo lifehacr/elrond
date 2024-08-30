@@ -2,14 +2,14 @@
 
 import Container from '../common/Container'
 import { PricingType } from '@payload-types'
-import { useState } from 'react'
+import React, { JSX, useState } from 'react'
 
 import FreePlanIcon from '@/svg/FreePlanIcon'
 import GoldPlanIcon from '@/svg/GoldPlanIcon'
 import GoldPlusPlanIcon from '@/svg/GoldPlusPlanIcon'
 import ListItemTickIcon from '@/svg/ListItemTickIcon'
 
-const planIcons = {
+const PlanIcons: { [key: string]: JSX.Element } = {
   free: <FreePlanIcon />,
   gold: <GoldPlanIcon />,
   goldPlus: <GoldPlusPlanIcon />,
@@ -48,7 +48,7 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
               key={membershipPlan?.id}>
               <div className='flex flex-col gap-2'>
                 <div className='flex items-center justify-start gap-2.5'>
-                  {planIcons[membershipPlan?.planIcon || 'free']}
+                  {PlanIcons[membershipPlan?.planIcon || 'free']}
                   <div className='flex flex-col items-start justify-center gap-1.5'>
                     <div className='line-clamp-1 text-xl font-bold leading-none text-base-content'>
                       {membershipPlan?.planTitle}
@@ -82,11 +82,11 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
               </div>
               <div className='ml-0.5 mt-3'>
                 <ul className='flex flex-col gap-3 text-[15px] font-light text-[#3F3F46]'>
-                  {membershipPlan?.planBenifits?.map(planBenifit => {
+                  {membershipPlan?.planBenefits?.map(planBenefit => {
                     return (
-                      <li key={planBenifit?.id} className='flex gap-2.5'>
+                      <li key={planBenefit?.id} className='flex gap-2.5'>
                         <ListItemTickIcon />{' '}
-                        <span>{planBenifit?.benifit ?? 'Default Benefit'}</span>
+                        <span>{planBenefit?.benefit ?? 'Default Benefit'}</span>
                       </li>
                     )
                   })}

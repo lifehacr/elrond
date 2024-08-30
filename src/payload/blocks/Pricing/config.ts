@@ -65,14 +65,14 @@ const PricingConfig: Block = {
           required: true,
         },
         {
-          name: 'planBenifits',
-          label: 'Plan Benifits',
+          name: 'planBenefits',
+          label: 'Plan Benefits',
           type: 'array',
           minRows: 2,
           maxRows: 10,
           fields: [
             {
-              name: 'benifit',
+              name: 'benefit',
               type: 'text',
               required: true,
             },
