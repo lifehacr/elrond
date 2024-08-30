@@ -7,9 +7,13 @@ import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
+import { seedContactPage } from '@/seed/contact'
 import { seedFeaturePage } from '@/seed/features'
 import { seedHomePage } from '@/seed/home-page'
+import { seedMembershipPage } from '@/seed/membership'
+import { seedRecommendations } from '@/seed/recommendations'
 import { seedSiteSetting } from '@/seed/site-settings'
+import { seedSubscriptionPage } from '@/seed/subscription'
 import { seedTagDetailsPage } from '@/seed/tag-details-page'
 import { seedTags } from '@/seed/tags'
 import { seedTagsPage } from '@/seed/tags-page'
@@ -23,25 +27,43 @@ export const seedRouter = router({
       // Ensure that the seeding functions are called in the correct order.
       // The blogs seeding depends on tags and authors being seeded first.
       // Therefore, make sure to seed tags and authors before seeding blogs.
+
       console.log('seeding staretd...')
       await seedTagsPage()
       await seedTags() // Seed tags first
       await seedTagDetailsPage()
       console.log('seeding tags completed')
+
       await seedAuthors() // Then seed authors
       await seedAuthorsPage()
       await seedAuthorDetailsPage()
       console.log('seeding authors completed')
+
       await seedBlogs() // Finally, seed blogs, which depend on tags and authors
       await seedBlogDetailsPage()
       console.log('seeding blogs completed')
 
       await seedHomePage()
       console.log('seeding homepage completed')
+
       await seedFeaturePage()
       console.log('seeding feature completed')
+
+      await seedRecommendations()
+      console.log('seeding recommendations completed')
+
+      await seedContactPage()
+      console.log('seeding contact page completed')
+
+      await seedMembershipPage()
+      console.log('seeding membership page completed')
+
+      await seedSubscriptionPage()
+      console.log('seeding subscription page completed')
+
       await seedSiteSetting()
-      console.log('seeding site seeting completed')
+      console.log('seeding site setting completed')
+
       console.log('seeding completed!!')
       // await seedBlogsPage()
 

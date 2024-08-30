@@ -31,7 +31,7 @@ const seed = async (): Promise<SiteSetting> => {
       collection: 'pages',
       where: {
         slug: {
-          in: ['contact', 'subscribe', 'membership'],
+          in: ['contact', 'subscribe', 'membership', 'recommendations'],
         },
       },
     })

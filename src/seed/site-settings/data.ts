@@ -47,6 +47,7 @@ export const siteSettingsData: siteSettingsDataType = {
             { externalLink: false, page: { relationTo: 'pages', value: '' } },
             { externalLink: false, page: { relationTo: 'pages', value: '' } },
             { externalLink: false, page: { relationTo: 'pages', value: '' } },
+            { externalLink: false, page: { relationTo: 'pages', value: '' } },
           ],
         },
       },
