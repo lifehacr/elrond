@@ -20,6 +20,7 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       const {
         data: blog,
         isPending: isBlogPending,
+        isLoading,
         isError: isBlogError,
       } = trpc.blog.getBlogBySlug.useQuery({
         slug: params?.route.at(-1),
@@ -28,7 +29,13 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       if ((!blog && !isBlogPending) || isBlogError) {
         return <PageNotFound />
       }
-      return <BlogDetails blog={blog as Blog} blogsData={blogs as Blog[]} />
+      return (
+        <BlogDetails
+          blog={blog as Blog}
+          blogsData={blogs as Blog[]}
+          isLoading={isLoading}
+        />
+      )
     }
 
     case 'tags': {
