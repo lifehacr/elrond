@@ -6,8 +6,8 @@ import DropDown from '../common/DropDown'
 import { Media, Page, SiteSetting } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { IoSearch } from 'react-icons/io5'
 import { toast } from 'sonner'
@@ -17,13 +17,30 @@ import LockIcon from '@/svg/LockIcon'
 import MenuIcon from '@/svg/MenuIcon'
 import SearchIcon from '@/svg/SearchIcon'
 import { trpc } from '@/trpc/client'
+import { signOut } from '@/utils/signOut'
 
 const Header = ({ initData }: { initData: SiteSetting }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [searchInput, setSearchInput] = useState<string>('')
-  const pathName = usePathname()
-  const { data } = trpc.user.getUser.useQuery()
+  const { data: user } = trpc.user.getUser.useQuery()
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isMenuOpen])
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   const { mutate: getBlogsBySearch, data: searchResult } =
     trpc.search.getBlogsBySearch.useMutation({
@@ -34,6 +51,9 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
 
   const handleSignPage = () => {
     router.push('/sign-in')
+  }
+  const handleLogOut = () => {
+    signOut()
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,10 +196,10 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
             className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
             <SearchIcon />
           </Button>
-          {data?.username ? (
+          {user ? (
             <Button
               className='h-[34px] !rounded-full bg-primary font-medium text-white'
-              onClick={handleSignPage}>
+              onClick={handleLogOut}>
               <span className='hidden text-inherit sm:inline'>✦</span>
               <span className='sm:inline'> logout</span>
             </Button>
@@ -192,11 +212,68 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
               <LockIcon className='inline sm:hidden' />
             </Button>
           )}
-          <Button className='h-[34px] w-[34px] !rounded-full p-0 lg:hidden'>
+          <Button
+            onClick={toggleMenu}
+            className='h-[34px] w-[34px] !rounded-full p-0 lg:hidden'>
             <MenuIcon />
           </Button>
         </div>
       </Container>
+      {isMenuOpen && (
+        <div className='fixed inset-0 z-50 flex flex-col bg-white'>
+          <div className='flex h-20 w-full items-center justify-between px-4 py-4'>
+            <Link href={'/'} className='relative h-5 w-24'>
+              <Image alt='' src={(initData?.logoImage as Media)?.url!} fill />
+            </Link>
+            <div className='flex gap-x-3'>
+              <Button
+                onClick={() => setOpen(true)}
+                className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
+                <SearchIcon />
+              </Button>
+              <Button
+                className='h-[34px] !rounded-full bg-primary font-medium text-white hover:bg-[#805AE9]'
+                onClick={handleSignPage}>
+                <span className='hidden text-inherit sm:inline'>✦</span>
+                <span className='hidden sm:inline'> Sign in</span>
+                <LockIcon className='inline sm:hidden' />
+              </Button>
+              <Button
+                className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 p-0'
+                onClick={toggleMenu}>
+                <MenuIcon />
+              </Button>
+            </div>
+          </div>
+          <ul className='flex flex-col items-center justify-center gap-4 text-lg'>
+            {initData?.header?.menuLinks?.map((headerLink, index) => (
+              <ul
+                key={index}
+                className='flex items-center gap-6 text-base font-[450] text-[#3F3F46]'>
+                {headerLink?.group ? (
+                  <DropDown headerLink={headerLink} />
+                ) : headerLink?.menuLink?.externalLink ? (
+                  <Link
+                    onClick={toggleMenu}
+                    target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
+                    href={headerLink?.menuLink?.link!}>
+                    {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
+                  </Link>
+                ) : (
+                  <Link
+                    onClick={toggleMenu}
+                    target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
+                    href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
+                    {capitalizeFirstLetter(
+                      (headerLink?.menuLink?.page?.value as Page)?.title,
+                    )}
+                  </Link>
+                )}
+              </ul>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,19 +1,22 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Media } from '@payload-types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import KeyDownIcon from '@/components/svg/KeyDownIcon'
-import Logo from '@/components/svg/Logo'
 import SignInImage from '@/public/assets/sign-in.jpeg'
 import { trpc } from '@/trpc/client'
 import { SignInSchema } from '@/trpc/routers/auth/validator'
 
 const SignInForm: React.FC = () => {
+  const { data: siteSettingsData } =
+    trpc.siteSettings.getSiteSettings.useQuery()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof SignInSchema>>({
@@ -61,13 +64,19 @@ const SignInForm: React.FC = () => {
           </button>
         </div>
         <div>
-          <Logo className={'flex h-[20px] w-fit items-center justify-start'} />
+          {/* <Logo className={'flex h-[20px] w-fit items-center justify-start'} /> */}
+          <div className='relative h-5 w-20'>
+            <Image
+              src={(siteSettingsData?.logoImage as Media)?.url!}
+              alt='Logo'
+              fill
+            />
+          </div>
           <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
             Signin
           </div>
           <div className='mt-4 text-[1.5rem] font-semibold leading-8 text-base-content'>
-            A super minimal & lightweight theme with Premium Membership and
-            fully Ghost-compatible.
+            {siteSettingsData?.appDescription}
           </div>
           <form className='xs:mt-8 mt-6 pr-1' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-3.5'>
@@ -90,6 +99,14 @@ const SignInForm: React.FC = () => {
                 ✦ &nbsp;Sign in
               </button>
             </div>
+            <div className='mt-2 text-secondary-content'>
+              Forgot your password?{' '}
+              <Link
+                href={'/reset-password'}
+                className='underline hover:text-primary'>
+                Reset it.
+              </Link>
+            </div>
           </form>
           <div className='relative py-6'>
             <div className='absolute inset-0 flex items-center'>
@@ -109,7 +126,7 @@ const SignInForm: React.FC = () => {
           </button>
         </div>
         <div className='pb-4 text-center text-sm'>
-          © 2024 Elrond - Published with Ghost & Elrond
+          {siteSettingsData?.footer?.copyright}
         </div>
       </div>
       <div className='m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>

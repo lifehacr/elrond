@@ -32,7 +32,7 @@ const TagPosts = ({
         <div className='mx-2'>-</div>
         <div className='text-sm font-semibold text-secondary-content  '>
           {blogPosts?.length}
-          {blogPosts?.length === 1 ? 'POST' : 'POSTS'}
+          {blogPosts?.length === 1 ? ' POST' : ' POSTS'}
         </div>
       </div>
       <div className='space-y-14'>

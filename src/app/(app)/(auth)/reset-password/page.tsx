@@ -1,23 +1,22 @@
-import { NextPage } from 'next'
-import { redirect } from 'next/navigation'
-import { toast } from 'sonner'
+import { unstable_noStore as noStore } from 'next/cache'
 
-import { ResetPasswordView } from '@/components/auth/reset-password'
-import withNoAuth from '@/utils/withNoAuth'
+import GenerateResetTokenForm from '@/components/auth/forgot-password/GeneratedResetTokenForm'
+import ResetPasswordForm from '@/components/auth/reset-password/ResetPasswordForm'
 
-interface PageProps {
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+export default async function ResetPasswordPage({
+  searchParams,
+}: {
   searchParams: Record<string, string>
-}
-
-const ResetPasswordPage: NextPage<PageProps> = ({ searchParams }) => {
+}) {
+  noStore()
   const token = searchParams?.token || null
 
-  if (!token) {
-    toast.error('Reset password token is missing. Please try again.')
-    redirect('/sign-in')
-  }
-
-  return <ResetPasswordView token={token} />
+  return (
+    <div className='my-auto flex h-full justify-center'>
+      {token ? <ResetPasswordForm token={token} /> : <GenerateResetTokenForm />}
+    </div>
+  )
 }
-
-export default withNoAuth(ResetPasswordPage)
