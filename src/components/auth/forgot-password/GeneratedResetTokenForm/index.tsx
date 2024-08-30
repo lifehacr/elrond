@@ -99,6 +99,7 @@ const GenerateResetTokenForm: React.FC = () => {
                     type='email'
                     id='email'
                     name='email'
+                    className='text-one placeholder:text-four text-md focus: block w-full rounded-md border-0 bg-transparent px-3 py-1.5 leading-8 shadow-sm ring-1 ring-zinc-300 transition-shadow duration-300 focus:ring-2 focus:ring-primary focus-visible:outline-none'
                     placeholder='jon@gmail.com'
                   />
                 </LabelInputContainer>
@@ -106,7 +107,7 @@ const GenerateResetTokenForm: React.FC = () => {
               <button
                 type='submit'
                 disabled={isGeneratePasswordPending}
-                className='mt-3 inline-flex w-full items-center justify-center gap-2 rounded-rounded-btn border border-transparent bg-primary px-4 py-3 text-sm font-semibold text-base-content transition-all hover:bg-primary-focus  disabled:cursor-not-allowed disabled:bg-opacity-50 '>
+                className='rounded-rounded-btn hover:bg-primary-focus mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md border border-transparent bg-primary px-4 py-3 text-sm font-semibold text-white transition-all  disabled:cursor-not-allowed disabled:bg-opacity-50 '>
                 {isGeneratePasswordPending ? 'Sending...' : 'Send Reset Link'}
               </button>
             </div>
