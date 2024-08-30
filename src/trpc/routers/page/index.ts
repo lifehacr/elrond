@@ -29,6 +29,7 @@ export const pageRouter = router({
         const { docs: allPages } = await payload.find({
           collection: COLLECTION_SLUG_PAGE,
           depth: 3,
+          pagination: false,
         })
 
         if (!allPages?.length) {
