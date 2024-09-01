@@ -145,7 +145,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className='flex justify-end'>
               <button
                 type='submit'
-                className='w-full rounded-lg  bg-primary px-5 py-2.5 text-center text-sm font-medium text-base-content hover:bg-primary-focus focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
+                className='hover:bg-primary-focus w-full  rounded-full bg-primary px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#805AE9] focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
                 {isUpdateUserPending ? 'Updating...' : 'Update Profile'}
               </button>
             </div>
