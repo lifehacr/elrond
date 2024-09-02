@@ -19,6 +19,8 @@ import SearchIcon from '@/svg/SearchIcon'
 import { trpc } from '@/trpc/client'
 import { signOut } from '@/utils/signOut'
 
+import ProfileDropdown from './profileDropdown'
+
 const Header = ({ initData }: { initData: SiteSetting }) => {
   const pathName = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -200,12 +202,13 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
               <SearchIcon />
             </Button>
             {user ? (
-              <Button
-                className='h-[34px] !rounded-full bg-primary font-medium text-white'
-                onClick={handleLogOut}>
-                <span className='hidden text-inherit sm:inline'>✦</span>
-                <span className='sm:inline'> logout</span>
-              </Button>
+              // <Button
+              //   className='h-[34px] !rounded-full bg-primary font-medium text-white'
+              //   onClick={handleLogOut}>
+              //   <span className='hidden text-inherit sm:inline'>✦</span>
+              //   <span className='sm:inline'> logout</span>
+              // </Button>
+              <ProfileDropdown user={user} />
             ) : (
               <Button
                 className='h-[34px] !rounded-full bg-primary font-medium text-white'
