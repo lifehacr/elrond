@@ -14,6 +14,7 @@
     "buildCommand": "pnpm run build"
   },
   "deploy": {
-    "startCommand": "pnpm run start"
+    "startCommand": "pnpm run start",
+    "sleepApplication": true
   }
 }
