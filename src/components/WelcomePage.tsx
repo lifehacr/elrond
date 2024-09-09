@@ -36,8 +36,8 @@ const WelcomePage = () => {
             experience.
           </div>
         </div>
-        <div className='mx-auto flex items-start justify-center gap-8 md:w-2/3'>
-          <div className='flex h-fit w-2/3 flex-col justify-between rounded-md bg-amber-100 px-8 py-4 md:h-72 lg:h-56'>
+        <div className='mx-auto flex w-full flex-col items-center justify-center gap-8 md:w-2/3 md:flex-row'>
+          <div className='flex h-fit w-full flex-col justify-between rounded-md bg-amber-100 px-8 py-4 md:h-72 md:w-2/3 lg:h-56'>
             <div>
               <strong>Welcome to your new theme!</strong> To get started, head
               to the admin area to begin adding and managing your own content.
@@ -48,7 +48,7 @@ const WelcomePage = () => {
               Go to admin
             </Link>
           </div>
-          <div className='flex h-fit w-2/3 flex-col justify-between rounded-md bg-orange-100 px-8 py-4 md:h-72 lg:h-56'>
+          <div className='flex h-fit w-full flex-col justify-between rounded-md bg-orange-100 px-8 py-4 md:h-72 md:w-2/3 lg:h-56'>
             <div>
               Get a head start by loading demo content into your theme.{' '}
               <strong>Click the button below to see a sample setup.</strong>
