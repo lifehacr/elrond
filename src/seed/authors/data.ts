@@ -48,14 +48,6 @@ export const authorsData: AuthorDataType[] = [
     imageUrl: '',
     displayName: 'Patricia Miles',
   },
-  {
-    username: 'Admin',
-    email: 'admin@contentql.com',
-    password: 'Welcome@123',
-    role: 'admin',
-    imageUrl: '',
-    displayName: 'admin',
-  },
 ]
 
 export const authorImageData: AuthorImageType[] = [
@@ -78,9 +70,5 @@ export const authorImageData: AuthorImageType[] = [
   {
     alt: 'Authors Image 5',
     filePath: '/images/seed/authors/author-5.webp',
-  },
-  {
-    alt: 'admin',
-    filePath: '/images/seed/authors/author-6.webp',
   },
 ]
