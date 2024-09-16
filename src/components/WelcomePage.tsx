@@ -1,11 +1,12 @@
 'use client'
 
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import Container from '@/payload/blocks/common/Container'
 import { trpc } from '@/trpc/client'
 
 const WelcomePage = () => {
+  const router = useRouter()
   const { mutate: runSeedMutation, isPending: isSeedLoading } =
     trpc.seed.runSeed.useMutation({
       onSuccess: () => {
@@ -42,11 +43,12 @@ const WelcomePage = () => {
               <strong>Welcome to your new theme!</strong> To get started, head
               to the admin area to begin adding and managing your own content.
             </div>
-            <Link
-              href={'/admin'}
-              className='mt-6 rounded-md bg-primary px-4 py-2 text-center text-white'>
+            <button
+              onClick={() => router.push('/admin')}
+              disabled={isSeedLoading}
+              className='z-50 mt-6 rounded-md bg-primary px-4 py-2 text-center text-white'>
               Go to admin
-            </Link>
+            </button>
           </div>
           <div className='flex h-fit w-full flex-col justify-between rounded-md bg-orange-100 px-8 py-4 md:h-72 md:w-2/3 lg:h-56'>
             <div>
@@ -54,7 +56,7 @@ const WelcomePage = () => {
               <strong>Click the button below to see a sample setup.</strong>
             </div>
             <button
-              className='z-50 mt-6 cursor-pointer rounded-md bg-primary px-4 py-2 text-center text-white'
+              className='z-50 mt-6 rounded-md bg-primary px-4 py-2 text-center text-white'
               disabled={isSeedLoading}
               type='button'
               onClick={handleSeedData}>
