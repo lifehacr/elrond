@@ -88,8 +88,8 @@ const WelcomePage = () => {
               Are you sure you want to load demo data?
             </h2>
             <p className='mb-6 text-sm text-gray-500'>
-              It would take around 20 seconds. After that you'll be redirected
-              to homepage.
+              It would take around 20 seconds. After that you&apos;ll be
+              redirected to homepage.
             </p>
             <div className='flex gap-4'>
               <button
