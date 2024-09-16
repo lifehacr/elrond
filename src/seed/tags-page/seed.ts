@@ -30,7 +30,7 @@ const seed = async (): Promise<Page> => {
     }
     const result = await payload.create({
       collection: 'pages',
-      data: tagsPageData,
+      data: formattedTagsData,
     })
 
     return result
