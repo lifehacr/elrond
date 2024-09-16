@@ -20,6 +20,7 @@ const AuthorsList: React.FC<{ authors: AuthorsListProps[] }> = ({
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img alt='Post' src={author?.imageUrl!} />
                 </div>
               </div>
