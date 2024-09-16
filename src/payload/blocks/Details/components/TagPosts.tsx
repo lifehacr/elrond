@@ -64,7 +64,7 @@ const TagPosts = ({
                       <Link
                         key={index}
                         href={`/author/${(author?.value as User)?.username}`}>
-                        <Image
+                        <img
                           alt='Author'
                           src={(author?.value as User)?.imageUrl!}
                           height={26}

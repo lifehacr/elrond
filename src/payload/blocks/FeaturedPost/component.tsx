@@ -42,7 +42,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                   <Link
                     key={index}
                     href={`/author/${(author?.value as User)?.username}`}>
-                    <Image
+                    <img
                       alt='Author Image'
                       src={(author?.value as User)?.imageUrl!}
                       height={26}

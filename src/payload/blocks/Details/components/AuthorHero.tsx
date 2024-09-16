@@ -1,6 +1,5 @@
 import Button from '../../common/Button'
 import { User } from '@payload-types'
-import Image from 'next/image'
 
 import Globe from '@/svg/Globe'
 import Twitter from '@/svg/Twitter'
@@ -10,7 +9,7 @@ const AuthorHero = ({ author }: { author: User }) => {
     <div className='flex flex-col items-center bg-secondary pb-16 pt-14'>
       <div className='avatar'>
         <div className='relative w-24 rounded-full'>
-          <Image alt='Author' fill src={author?.imageUrl!} />
+          <img alt='Author' src={author?.imageUrl!} />
         </div>
       </div>
       <div className='mt-6 text-xl font-bold'>{author?.displayName}</div>

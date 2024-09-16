@@ -1,6 +1,5 @@
 import Container from '../../common/Container'
 import { User } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
 
 interface AuthorsListProps extends User {
@@ -21,7 +20,7 @@ const AuthorsList: React.FC<{ authors: AuthorsListProps[] }> = ({
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
-                  <Image alt='Post' src={author?.imageUrl!} fill />
+                  <img alt='Post' src={author?.imageUrl!} />
                 </div>
               </div>
               <div className='text-base font-semibold sm:text-lg'>
