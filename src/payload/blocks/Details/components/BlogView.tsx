@@ -40,11 +40,10 @@ const BlogView = ({ blog }: { blog: Blog }) => {
                 key={index}
                 href={`/author/${(author?.value as User)?.username}`}
                 className='relative h-8 w-8'>
-                <Image
+                <img
                   alt='Author'
                   src={(author?.value as User)?.imageUrl!}
                   className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
-                  fill
                 />
               </Link>
             ))}
