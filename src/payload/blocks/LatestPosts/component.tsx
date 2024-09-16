@@ -74,6 +74,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                             <Link
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 alt='Author'
                                 src={(author?.value as User)?.imageUrl!}

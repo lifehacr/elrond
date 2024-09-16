@@ -9,6 +9,7 @@ const AuthorHero = ({ author }: { author: User }) => {
     <div className='flex flex-col items-center bg-secondary pb-16 pt-14'>
       <div className='avatar'>
         <div className='relative w-24 rounded-full'>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img alt='Author' src={author?.imageUrl!} />
         </div>
       </div>
