@@ -114,7 +114,7 @@ const WelcomePage = () => {
               Loading Demo Data
             </h2>
             <p className='text-sm text-gray-500'>
-              After that you&apos;ll be redirected to homepage. Please do not
+              Once done you&apos;ll be redirected to homepage. Please do not
               exit this page.
             </p>
           </div>
