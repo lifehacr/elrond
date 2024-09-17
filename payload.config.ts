@@ -13,6 +13,7 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { Blogs } from '@/payload/collections/Blogs'
+import { Contacts } from '@/payload/collections/Contact'
 import { Media } from '@/payload/collections/Media'
 import { Pages } from '@/payload/collections/Pages'
 import { Tags } from '@/payload/collections/Tags'
@@ -77,7 +78,7 @@ export default buildConfig({
   },
   cors: [env.PAYLOAD_URL],
   csrf: [env.PAYLOAD_URL],
-  collections: [Users, Media, Tags, Blogs, Pages],
+  collections: [Users, Media, Tags, Blogs, Pages, Contacts],
   globals: [siteSettings],
   plugins: [
     nestedDocsPlugin({

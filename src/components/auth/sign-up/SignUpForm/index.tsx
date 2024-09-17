@@ -1,14 +1,16 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Media } from '@payload-types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import slugify from 'slugify'
 import { toast } from 'sonner'
 
+import LogoSkeleton from '@/components/skeletons/LogoSkeleton'
 import KeyDownIcon from '@/components/svg/KeyDownIcon'
-import Logo from '@/components/svg/Logo'
 import SignInImage from '@/public/assets/sign-in.jpeg'
 import { trpc } from '@/trpc/client'
 
@@ -16,6 +18,9 @@ import { SignUpFormData, SignUpFormSchema } from './validator'
 
 const SignUpForm: React.FC = () => {
   const router = useRouter()
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const { data: siteSettingsData } =
+    trpc.siteSettings.getSiteSettings.useQuery()
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(SignUpFormSchema),
@@ -80,7 +85,17 @@ const SignUpForm: React.FC = () => {
           </button>
         </div>
         <div>
-          <Logo className={'flex h-[20px] w-fit items-center'} />
+          <div className='relative h-5 w-20'>
+            {!imageLoaded && <LogoSkeleton />}
+            {(siteSettingsData?.logoImage as Media)?.url && (
+              <Image
+                src={(siteSettingsData?.logoImage as Media)?.url!}
+                alt='Logo'
+                fill
+                onLoad={() => setImageLoaded(true)}
+              />
+            )}
+          </div>
           <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
             Signup
           </div>

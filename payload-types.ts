@@ -16,6 +16,7 @@ export interface Config {
     tags: Tag;
     blogs: Blog;
     pages: Page;
+    contacts: Contact;
     search: Search;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -383,6 +384,19 @@ export interface FAQType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'FAQ';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: string;
+  name: string;
+  email?: string | null;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
