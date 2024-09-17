@@ -5,16 +5,19 @@ import { Media } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import LogoSkeleton from '@/components/skeletons/LogoSkeleton'
 import KeyDownIcon from '@/components/svg/KeyDownIcon'
 import SignInImage from '@/public/assets/sign-in.jpeg'
 import { trpc } from '@/trpc/client'
 import { SignInSchema } from '@/trpc/routers/auth/validator'
 
 const SignInForm: React.FC = () => {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const { data: siteSettingsData } =
     trpc.siteSettings.getSiteSettings.useQuery()
   const router = useRouter()
@@ -66,11 +69,15 @@ const SignInForm: React.FC = () => {
         <div>
           {/* <Logo className={'flex h-[20px] w-fit items-center justify-start'} /> */}
           <div className='relative h-5 w-20'>
-            <Image
-              src={(siteSettingsData?.logoImage as Media)?.url!}
-              alt='Logo'
-              fill
-            />
+            {!imageLoaded && <LogoSkeleton />}
+            {(siteSettingsData?.logoImage as Media)?.url && (
+              <Image
+                src={(siteSettingsData?.logoImage as Media)?.url!}
+                alt='Logo'
+                fill
+                onLoad={() => setImageLoaded(true)}
+              />
+            )}
           </div>
           <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
             Signin
