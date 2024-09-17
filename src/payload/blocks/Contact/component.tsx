@@ -3,12 +3,14 @@
 import { ContactType, Media } from '@payload-types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 
+import LogoSkeleton from '@/components/skeletons/LogoSkeleton'
 import KeyDownIcon from '@/components/svg/KeyDownIcon'
 import { trpc } from '@/trpc/client'
 
 const Contact: React.FC<ContactType> = ({ ...block }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const router = useRouter()
   const { data } = trpc.siteSettings.getSiteSettings.useQuery()
   return (
@@ -24,7 +26,15 @@ const Contact: React.FC<ContactType> = ({ ...block }) => {
         </div>
         <div>
           <div className='relative h-5 w-24'>
-            <Image alt='' src={(data?.logoImage as Media)?.url!} fill />
+            {!imageLoaded && <LogoSkeleton />}
+            {(data?.logoImage as Media)?.url && (
+              <Image
+                onLoad={() => setImageLoaded(true)}
+                alt=''
+                src={(data?.logoImage as Media)?.url!}
+                fill
+              />
+            )}
           </div>
           <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
             {block?.title}

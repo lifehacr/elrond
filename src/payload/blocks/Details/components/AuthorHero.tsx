@@ -1,16 +1,25 @@
 import Button from '../../common/Button'
 import { User } from '@payload-types'
+import { useState } from 'react'
 
+import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
 import Globe from '@/svg/Globe'
 import Twitter from '@/svg/Twitter'
 
 const AuthorHero = ({ author }: { author: User }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   return (
-    <div className='flex flex-col items-center bg-secondary pb-16 pt-14'>
+    <div className='flex flex-col items-center bg-base-100 pb-16 pt-14'>
       <div className='avatar'>
         <div className='relative w-24 rounded-full'>
+          {!imageLoaded && <HeroImageSkeleton />}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt='Author' src={author?.imageUrl!} />
+          <img
+            onLoad={() => setImageLoaded(true)}
+            alt='Author'
+            src={author?.imageUrl!}
+          />
         </div>
       </div>
       <div className='mt-6 text-xl font-bold'>{author?.displayName}</div>
