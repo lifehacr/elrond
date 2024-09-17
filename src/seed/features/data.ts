@@ -27,7 +27,7 @@ export const featurePageData: RequiredDataFromCollectionSlug<'pages'> = {
           title: 'General features',
           points: [
             { point: 'Light, Dark and Auto version' },
-            { point: 'Ready for Ghost 5.x' },
+            { point: 'Ready for ContentQL' },
             { point: 'Fast, lightweight, clean, and minimal. All-in-one' },
             { point: 'Developed with TailwindCSS and Vanilla JS' },
             { point: 'No unnecessary CSS and JavaScript' },
@@ -40,7 +40,7 @@ export const featurePageData: RequiredDataFromCollectionSlug<'pages'> = {
           ],
         },
         {
-          title: 'Supported Inbuilt Ghost features',
+          title: 'Supported Inbuilt ContentQL features',
           points: [
             { point: 'Translation Ready' },
             { point: 'Membership tiers' },

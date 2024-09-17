@@ -16,26 +16,33 @@ const PlanIcons: { [key: string]: JSX.Element } = {
 }
 
 const Pricing: React.FC<PricingType> = ({ ...block }) => {
-  const [isMonthly, setIsMonthly] = useState<boolean>(true)
+  const [monthly, setMonthly] = useState<boolean>(true)
+  const [yearly, setYearly] = useState<boolean>(true)
 
-  const toggleSwitch = () => {
-    setIsMonthly(!isMonthly)
+  const handleMonthly = () => {
+    setMonthly(true)
+    setYearly(false)
+  }
+
+  const handleYearly = () => {
+    setMonthly(false)
+    setYearly(true)
   }
 
   return (
     <div className='xs:px-6 mx-auto my-16 w-full px-4 md:w-full md:max-w-screen-lg'>
       <div className='mx-auto mb-9 flex w-48 items-center space-x-1 rounded-full bg-gray-100 p-1.5'>
         <button
-          onClick={toggleSwitch}
+          onClick={handleMonthly}
           className={`${
-            isMonthly ? 'bg-white shadow' : 'bg-transparent'
+            monthly ? 'bg-white shadow' : 'bg-transparent'
           } w-24 rounded-full px-4 py-3 text-sm text-gray-600 focus:outline-none`}>
           Monthly
         </button>
         <button
-          onClick={toggleSwitch}
+          onClick={handleYearly}
           className={`${
-            !isMonthly ? 'bg-white shadow' : 'bg-transparent'
+            yearly ? 'bg-white shadow' : 'bg-transparent'
           } w-24 rounded-full px-4 py-3 text-sm text-gray-600 focus:outline-none`}>
           Yearly
         </button>
@@ -62,14 +69,14 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
                   {membershipPlan?.planDescription}
                 </div>
                 <div className='my-3 flex flex-row items-center justify-start gap-2 text-3xl font-bold'>
-                  {isMonthly
+                  {monthly
                     ? membershipPlan?.monthlyPlanPrice
                     : membershipPlan?.yearlyPlanPrice}{' '}
                   <span className='text-sm font-normal text-neutral-content'>
                     {membershipPlan?.monthlyPlanPrice === 0 &&
                     membershipPlan?.yearlyPlanPrice === 0
                       ? '/ forever'
-                      : isMonthly
+                      : monthly
                         ? '/ monthly'
                         : '/ yearly'}
                   </span>

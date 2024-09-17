@@ -34,7 +34,6 @@ export const membershipPageData: RequiredDataFromCollectionSlug<'pages'> = {
             'Access essential content for free. Start your journey today!',
           planIcon: 'free',
           yearlyPlanPrice: 0,
-          freeDuration: 'forever',
           planBenefits: [
             { benefit: 'Access to free content' },
             { benefit: 'Limited-time free resources' },
