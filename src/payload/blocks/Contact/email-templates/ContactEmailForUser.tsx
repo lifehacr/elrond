@@ -28,10 +28,10 @@ export const ContactEmailForUser = ({
     <Body style={main}>
       <Container style={container}>
         <Img
-          src={`${baseUrl}/pubic/favicon.ico`}
+          src={`${baseUrl}/favicon.ico`}
           width='50'
           height='50'
-          alt='Koala'
+          alt='Logo'
           style={logo}
         />
         <Text style={paragraph}>Hi {userName},</Text>
@@ -39,7 +39,7 @@ export const ContactEmailForUser = ({
           I would like to inform you that your contact details have been
           successfully submitted.
         </Text>
-        <Section>
+        <Section style={btnContainer}>
           <Button style={button} href={`${baseUrl}`}>
             ✦ &nbsp;Back To Site
           </Button>
@@ -91,16 +91,16 @@ const logo = {
 }
 
 const button = {
-  height: '40px',
-  maxHeight: '40px',
-  width: '100%',
+  backgroundColor: '#7248E6',
   borderRadius: '8px',
-  backgroundColor: '#5F51E8',
-  fontSize: '14px',
-  fontWeight: '500',
   color: '#fff',
+  fontSize: '16px',
+  textDecoration: 'none',
   textAlign: 'center' as const,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  display: 'block',
+  padding: '12px',
+}
+
+const btnContainer = {
+  textAlign: 'center' as const,
 }
