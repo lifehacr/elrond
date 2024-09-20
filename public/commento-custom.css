@@ -1,6 +1,6 @@
-.commento-submit-button {
+.commento-root .commento-submit-button {
   background-color: #7248e6;
 }
-.commento-button {
+.commento-root .commento-button {
   border-radius: 10px;
 }
