@@ -1,39 +1,19 @@
 import { useEffect } from 'react'
 
-// Extend the window object to include Commento
-declare global {
-  interface Window {
-    Commento: {
-      start: (config: { id: string; site_id: string }) => void
-    }
-  }
-}
-
 const Commento = () => {
   useEffect(() => {
-    // Ensure the script is added to the DOM only once
-    const script = document.createElement('script')
-    script.src = 'https://cdn.commento.io/js/commento.js'
-    script.defer = true
-    document.body.appendChild(script)
-
-    script.onload = () => {
-      // Check if the Commento script has loaded before calling start
-      if (window.Commento) {
-        window.Commento.start({
-          id: 'commento',
-          site_id: 'https://prod-emerald-test-production.up.railway.app/',
-        })
-      }
+    // Check if Commento script is already loaded to avoid re-loading it
+    if (!document.getElementById('commento-script')) {
+      const script = document.createElement('script')
+      script.src = 'https://cdn.commento.io/js/commento.js'
+      script.defer = true
+      script.setAttribute('data-css-override', '/commento-custom.css')
+      script.id = 'commento-script' // Give the script an ID to avoid duplication
+      document.body.appendChild(script)
     }
+  }, []) // Only run this once when the component mounts
 
-    return () => {
-      // Clean up script if needed on unmount
-      document.body.removeChild(script)
-    }
-  }, [])
-
-  return <div id='commento'></div>
+  return <div id='commento'></div> // This is where the Commento widget will render
 }
 
 export default Commento
