@@ -133,7 +133,11 @@ const SignUpForm: React.FC = () => {
                 type='submit'
                 disabled={isSignUpPending}
                 className='h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9]'>
-                ✦ &nbsp;Sign up
+                {isSignUpPending ? (
+                  <span> ✦ &nbsp;Signing up...</span>
+                ) : (
+                  <span>✦ &nbsp;Sign up</span>
+                )}
               </button>
             </div>
           </form>

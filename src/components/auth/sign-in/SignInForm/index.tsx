@@ -103,7 +103,11 @@ const SignInForm: React.FC = () => {
                 type='submit'
                 disabled={isSignInPending}
                 className='h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9]'>
-                ✦ &nbsp;Sign in
+                {isSignInPending ? (
+                  <span>✦ &nbsp;Signing in...</span>
+                ) : (
+                  <span>✦ &nbsp;Sign in</span>
+                )}
               </button>
             </div>
             <div className='mt-2 text-secondary-content'>
