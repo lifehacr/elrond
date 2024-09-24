@@ -12,6 +12,11 @@ import { IoMdClose } from 'react-icons/io'
 import { IoSearch } from 'react-icons/io5'
 import { toast } from 'sonner'
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 import Modal from '@/components/common/Modal'
 import LockIcon from '@/svg/LockIcon'
 import MenuIcon from '@/svg/MenuIcon'
@@ -160,8 +165,14 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
           </div>
         </Modal>
         <Container className='z-50 flex h-20 items-center justify-between bg-base-100 px-4 xl:px-0'>
-          <Link href={'/'} className='relative h-5 w-24'>
-            <Image alt='' src={(initData?.logoImage as Media)?.url!} fill />
+          <Link href={'/'}>
+            <Avatar className=' h-5 w-24'>
+              <AvatarImage
+                alt='Logo'
+                src={(initData?.logoImage as Media)?.url!}
+              />
+              <AvatarFallback />
+            </Avatar>
           </Link>
           <nav className='mx-auto hidden h-full select-none items-center justify-center lg:flex'>
             <ul className='flex items-center gap-6 text-base font-[450] text-[#3F3F46]'>
