@@ -101,7 +101,7 @@ const SignUpForm: React.FC = () => {
           </div>
           <div className='mt-4 text-[1.5rem] font-semibold leading-8 text-base-content'>
             A super minimal & lightweight theme with Premium Membership and
-            fully Ghost-compatible.
+            fully PayloadCMS compatible.
           </div>
           <form className='xs:mt-8 mt-6 pr-1' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-3.5'>
@@ -155,7 +155,7 @@ const SignUpForm: React.FC = () => {
           </button>
         </div>
         <div className='pb-4 text-center text-sm'>
-          © 2024 Elrond - Published with Ghost & Elrond
+          © 2024 Elrond - Published with PayloadCMS & Elrond
         </div>
       </div>
       <div className='m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>

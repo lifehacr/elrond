@@ -17,7 +17,7 @@ export const homePageData: HomePageDataType = {
       blockType: 'Hero',
 
       description:
-        'A super minimal & lightweight theme with Premium Membership and fully Ghost-compatible.',
+        'A super minimal & lightweight theme with Premium Membership and fully PayloadCMS-compatible.',
       image: '',
     },
     {
