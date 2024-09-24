@@ -17,7 +17,6 @@ import LockIcon from '@/svg/LockIcon'
 import MenuIcon from '@/svg/MenuIcon'
 import SearchIcon from '@/svg/SearchIcon'
 import { trpc } from '@/trpc/client'
-import { signOut } from '@/utils/signOut'
 
 import ProfileDropdown from './profileDropdown'
 
@@ -54,9 +53,6 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
 
   const handleSignPage = () => {
     router.push('/sign-in')
-  }
-  const handleLogOut = () => {
-    signOut()
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
