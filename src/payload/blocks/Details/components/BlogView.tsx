@@ -1,6 +1,5 @@
 'use client'
 
-import Commento from '../../common/Commento'
 import { Blog, Media, User } from '@payload-types'
 import { slateToHtml } from '@slate-serializers/html'
 import DOMPurify from 'isomorphic-dompurify'
@@ -75,7 +74,6 @@ const BlogView = ({ blog }: { blog: Blog }) => {
         className='prose'
         dangerouslySetInnerHTML={{ __html: sanitizeHtml }}
       />
-      <Commento />
     </div>
   )
 }
