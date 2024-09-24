@@ -1,14 +1,19 @@
+'use client'
+
 import Container from '../common/Container'
 import { FeaturedPostType, Media, Tag, User } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 import FeaturedPostSkeleton from '@/components/skeletons/FeaturedPostSkeleton'
+import PostsAuthorSkeleton from '@/components/skeletons/PostsAuthorSkeleton'
 import { trpc } from '@/trpc/client'
 
 const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
   const { data, isLoading } = trpc.blog.getAllBlogs.useQuery()
   const featuredPost = data?.at(0)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   return isLoading ? (
     <FeaturedPostSkeleton />
@@ -42,14 +47,18 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                   <Link
                     key={index}
                     href={`/author/${(author?.value as User)?.username}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt='Author Image'
-                      src={(author?.value as User)?.imageUrl!}
-                      height={26}
-                      width={26}
-                      className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
-                    />
+                    {!imageLoaded && <PostsAuthorSkeleton />}
+                    {(author?.value as User)?.imageUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        alt='Author Image'
+                        src={(author?.value as User)?.imageUrl!}
+                        height={26}
+                        width={26}
+                        onLoad={() => setImageLoaded(true)}
+                        className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
+                      />
+                    )}
                   </Link>
                 ))}
               </div>
