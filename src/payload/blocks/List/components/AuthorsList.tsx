@@ -2,6 +2,12 @@ import Container from '../../common/Container'
 import { User } from '@payload-types'
 import Link from 'next/link'
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
+
 interface AuthorsListProps extends User {
   totalDocs: number
 }
@@ -20,8 +26,10 @@ const AuthorsList: React.FC<{ authors: AuthorsListProps[] }> = ({
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt='Post' src={author?.imageUrl!} />
+                  <Avatar className='h-full w-full'>
+                    <AvatarImage alt='Post' src={author?.imageUrl!} />
+                    <AvatarFallback />
+                  </Avatar>
                 </div>
               </div>
               <div className='text-base font-semibold sm:text-lg'>

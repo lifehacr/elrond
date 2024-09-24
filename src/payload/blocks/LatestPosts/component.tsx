@@ -3,11 +3,15 @@
 import Button from '../common/Button'
 import Container from '../common/Container'
 import { LatestPostsType, Media, Tag, User } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 import BlogPostsSkeleton from '@/components/skeletons/BlogPostsSkeleton'
 import LatestTagsSkeleton from '@/components/skeletons/LatestTagsSkeleton'
 import { trpc } from '@/trpc/client'
@@ -45,16 +49,15 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                   key={index}
                   className='flex w-full flex-col items-start gap-6 sm:flex-row'>
                   <div className='avatar w-full md:w-auto'>
-                    <div className='relative h-60 w-full md:h-28 md:w-28'>
-                      <Link href={`/${blog?.slug}`}>
-                        <Image
+                    <Link href={`/${blog?.slug}`} className='w-full'>
+                      <Avatar className='h-60 w-full rounded-xl md:h-28 md:w-28 md:rounded-full'>
+                        <AvatarImage
                           src={(blog?.blogImage as Media)?.url!}
                           alt={(blog?.blogImage as Media)?.url! || 'Blog'}
-                          fill
-                          className='rounded-xl md:rounded-full'
                         />
-                      </Link>
-                    </div>
+                        <AvatarFallback />
+                      </Avatar>
+                    </Link>
                   </div>
                   <div className='flex flex-col gap-3 sm:mt-1'>
                     <div className='flex flex-col gap-2'>
@@ -74,14 +77,14 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                             <Link
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                alt='Author'
-                                src={(author?.value as User)?.imageUrl!}
-                                height={24}
-                                width={24}
-                                className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
-                              />
+                              <Avatar className='h-6 w-6'>
+                                <AvatarImage
+                                  alt='Author'
+                                  src={(author?.value as User)?.imageUrl!}
+                                  className='border-2 border-white transition-transform duration-300 hover:scale-110'
+                                />
+                                <AvatarFallback />
+                              </Avatar>
                             </Link>
                           ))}
                         </div>
@@ -161,13 +164,13 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                     href={`/tag/${tag?.slug}`}
                     key={index}
                     className='flex w-fit select-none flex-row items-center justify-start gap-3.5 rounded-xl p-2 transition-all duration-300 ease-in-out hover:bg-secondary'>
-                    <Image
-                      src={(tag?.tagImage as Media)?.url!}
-                      alt={(tag?.tagImage as Media)?.url! || 'Tag Image'}
-                      height={32}
-                      width={32}
-                      className='rounded-full'
-                    />
+                    <Avatar className='h-8 w-8'>
+                      <AvatarImage
+                        src={(tag?.tagImage as Media)?.url!}
+                        alt={(tag?.tagImage as Media)?.url! || 'Tag Image'}
+                      />
+                      <AvatarFallback />
+                    </Avatar>
                     <span className='font-semibold text-base-content'>
                       {tag?.title}
                     </span>
