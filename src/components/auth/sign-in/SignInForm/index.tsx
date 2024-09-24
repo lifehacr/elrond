@@ -42,10 +42,11 @@ const SignInForm: React.FC = () => {
     trpc.auth.signIn.useMutation({
       onSuccess: () => {
         router.push('/profile')
-        toast.success('logged in...')
+        toast.success('Redirecting you to profile page.')
       },
       onError: () => {
         reset()
+        toast.error('Unable to sign in, please try again.')
       },
     })
 
@@ -102,7 +103,7 @@ const SignInForm: React.FC = () => {
               <button
                 type='submit'
                 disabled={isSignInPending}
-                className='h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9]'>
+                className={`h-10 max-h-10 min-h-[40px] w-full rounded-md bg-primary text-[14px] font-medium text-white hover:bg-[#805AE9] ${isSignInPending && 'cursor-not-allowed '}`}>
                 {isSignInPending ? (
                   <span>✦ &nbsp;Signing in...</span>
                 ) : (

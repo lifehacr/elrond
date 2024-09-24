@@ -32,7 +32,7 @@ const SidebarView = () => {
         <Button
           onClick={handleClick}
           className='h-[34px] !rounded-full bg-primary font-medium text-white hover:bg-[#805AE9]'>
-          <span className='hidden sm:inline'> Account Settings</span>
+          <span className='hidden sm:inline'>Account Preferences</span>
         </Button>
       </div>
     </aside>
