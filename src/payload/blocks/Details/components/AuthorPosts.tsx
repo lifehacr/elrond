@@ -1,6 +1,11 @@
 import { Blog, Media, Tag, User } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 
 const AuthorPosts = ({
   blogsData,
@@ -23,12 +28,14 @@ const AuthorPosts = ({
           <div key={index} className='flex flex-col gap-7 md:flex-row'>
             <div className='avatar'>
               <div className='relative h-60 w-full rounded-xl md:h-28 md:w-28 md:rounded-full'>
-                <Link href={`/${post?.slug}`}>
-                  <Image
-                    fill
-                    src={(post?.blogImage as Media)?.url!}
-                    alt='BlogPost'
-                  />
+                <Link href={`/${post?.slug}`} className='h-full w-full'>
+                  <Avatar className='h-full w-full'>
+                    <AvatarImage
+                      src={(post?.blogImage as Media)?.url!}
+                      alt='BlogPost'
+                    />
+                    <AvatarFallback />
+                  </Avatar>
                 </Link>
               </div>
             </div>

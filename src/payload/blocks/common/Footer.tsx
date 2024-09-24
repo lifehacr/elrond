@@ -2,10 +2,14 @@
 
 import Container from '../common/Container'
 import { Media, Page, SiteSetting } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 import Facebook from '@/svg/Facebook'
 import Github from '@/svg/Github'
 import Twitter from '@/svg/Twitter'
@@ -26,11 +30,13 @@ const Footer = ({ initData }: { initData: SiteSetting }) => {
           <div className='flex flex-col justify-between gap-6 py-8 sm:py-12 md:flex-row md:gap-5'>
             <div className='flex flex-col justify-start gap-5'>
               <Link href={'/'} className='relative h-6 w-28'>
-                <Image
-                  alt={(initData?.logoImage as Media)?.alt || 'Logo'}
-                  src={(initData?.logoImage as Media)?.url!}
-                  fill
-                />
+                <Avatar className='h-full w-full'>
+                  <AvatarImage
+                    alt={(initData?.logoImage as Media)?.alt || 'Logo'}
+                    src={(initData?.logoImage as Media)?.url!}
+                  />
+                  <AvatarFallback />
+                </Avatar>
               </Link>
               <p className='text-lg font-normal leading-normal md:max-w-xs'>
                 {initData?.appDescription}

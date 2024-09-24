@@ -1,7 +1,12 @@
 import Container from '../../common/Container'
 import { Media, Tag } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 
 interface TagsListProps extends Tag {
   count: number
@@ -18,7 +23,13 @@ const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
-                  <Image alt='Post' src={(tag?.tagImage as Media)?.url!} fill />
+                  <Avatar className='h-full w-full'>
+                    <AvatarImage
+                      alt='Post'
+                      src={(tag?.tagImage as Media)?.url!}
+                    />
+                    <AvatarFallback />
+                  </Avatar>
                 </div>
               </div>
               <div className='text-base font-semibold sm:text-lg'>

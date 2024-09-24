@@ -1,7 +1,12 @@
 import Container from '../common/Container'
 import { Media, RecommendationsListType } from '@payload-types'
-import Image from 'next/image'
 import Link from 'next/link'
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 
 const RecommendationsList: React.FC<RecommendationsListType> = ({
   ...block
@@ -15,11 +20,13 @@ const RecommendationsList: React.FC<RecommendationsListType> = ({
             href={recommendation?.recommendationUrl}
             className='flex gap-5'>
             <div className='relative size-14 shrink-0'>
-              <Image
-                alt='Recommendations Image'
-                src={(recommendation?.image as Media)?.url!}
-                fill
-              />
+              <Avatar className='h-full w-full'>
+                <AvatarImage
+                  alt='Recommendations Image'
+                  src={(recommendation?.image as Media)?.url!}
+                />
+                <AvatarFallback />
+              </Avatar>
             </div>
             <div className='flex flex-col gap-2'>
               <div className='text-lg font-semibold'>

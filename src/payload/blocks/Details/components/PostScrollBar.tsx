@@ -5,10 +5,14 @@ import Container from '../../common/Container'
 import { env } from '@env'
 import { Blog, Media } from '@payload-types'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/common/AvatarComponent'
 import Copy from '@/svg/Copy'
 import TickMark from '@/svg/TickMark'
 
@@ -61,12 +65,13 @@ const PostScrollBar = ({ blog }: { blog: Blog }) => {
               <div className='xs:gap-4 flex items-center justify-center gap-3'>
                 <div className='avatar'>
                   <div className='w-10'>
-                    <Image
-                      alt='Author'
-                      fill
-                      className='rounded-full'
-                      src={(blog?.blogImage as Media)?.url!}
-                    />
+                    <Avatar className='w-full'>
+                      <AvatarImage
+                        alt='Author'
+                        src={(blog?.blogImage as Media)?.url!}
+                      />
+                      <AvatarFallback />
+                    </Avatar>
                   </div>
                 </div>
                 <div className='line-clamp-1 text-lg sm:font-semibold'>
