@@ -16,7 +16,7 @@ const PlanIcons: { [key: string]: JSX.Element } = {
 }
 
 const Pricing: React.FC<PricingType> = ({ ...block }) => {
-  const [monthly, setMonthly] = useState<boolean>(true)
+  const [monthly, setMonthly] = useState<boolean>(false)
   const [yearly, setYearly] = useState<boolean>(true)
 
   const handleMonthly = () => {
@@ -69,6 +69,7 @@ const Pricing: React.FC<PricingType> = ({ ...block }) => {
                   {membershipPlan?.planDescription}
                 </div>
                 <div className='my-3 flex flex-row items-center justify-start gap-2 text-3xl font-bold'>
+                  ${' '}
                   {monthly
                     ? membershipPlan?.monthlyPlanPrice
                     : membershipPlan?.yearlyPlanPrice}{' '}

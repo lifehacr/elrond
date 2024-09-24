@@ -26,7 +26,6 @@ export const featurePageData: RequiredDataFromCollectionSlug<'pages'> = {
         {
           title: 'General features',
           points: [
-            { point: 'Light, Dark and Auto version' },
             { point: 'Ready for ContentQL' },
             { point: 'Fast, lightweight, clean, and minimal. All-in-one' },
             { point: 'Developed with TailwindCSS and Vanilla JS' },
