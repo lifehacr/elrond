@@ -128,7 +128,7 @@ const ProfileDropdown = ({ user }: { user: User }) => {
               )}
               <hr className='mb-1 mt-1  bg-gray-500' />
               <div
-                className='flex rounded-md px-2 py-2 font-semibold hover:bg-error'
+                className='flex rounded-md px-2 py-2 font-semibold hover:bg-warning'
                 onClick={() => {
                   setIsOpen(false)
                 }}>
@@ -138,7 +138,7 @@ const ProfileDropdown = ({ user }: { user: User }) => {
                   onClick={handleSignOut}
                   className='text-md block w-full rounded-sm px-2 text-left '
                   role='menuitem'>
-                  sign out
+                  Sign out
                 </button>
               </div>
             </div>
