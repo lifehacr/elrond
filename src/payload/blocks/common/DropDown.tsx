@@ -64,7 +64,7 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
               link?.externalLink ? (
                 <li key={index}>
                   <Link
-                    href={link?.link!}
+                    href={`/${link?.link!}`}
                     target={`${link?.newPage ? '_blank' : '_self'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
                     {capitalizeFirstLetter(link?.label!)}
@@ -73,7 +73,7 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
               ) : (
                 <li key={index}>
                   <Link
-                    href={(link?.page?.value as Page)?.slug!}
+                    href={`/${(link?.page?.value as Page)?.slug!}`}
                     target={`${link?.newPage ? '_blank' : '_self'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
                     {capitalizeFirstLetter((link?.page?.value as Page)?.title)}

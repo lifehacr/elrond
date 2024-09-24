@@ -178,7 +178,7 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
                   ) : headerLink?.menuLink?.externalLink ? (
                     <Link
                       target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                      href={headerLink?.menuLink?.link!}>
+                      href={`/${headerLink?.menuLink?.link!}`}>
                       {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
                     </Link>
                   ) : (
