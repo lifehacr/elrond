@@ -22,7 +22,7 @@ export const authRouter = router({
   signUp: publicProcedure
     .input(SignUpSchema)
     .mutation(async ({ input, ctx }) => {
-      const { username, email, password, imageUrl } = input
+      const { username, email, password } = input
 
       try {
         // Check if email already exists
@@ -65,7 +65,6 @@ export const authRouter = router({
             username,
             email,
             password,
-            imageUrl,
           },
           locale: undefined,
           fallbackLocale: undefined,

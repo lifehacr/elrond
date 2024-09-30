@@ -1,47 +1,66 @@
 'use client'
 
-import Button from '../common/Button'
-import Container from '../common/Container'
-import DropDown from '../common/DropDown'
-import { Media, Page, SiteSetting } from '@payload-types'
+import type { Media, Page, SiteSetting } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import router from 'next/router'
+import { useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { IoSearch } from 'react-icons/io5'
 import { toast } from 'sonner'
 
-import Modal from '@/components/common/Modal'
+import Button from '@/payload/blocks/common/Button'
+import Container from '@/payload/blocks/common/Container'
+import DropDown from '@/payload/blocks/common/DropDown'
+import ProfileDropdown from '@/payload/blocks/common/ProfileDropdown'
 import LockIcon from '@/svg/LockIcon'
 import MenuIcon from '@/svg/MenuIcon'
 import SearchIcon from '@/svg/SearchIcon'
 import { trpc } from '@/trpc/client'
+import { generateMenuLinks } from '@/utils/generateMenuLinks'
 
-import ProfileDropdown from './ProfileDropdown'
+import Modal from './common/Modal'
 
-const Header = ({ initData }: { initData: SiteSetting }) => {
-  const pathName = usePathname()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const router = useRouter()
+const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
   const [open, setOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchInput, setSearchInput] = useState<string>('')
+  const { navbar } = metadata
+  const { logo, menuLinks } = navbar
   const { data: user } = trpc.user.getUser.useQuery()
+  const pathName = usePathname()
 
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
+  let logoDetails = {
+    url: '',
+    alt: '',
+  }
 
-    return () => {
-      document.body.style.overflow = 'auto'
+  const navLinks = menuLinks?.length ? generateMenuLinks(menuLinks) : []
+
+  if (Object.keys(logo).length && logo?.imageUrl === 'string') {
+    logoDetails = {
+      url: logo?.imageUrl,
+      alt: `${metadata.general?.title} logo`,
     }
-  }, [isMenuOpen])
+  } else if (Object.keys(logo).length && typeof logo?.imageUrl !== 'string') {
+    logoDetails = {
+      url: logo.imageUrl?.url!,
+      alt: logo.imageUrl?.alt || `${metadata.general?.title} logo`,
+    }
+  }
+
+  // if in case image or nav-links are not specified hiding the navbar
+  if (!logoDetails.url && navLinks?.length === 0) {
+    return null
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleSignPage = () => {
+    router.push('/sign-in')
   }
 
   const { mutate: getBlogsBySearch, data: searchResult } =
@@ -50,10 +69,6 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
         toast.error('There is some issue!')
       },
     })
-
-  const handleSignPage = () => {
-    router.push('/sign-in')
-  }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)
@@ -70,7 +85,7 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
   return (
     pathName !== '/contact' &&
     pathName !== '/subscribe' && (
-      <div className='bg-base-100'>
+      <header className='bg-base-100'>
         <Modal
           open={open}
           onClose={() => {
@@ -161,25 +176,29 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
         </Modal>
         <Container className='z-50 flex h-20 items-center justify-between bg-base-100 px-4 xl:px-0'>
           <Link href={'/'} className='relative h-5 w-24'>
-            <Image alt='' src={(initData?.logoImage as Media)?.url!} fill />
+            <Image
+              alt={logo?.description || ''}
+              src={(logo?.imageUrl as Media)?.url!}
+              fill
+            />
           </Link>
           <nav className='mx-auto hidden h-full select-none items-center justify-center lg:flex'>
             <ul className='flex items-center gap-6 text-base font-[450] text-[#3F3F46]'>
-              {initData?.header?.menuLinks?.map((headerLink, index) => (
+              {menuLinks?.map((headerLink, index) => (
                 <ul
                   key={index}
                   className='flex items-center gap-6 text-base font-[450] text-[#3F3F46]'>
                   {headerLink?.group ? (
                     <DropDown headerLink={headerLink} />
-                  ) : headerLink?.menuLink?.externalLink ? (
+                  ) : headerLink?.menuLink?.url ? (
                     <Link
-                      target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                      href={`/${headerLink?.menuLink?.link!}`}>
+                      // target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
+                      href={`/${headerLink?.menuLink?.url!}`}>
                       {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
                     </Link>
                   ) : (
                     <Link
-                      target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
+                      // target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
                       href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
                       {capitalizeFirstLetter(
                         (headerLink?.menuLink?.page?.value as Page)?.title,
@@ -194,7 +213,7 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
             {' '}
             <Button
               onClick={() => setOpen(true)}
-              className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
+              className='h-[34px] w-[34px] items-center !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
               <SearchIcon />
             </Button>
             {user ? (
@@ -207,7 +226,7 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
               <ProfileDropdown user={user} />
             ) : (
               <Button
-                className='h-[34px] !rounded-full bg-primary font-medium text-white'
+                className='h-[34px] !rounded-full bg-primary pl-4 pr-4 font-medium text-white'
                 onClick={handleSignPage}>
                 <span className='hidden text-inherit sm:inline'>✦</span>
                 <span className='hidden sm:inline'> Sign in</span>
@@ -225,7 +244,11 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
           <div className='fixed inset-0 z-50 flex flex-col bg-white'>
             <div className='flex h-20 w-full items-center justify-between px-4 py-4'>
               <Link href={'/'} className='relative h-5 w-24'>
-                <Image alt='' src={(initData?.logoImage as Media)?.url!} fill />
+                <Image
+                  alt={logo?.description || ''}
+                  src={(logo?.imageUrl as Media)?.url!}
+                  fill
+                />
               </Link>
               <div className='flex gap-x-3'>
                 <Button
@@ -248,23 +271,23 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
               </div>
             </div>
             <ul className='flex flex-col items-center justify-center gap-4 text-lg'>
-              {initData?.header?.menuLinks?.map((headerLink, index) => (
+              {menuLinks?.map((headerLink, index) => (
                 <ul
                   key={index}
                   className='flex items-center gap-6 text-base font-[450] text-[#3F3F46]'>
                   {headerLink?.group ? (
                     <DropDown headerLink={headerLink} />
-                  ) : headerLink?.menuLink?.externalLink ? (
+                  ) : headerLink?.menuLink?.url ? (
                     <Link
                       onClick={toggleMenu}
-                      target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                      href={headerLink?.menuLink?.link!}>
+                      target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
+                      href={headerLink?.menuLink?.url!}>
                       {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
                     </Link>
                   ) : (
                     <Link
                       onClick={toggleMenu}
-                      target={`${headerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
+                      target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
                       href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
                       {capitalizeFirstLetter(
                         (headerLink?.menuLink?.page?.value as Page)?.title,
@@ -276,9 +299,9 @@ const Header = ({ initData }: { initData: SiteSetting }) => {
             </ul>
           </div>
         )}
-      </div>
+      </header>
     )
   )
 }
 
-export default Header
+export default Navbar

@@ -1,12 +1,10 @@
 'use client'
 
 import type { User } from '@payload-types'
-import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import LeftArrow from '@/svg/LeftArrow'
 import { trpc } from '@/trpc/client'
 
 import DeleteAccountSection from './DeleteAccountSection'
@@ -66,14 +64,9 @@ const ProfileForm = ({ user }: { user: User }) => {
   return (
     <div className='p-2 md:p-4'>
       <div className='mt-8 w-full px-6 pb-8 sm:rounded-lg'>
-        <div className='flex items-center gap-2'>
-          <Link href={'/'} className='md:hidden'>
-            <LeftArrow />
-          </Link>
-          <h2 className='text-2xl font-bold text-base-content sm:text-xl'>
-            Personal Information
-          </h2>
-        </div>
+        <h2 className='pl-6 text-2xl font-bold text-base-content sm:text-xl'>
+          Personal Information
+        </h2>
 
         <div className='mx-auto mt-8 grid'>
           <div className='flex flex-col items-center justify-center space-y-5 sm:flex-row sm:space-y-0'>
@@ -152,7 +145,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className='flex justify-end'>
               <button
                 type='submit'
-                className='hover:bg-primary-focus w-full  rounded-full bg-primary px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#805AE9] focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
+                className='w-full rounded-lg  bg-primary px-5 py-2.5 text-center text-sm font-medium text-base-content hover:bg-primary-focus focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
                 {isUpdateUserPending ? 'Updating...' : 'Update Profile'}
               </button>
             </div>

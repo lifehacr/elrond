@@ -9,64 +9,101 @@ export type ImageType = {
 }
 
 export const siteSettingsData: siteSettingsDataType = {
-  appName: 'Emerald Theme',
-  appDescription: 'Theme created by contentQL team.',
-  logoImage: '',
-  header: {
+  general: {
+    title: 'Emerald Theme',
+    description: 'Theme created by ContentQL team.',
+    faviconUrl: '/public/favicon.ico',
+    ogImageUrl: '',
+  },
+  navbar: {
+    logo: {
+      imageUrl: '/public/images/seed/home/logo.svg',
+      description: 'Emerald Theme',
+      height: 24,
+      width: 24,
+    },
     menuLinks: [
       {
         group: false,
         menuLink: {
-          externalLink: false,
-          page: { relationTo: 'pages', value: '' },
+          type: 'reference',
+          label: 'Features',
+          page: {
+            relationTo: 'pages',
+            value: '',
+          },
         },
       },
       {
         group: false,
         menuLink: {
-          externalLink: false,
-          page: { relationTo: 'pages', value: '' },
+          type: 'reference',
+          label: 'Authors',
+          page: {
+            relationTo: 'pages',
+            value: '',
+          },
         },
       },
       {
         group: false,
         menuLink: {
-          externalLink: false,
-          page: { relationTo: 'pages', value: '' },
+          type: 'reference',
+          label: 'Tags',
+          page: {
+            relationTo: 'pages',
+            value: '',
+          },
         },
       },
-
       {
         group: true,
-        menuLink: {
-          externalLink: false,
-        },
         menuLinkGroup: {
-          groupTitle: 'more',
+          groupTitle: 'More',
           groupLinks: [
-            { externalLink: false, page: { relationTo: 'pages', value: '' } },
-            { externalLink: false, page: { relationTo: 'pages', value: '' } },
-            { externalLink: false, page: { relationTo: 'pages', value: '' } },
-            { externalLink: false, page: { relationTo: 'pages', value: '' } },
+            {
+              type: 'reference',
+              newTab: false,
+              label: 'Subscribe',
+            },
+            {
+              type: 'reference',
+              newTab: false,
+              label: 'Membership',
+            },
+            {
+              type: 'reference',
+              newTab: false,
+              label: 'Contact',
+            },
+            {
+              type: 'reference',
+              newTab: false,
+              label: 'Recommendations',
+            },
           ],
         },
       },
     ],
   },
-
   footer: {
-    links: [
+    logo: {
+      imageUrl: '/images/seed/home/logo.svg',
+    },
+    footerLinks: [
       {
         group: false,
         menuLink: {
-          externalLink: false,
+          type: 'reference',
+          label: 'Features',
           page: { relationTo: 'pages', value: '' },
         },
       },
       {
         group: false,
         menuLink: {
-          externalLink: false,
+          type: 'reference',
+          label: 'Authors',
           page: { relationTo: 'pages', value: '' },
         },
       },

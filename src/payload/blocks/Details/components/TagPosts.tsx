@@ -2,14 +2,9 @@
 
 import Button from '../../common/Button'
 import { Blog, Media, Tag, User } from '@payload-types'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
 
 const TagPosts = ({
   blogPosts,
@@ -47,13 +42,12 @@ const TagPosts = ({
               <Link
                 href={`/${post?.slug}`}
                 className='relative h-60 w-full md:h-28 md:w-28'>
-                <Avatar className='h-full w-full rounded-xl md:rounded-full'>
-                  <AvatarImage
-                    src={(post?.blogImage as Media)?.url!}
-                    alt='Post'
-                  />
-                  <AvatarFallback className='rounded-xl md:rounded-full' />
-                </Avatar>
+                <Image
+                  fill
+                  src={(post?.blogImage as Media)?.url!}
+                  alt='Post'
+                  className='rounded-xl md:rounded-full'
+                />
               </Link>
             </div>
 
@@ -70,14 +64,14 @@ const TagPosts = ({
                       <Link
                         key={index}
                         href={`/author/${(author?.value as User)?.username}`}>
-                        <Avatar className='h-[26px] w-[26px]'>
-                          <AvatarImage
-                            alt='Author'
-                            src={(author?.value as User)?.imageUrl!}
-                            className='border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
-                          />
-                          <AvatarFallback />
-                        </Avatar>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          alt='Author'
+                          src={(author?.value as User)?.imageUrl!}
+                          height={26}
+                          width={26}
+                          className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
+                        />
                       </Link>
                     ))}
                   </div>

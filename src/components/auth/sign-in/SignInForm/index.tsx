@@ -71,9 +71,9 @@ const SignInForm: React.FC = () => {
           {/* <Logo className={'flex h-[20px] w-fit items-center justify-start'} /> */}
           <div className='relative h-5 w-20'>
             {!imageLoaded && <LogoSkeleton />}
-            {(siteSettingsData?.logoImage as Media)?.url && (
+            {(siteSettingsData?.general?.faviconUrl as Media)?.url && (
               <Image
-                src={(siteSettingsData?.logoImage as Media)?.url!}
+                src={(siteSettingsData?.general?.faviconUrl as Media)?.url!}
                 alt='Logo'
                 fill
                 onLoad={() => setImageLoaded(true)}
@@ -84,7 +84,7 @@ const SignInForm: React.FC = () => {
             Signin
           </div>
           <div className='mt-4 text-[1.5rem] font-semibold leading-8 text-base-content'>
-            {siteSettingsData?.appDescription}
+            {siteSettingsData?.general?.description}
           </div>
           <form className='xs:mt-8 mt-6 pr-1' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-3.5'>

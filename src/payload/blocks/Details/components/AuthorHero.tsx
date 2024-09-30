@@ -1,23 +1,25 @@
 import Button from '../../common/Button'
 import { User } from '@payload-types'
+import { useState } from 'react'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
+import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
 import Globe from '@/svg/Globe'
 import Twitter from '@/svg/Twitter'
 
 const AuthorHero = ({ author }: { author: User }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   return (
     <div className='flex flex-col items-center bg-base-100 pb-16 pt-14'>
       <div className='avatar'>
         <div className='relative w-24 rounded-full'>
-          <Avatar className='h-full w-full'>
-            <AvatarImage alt='Author' src={author?.imageUrl!} />
-            <AvatarFallback />
-          </Avatar>
+          {!imageLoaded && <HeroImageSkeleton />}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            onLoad={() => setImageLoaded(true)}
+            alt='Author'
+            src={author?.imageUrl!}
+          />
         </div>
       </div>
       <div className='mt-6 text-xl font-bold'>{author?.displayName}</div>

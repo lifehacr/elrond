@@ -12,12 +12,12 @@ export interface Config {
   };
   collections: {
     users: User;
-    media: Media;
     tags: Tag;
     blogs: Blog;
+    media: Media;
     pages: Page;
-    contacts: Contact;
     search: Search;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -57,12 +57,34 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   displayName?: string | null;
-  username: string;
-  imageUrl?: string | null;
-  city?: string | null;
-  description?: string | null;
-  role?: ('admin' | 'user' | 'author') | null;
+  username?: string | null;
+  imageUrl?: (string | null) | Media;
+  role: ('admin' | 'author' | 'user')[];
   emailVerified?: string | null;
+  socialLinks?:
+    | {
+        platform:
+          | 'website'
+          | 'facebook'
+          | 'instagram'
+          | 'twitter'
+          | 'linkedin'
+          | 'youtube'
+          | 'tiktok'
+          | 'pinterest'
+          | 'snapchat'
+          | 'reddit'
+          | 'tumblr'
+          | 'whatsapp'
+          | 'telegram'
+          | 'github'
+          | 'medium'
+          | 'quora'
+          | 'discord';
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -125,11 +147,11 @@ export interface Media {
  */
 export interface Tag {
   id: string;
+  tagImage: string | Media;
   title: string;
   description: string;
-  tagImage: string | Media;
   slug?: string | null;
-  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink' | 'secondary') | null;
+  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink') | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -140,30 +162,25 @@ export interface Tag {
  */
 export interface Blog {
   id: string;
-  author?:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }[]
-    | null;
+  blogImage: string | Media;
+  title: string;
+  description: string;
   tags?:
     | {
         relationTo: 'tags';
         value: string | Tag;
       }[]
     | null;
-  title: string;
-  description: string;
-  blogImage: string | Media;
+  author?:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }[]
+    | null;
   content: {
     [k: string]: unknown;
   }[];
   slug?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: (string | null) | Media;
-  };
   publishOn?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -176,8 +193,6 @@ export interface Blog {
 export interface Page {
   id: string;
   title: string;
-  isHome?: boolean | null;
-  isDynamic?: boolean | null;
   layout?:
     | (
         | HomeType
@@ -186,14 +201,22 @@ export interface Page {
         | HeroType
         | FeaturedPostType
         | LatestPostsType
+        | ContactType
+        | FAQType
+        | PricingType
         | RecommendationsListType
         | FeaturesType
-        | ContactType
         | SubscribeType
-        | PricingType
-        | FAQType
       )[]
     | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  isHome?: boolean | null;
+  isDynamic?: boolean | null;
+  slugMode?: ('generate' | 'custom') | null;
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -280,6 +303,63 @@ export interface LatestPostsType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactType".
+ */
+export interface ContactType {
+  title?: string | null;
+  description?: string | null;
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQType".
+ */
+export interface FAQType {
+  title: string;
+  description?: string | null;
+  questions?:
+    | {
+        question?: string | null;
+        answer?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'FAQ';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingType".
+ */
+export interface PricingType {
+  pricingPlan?:
+    | {
+        planIcon: 'free' | 'gold' | 'goldPlus';
+        planTitle: string;
+        freeDuration?: string | null;
+        planDescription: string;
+        monthlyPlanPrice: number;
+        yearlyPlanPrice: number;
+        planBtnText: string;
+        planBenefits?:
+          | {
+              benefit: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "RecommendationsListType".
  */
 export interface RecommendationsListType {
@@ -319,18 +399,6 @@ export interface FeaturesType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactType".
- */
-export interface ContactType {
-  title?: string | null;
-  description?: string | null;
-  image?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Contact';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SubscribeType".
  */
 export interface SubscribeType {
@@ -342,64 +410,6 @@ export interface SubscribeType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PricingType".
- */
-export interface PricingType {
-  pricingPlan?:
-    | {
-        planIcon: 'free' | 'gold' | 'goldPlus';
-        planTitle: string;
-        freeDuration?: string | null;
-        planDescription: string;
-        monthlyPlanPrice: number;
-        yearlyPlanPrice: number;
-        planBtnText: string;
-        planBenefits?:
-          | {
-              benefit: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Pricing';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FAQType".
- */
-export interface FAQType {
-  title: string;
-  description?: string | null;
-  questions?:
-    | {
-        question?: string | null;
-        answer?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'FAQ';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
- */
-export interface Contact {
-  id: string;
-  name: string;
-  email?: string | null;
-  message: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
  */
 export interface Search {
@@ -408,17 +418,56 @@ export interface Search {
   priority?: number | null;
   doc:
     | {
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'blogs';
+        value: string | Blog;
       }
     | {
         relationTo: 'tags';
         value: string | Tag;
       }
     | {
+        relationTo: 'users';
+        value: string | User;
+      };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: string | Tag;
+      } | null)
+    | ({
         relationTo: 'blogs';
         value: string | Blog;
-      };
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: string | Search;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -462,36 +511,41 @@ export interface PayloadMigration {
  */
 export interface SiteSetting {
   id: string;
-  appName?: string | null;
-  appDescription?: string | null;
-  logoImage: string | Media;
-  header?: {
+  general: {
+    title: string;
+    description: string;
+    faviconUrl: string | Media;
+    ogImageUrl: string | Media;
+    keywords?: string[] | null;
+  };
+  navbar: {
+    logo: BrandLogo;
     menuLinks?:
       | {
           group?: boolean | null;
           menuLink?: {
-            externalLink?: boolean | null;
-            newPage?: boolean | null;
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            label: string;
             page?: {
               relationTo: 'pages';
               value: string | Page;
             } | null;
-            label?: string | null;
-            link?: string | null;
+            url?: string | null;
             id?: string | null;
           };
           menuLinkGroup?: {
             groupTitle: string;
             groupLinks?:
               | {
-                  externalLink?: boolean | null;
-                  newPage?: boolean | null;
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  label: string;
                   page?: {
                     relationTo: 'pages';
                     value: string | Page;
                   } | null;
-                  label?: string | null;
-                  link?: string | null;
+                  url?: string | null;
                   id?: string | null;
                 }[]
               | null;
@@ -500,33 +554,34 @@ export interface SiteSetting {
         }[]
       | null;
   };
-  footer?: {
-    links?:
+  footer: {
+    logo: BrandLogo;
+    footerLinks?:
       | {
           group?: boolean | null;
           menuLink?: {
-            externalLink?: boolean | null;
-            newPage?: boolean | null;
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            label: string;
             page?: {
               relationTo: 'pages';
               value: string | Page;
             } | null;
-            label?: string | null;
-            link?: string | null;
+            url?: string | null;
             id?: string | null;
           };
           menuLinkGroup?: {
             groupTitle: string;
             groupLinks?:
               | {
-                  externalLink?: boolean | null;
-                  newPage?: boolean | null;
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  label: string;
                   page?: {
                     relationTo: 'pages';
                     value: string | Page;
                   } | null;
-                  label?: string | null;
-                  link?: string | null;
+                  url?: string | null;
                   id?: string | null;
                 }[]
               | null;
@@ -536,8 +591,25 @@ export interface SiteSetting {
       | null;
     socialLinks?:
       | {
-          socialMedia: 'facebook' | 'twitter' | 'github';
-          socialMediaLink: string;
+          platform:
+            | 'website'
+            | 'facebook'
+            | 'instagram'
+            | 'twitter'
+            | 'linkedin'
+            | 'youtube'
+            | 'tiktok'
+            | 'pinterest'
+            | 'snapchat'
+            | 'reddit'
+            | 'tumblr'
+            | 'whatsapp'
+            | 'telegram'
+            | 'github'
+            | 'medium'
+            | 'quora'
+            | 'discord';
+          value: string;
           id?: string | null;
         }[]
       | null;
@@ -545,6 +617,16 @@ export interface SiteSetting {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogo".
+ */
+export interface BrandLogo {
+  imageUrl: string | Media;
+  height?: number | null;
+  width?: number | null;
+  description?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -3,13 +3,8 @@
 import { Blog, Media, User } from '@payload-types'
 import { slateToHtml } from '@slate-serializers/html'
 import DOMPurify from 'isomorphic-dompurify'
+import Image from 'next/image'
 import Link from 'next/link'
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
 
 const BlogView = ({ blog }: { blog: Blog }) => {
   const date = new Date(blog?.createdAt)
@@ -45,14 +40,12 @@ const BlogView = ({ blog }: { blog: Blog }) => {
                 key={index}
                 href={`/author/${(author?.value as User)?.username}`}
                 className='relative h-8 w-8'>
-                <Avatar className='h-full w-full'>
-                  <AvatarImage
-                    alt='Author'
-                    src={(author?.value as User)?.imageUrl!}
-                    className='border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
-                  />
-                  <AvatarFallback />
-                </Avatar>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt='Author'
+                  src={(author?.value as User)?.imageUrl!}
+                  className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
+                />
               </Link>
             ))}
           </div>
@@ -73,10 +66,7 @@ const BlogView = ({ blog }: { blog: Blog }) => {
         </div>
         <div className='avatar mb-6 w-full'>
           <div className='relative h-60 w-full rounded-xl md:h-96'>
-            <Avatar className='h-full w-full rounded-xl'>
-              <AvatarImage alt='Post' src={(blog?.blogImage as Media)?.url!} />
-              <AvatarFallback className='rounded-xl' />
-            </Avatar>
+            <Image alt='Post' src={(blog?.blogImage as Media)?.url!} fill />
           </div>
         </div>
       </div>

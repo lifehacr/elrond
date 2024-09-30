@@ -8,18 +8,31 @@ const payload = await getPayloadHMR({ config: configPromise })
 
 const seed = async (): Promise<(string | User)[]> => {
   try {
+    // Upload the images to the media collection and store their ObjectIds
+    const uploadedImages = await Promise.all(
+      authorImageData.map(image =>
+        payload.create({
+          collection: 'media',
+          data: {
+            alt: image.alt,
+          },
+          filePath: image.filePath,
+        }),
+      ),
+    )
+
     const formattedAuthorsData = authorsData.map((author, idx) => {
       return {
         ...author,
-        imageUrl: authorImageData?.at(idx)?.filePath,
+        imageUrl: uploadedImages[idx].id, // Use the ObjectId of the uploaded image
       }
     })
+
     const results = await Promise.allSettled(
       formattedAuthorsData.map(authorData =>
         payload.create({
           collection: 'users',
           data: authorData,
-
           locale: undefined,
           fallbackLocale: undefined,
           overrideAccess: true,

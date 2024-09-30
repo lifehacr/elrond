@@ -2,19 +2,18 @@
 
 import Container from '../common/Container'
 import { FeaturedPostType, Media, Tag, User } from '@payload-types'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
 import FeaturedPostSkeleton from '@/components/skeletons/FeaturedPostSkeleton'
+import PostsAuthorSkeleton from '@/components/skeletons/PostsAuthorSkeleton'
 import { trpc } from '@/trpc/client'
 
 const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
   const { data, isLoading } = trpc.blog.getAllBlogs.useQuery()
   const featuredPost = data?.at(0)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   return isLoading ? (
     <FeaturedPostSkeleton />
@@ -28,13 +27,11 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
           <div className='avatar w-full'>
             <div className='relative h-60 w-full rounded-xl md:h-80'>
               <Link href={`/${featuredPost?.slug!}`}>
-                <Avatar className='h-full w-full rounded-xl'>
-                  <AvatarImage
-                    alt='Featured Post'
-                    src={(featuredPost?.blogImage as Media)?.url!}
-                  />
-                  <AvatarFallback className='h-full w-full rounded-xl' />
-                </Avatar>
+                <Image
+                  alt='Featured Post'
+                  fill
+                  src={(featuredPost?.blogImage as Media)?.url!}
+                />
               </Link>
             </div>
           </div>
@@ -50,18 +47,21 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                   <Link
                     key={index}
                     href={`/author/${(author?.value as User)?.username}`}>
-                    <Avatar className='h-[26px] w-[26px] rounded-full'>
-                      <AvatarImage
-                        src={(author?.value as User)?.imageUrl!}
+                    {!imageLoaded && <PostsAuthorSkeleton />}
+                    {(author?.value as User)?.imageUrl && (
+                      <Image
                         alt='Author Image'
-                        className='border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
+                        src={(author?.value as User)?.imageUrl!}
+                        height={26}
+                        width={26}
+                        onLoad={() => setImageLoaded(true)}
+                        className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
                       />
-                      <AvatarFallback />
-                    </Avatar>
+                    )}
                   </Link>
                 ))}
               </div>
-              <div className='flex'>
+              <div className='ml-3 flex'>
                 {featuredPost?.author?.slice(0, 2)?.map((author, index) => (
                   <div key={index} className='flex items-center'>
                     <Link

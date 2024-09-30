@@ -2,6 +2,7 @@
 
 import { User } from '@payload-types'
 import { AnimatePresence, motion } from 'framer-motion'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -9,11 +10,6 @@ import { CgProfile } from 'react-icons/cg'
 import { GoSignOut } from 'react-icons/go'
 import { RiAdminLine } from 'react-icons/ri'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
 import { signOut } from '@/utils/signOut'
 
 const ProfileDropdown = ({ user }: { user: User }) => {
@@ -76,14 +72,13 @@ const ProfileDropdown = ({ user }: { user: User }) => {
   return (
     <div className='profile-dropdown relative inline-block text-left'>
       <div onClick={handleImageClick}>
-        <Avatar className='h-10 w-10'>
-          <AvatarImage
-            src={user?.imageUrl as string}
-            alt='Profile'
-            className='cursor-pointer'
-          />
-          <AvatarFallback />
-        </Avatar>
+        <Image
+          src={user?.imageUrl as string}
+          alt='Profile'
+          width={40}
+          height={40}
+          className='cursor-pointer rounded-full'
+        />
       </div>
 
       <AnimatePresence>

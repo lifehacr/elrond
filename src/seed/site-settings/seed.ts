@@ -1,16 +1,18 @@
+import { collectionSlug } from '@contentql/core'
 import configPromise from '@payload-config'
-import { SiteSetting } from '@payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 
-import { siteSettingsData, siteSettingsImageData } from './data'
-
-type SiteSettingType = Omit<SiteSetting, 'id'>
+import {
+  siteSettingsData,
+  siteSettingsDataType,
+  siteSettingsImageData,
+} from './data'
 
 const payload = await getPayloadHMR({ config: configPromise })
 
-const seed = async (): Promise<SiteSetting> => {
+const seedSiteSettings = async () => {
   try {
-    const headerLogoImageResult = await payload.create({
+    const logoImageResult = await payload.create({
       collection: 'media',
       data: {
         alt: siteSettingsImageData?.alt,
@@ -20,81 +22,92 @@ const seed = async (): Promise<SiteSetting> => {
 
     const { docs: pages } = await payload.find({
       collection: 'pages',
-      where: {
-        slug: {
-          in: ['authors', 'tags', 'features'],
-        },
-      },
     })
 
-    const { docs: groupPages } = await payload.find({
-      collection: 'pages',
-      where: {
-        slug: {
-          in: ['contact', 'subscribe', 'membership', 'recommendations'],
-        },
-      },
-    })
-
-    console.log('pages', pages)
-    console.log('\ngroup pages', groupPages)
-
-    const formattedSiteSettingsData: SiteSettingType = {
+    const formattedSiteSettingsData: siteSettingsDataType = {
       ...siteSettingsData,
-      logoImage: headerLogoImageResult?.id,
-      header: {
-        menuLinks: siteSettingsData?.header?.menuLinks?.map(
-          (menuLinkItem, idx) => {
+      general: {
+        ...siteSettingsData.general,
+        faviconUrl: logoImageResult?.id,
+        ogImageUrl: logoImageResult?.id,
+      },
+      navbar: {
+        ...siteSettingsData.navbar,
+        logo: {
+          ...siteSettingsData?.navbar?.logo,
+          imageUrl: logoImageResult?.id,
+        },
+        menuLinks: siteSettingsData?.navbar?.menuLinks?.map((link, index) => {
+          if (link.group && link.menuLinkGroup) {
             return {
-              ...menuLinkItem,
-
-              menuLink: {
-                ...menuLinkItem.menuLink,
-                page: {
-                  relationTo: 'pages',
-                  value: pages?.at(idx)?.id as string,
-                },
-              },
+              group: true,
               menuLinkGroup: {
-                ...menuLinkItem?.menuLinkGroup,
-                groupTitle: 'more',
-                groupLinks: menuLinkItem?.menuLinkGroup?.groupLinks?.map(
-                  (groupLink, idx) => {
+                ...link.menuLinkGroup,
+                groupLinks: link?.menuLinkGroup?.groupLinks?.map(
+                  (groupLink, groupIndex) => {
+                    const currentPage = pages?.at(index + groupIndex)
                     return {
                       ...groupLink,
-                      page: {
-                        relationTo: 'pages',
-                        value: groupPages?.at(idx)?.id as string,
-                      },
+                      page: currentPage
+                        ? {
+                            relationTo: 'pages',
+                            value: currentPage.id,
+                          }
+                        : undefined,
                     }
                   },
                 ),
               },
             }
+          } else if (!link.group && link.menuLink) {
+            const currentPage = pages?.at(index)
+            return {
+              group: false,
+              menuLink: {
+                ...link.menuLink,
+                label: currentPage?.title || '',
+                page: currentPage
+                  ? {
+                      relationTo: 'pages',
+                      value: currentPage.id,
+                    }
+                  : undefined,
+              },
+            }
+          }
+          return link
+        }),
+      },
+      footer: {
+        ...siteSettingsData?.footer,
+        logo: {
+          ...siteSettingsData?.footer?.logo,
+          imageUrl: logoImageResult?.id,
+        },
+        footerLinks: siteSettingsData?.footer?.footerLinks?.map(
+          (page, index) => {
+            const currentPage = pages?.at(index)
+            return {
+              ...page,
+              menuLink: {
+                ...page?.menuLink,
+                label: currentPage?.title || '',
+                page: currentPage
+                  ? {
+                      relationTo: 'pages',
+                      value: currentPage?.id,
+                    }
+                  : undefined,
+              },
+            }
           },
         ),
       },
-      footer: {
-        links: siteSettingsData?.footer?.links?.map((linkItem, idx) => {
-          return {
-            ...linkItem,
-            menuLink: {
-              ...linkItem.menuLink,
-              page: {
-                relationTo: 'pages',
-                value: pages?.at(idx)?.id as string,
-              },
-            },
-          }
-        }),
-      },
     }
 
-    console.log('formatted site settings', formattedSiteSettingsData)
-
     const result = await payload.updateGlobal({
+      slug: collectionSlug['site-settings'],
       data: formattedSiteSettingsData,
-      slug: 'site-settings',
     })
 
     return result
@@ -103,4 +116,4 @@ const seed = async (): Promise<SiteSetting> => {
   }
 }
 
-export default seed
+export default seedSiteSettings

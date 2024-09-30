@@ -9,13 +9,6 @@ const payload = await getPayloadHMR({ config: configPromise })
 
 const seed = async (): Promise<Page> => {
   try {
-    const { docs: allTags, totalDocs: totalTags } = await payload.find({
-      collection: 'tags',
-    })
-
-    const { docs: allBlogs, totalDocs: totalBlogs } = await payload.find({
-      collection: 'blogs',
-    })
     const homeHeroImageSeedResult = await payload.create({
       collection: 'media',
       data: { alt: homePageHeroImageData?.alt },

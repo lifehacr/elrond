@@ -1,18 +1,16 @@
 'use client'
 
 import { Media, SubscribeType } from '@payload-types'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
+import LogoSkeleton from '@/components/skeletons/LogoSkeleton'
 import KeyDownIcon from '@/components/svg/KeyDownIcon'
 import { trpc } from '@/trpc/client'
 
 const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const router = useRouter()
   const { data } = trpc.siteSettings.getSiteSettings.useQuery()
 
@@ -29,10 +27,15 @@ const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
         </div>
         <div>
           <div className='relative h-5 w-24'>
-            <Avatar className='h-full w-full'>
-              <AvatarImage alt='Logo' src={(data?.logoImage as Media)?.url!} />
-              <AvatarFallback />
-            </Avatar>
+            {!imageLoaded && <LogoSkeleton />}
+            {(data?.logoImage as Media)?.url && (
+              <Image
+                onLoad={() => setImageLoaded(true)}
+                alt='Logo'
+                src={(data?.logoImage as Media)?.url!}
+                fill
+              />
+            )}
           </div>
           <div className='mt-16 font-semibold uppercase tracking-widest text-secondary-content text-opacity-85'>
             {block?.title}
@@ -65,10 +68,12 @@ const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
         </div>
       </div>
       <div className='relative m-0 hidden h-full w-2/5 select-none items-center justify-center overflow-hidden bg-zinc-100 p-0  dark:bg-zinc-800 lg:flex'>
-        <Avatar className='h-full w-full rounded-none'>
-          <AvatarImage src={(block?.image as Media)?.url!} alt='subscribe' />
-          <AvatarFallback className='rounded-none' />
-        </Avatar>
+        <Image
+          src={(block?.image as Media)?.url!}
+          className='h-full w-full object-cover'
+          alt='sign-in'
+          fill
+        />
       </div>
     </div>
   )

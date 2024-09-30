@@ -56,7 +56,7 @@ const Profile = ({ initialUser }: { initialUser: User | undefined }) => {
       <div className='group relative z-0 mx-auto h-[141px] w-[141px]'>
         <div
           style={{ backgroundImage: `url(${user?.imageUrl})` }}
-          className='z-0 h-full w-full rounded-full bg-base-200 bg-cover bg-center bg-no-repeat transition duration-700 ease-in-out group-hover:blur-sm'></div>
+          className='bg-base-200 z-0 h-full w-full rounded-full bg-cover bg-center bg-no-repeat transition duration-700 ease-in-out group-hover:blur-sm'></div>
         <button
           onClick={updateImage}
           className={`absolute inset-0 m-auto flex h-10 w-10 items-center justify-center rounded-full bg-base-content text-primary opacity-0 transition-opacity duration-700 ease-in-out ${isSpinning ? 'animate-spin' : ''} group-hover:opacity-100`}>
@@ -69,7 +69,7 @@ const Profile = ({ initialUser }: { initialUser: User | undefined }) => {
           className='text-xl font-medium leading-none text-base-content transition duration-500 ease-in-out hover:text-primary'>
           {capitalizeWords(user?.username!)}
         </a>
-        {user?.role === 'author' && (
+        {user?.role.some(role => role === 'author') && (
           <p className='mt-2 text-base-content'>Author</p>
         )}
       </div>

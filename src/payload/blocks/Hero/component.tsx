@@ -2,15 +2,14 @@
 
 import Container from '../common/Container'
 import { HeroType, Media } from '@payload-types'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/common/AvatarComponent'
+import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
 
 const Hero: React.FC<HeroType> = ({ ...block }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const pathName = usePathname()
 
   return (
@@ -20,19 +19,20 @@ const Hero: React.FC<HeroType> = ({ ...block }) => {
           className={`flex flex-col items-center gap-6 px-4 ${pathName === '/' ? 'py-16' : 'pb-16 pt-14'}`}>
           <div className='avatar'>
             <div
-              className={`relative ${pathName === '/' ? 'w-20' : 'w-24'} rounded-full`}>
-              <Avatar className='h-full w-full'>
-                <AvatarImage
-                  src={(block?.image as Media)?.url!}
-                  alt={(block?.image as Media)?.alt || 'Hero Image'}
-                />
-                <AvatarFallback />
-              </Avatar>
+              className={`relative ${pathName === '/' ? 'h-20 w-20' : 'h-24 w-24'} rounded-full`}>
+              {!imageLoaded && <HeroImageSkeleton />}
+              <Image
+                src={(block?.image as Media)?.url!}
+                alt={(block?.image as Media)?.alt || 'Hero Image'}
+                fill
+                className='rounded-full'
+                onLoad={() => setImageLoaded(true)}
+              />
             </div>
           </div>
           <div className='text-center'>
             {block?.title !== '' ? (
-              <div className='text-xl font-semibold leading-tight sm:text-2xl sm:leading-none'>
+              <div className='text-xl font-semibold leading-tight text-base-content sm:text-2xl sm:leading-none'>
                 {block?.title}
               </div>
             ) : (
