@@ -3,8 +3,7 @@
 import type { Media, Page, SiteSetting } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import router from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { IoSearch } from 'react-icons/io5'
@@ -30,6 +29,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
   const { logo, menuLinks } = navbar
   const { data: user } = trpc.user.getUser.useQuery()
   const pathName = usePathname()
+  const router = useRouter()
 
   let logoDetails = {
     url: '',
