@@ -4,7 +4,6 @@ import type { Media, Page, SiteSetting } from '@payload-types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AiFillFacebook, AiFillGithub } from 'react-icons/ai'
-import { FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { IconType } from 'react-icons/lib'
 
@@ -31,7 +30,7 @@ const SocialIcons: { [key in SocialLinksType['platform']]: IconType | null } = {
   tumblr: null,
   twitter: FaXTwitter,
   whatsapp: null,
-  youtube: FaYoutube,
+  youtube: null,
   discord: null,
   website: null,
 }
@@ -39,6 +38,7 @@ const SocialIcons: { [key in SocialLinksType['platform']]: IconType | null } = {
 const Footer = ({ metadata }: { metadata: SiteSetting }) => {
   const { footer, general } = metadata
   const { logo, socialLinks, footerLinks } = footer
+  const pathName = usePathname()
 
   let logoDetails = {
     url: '',
@@ -65,8 +65,6 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
   ) {
     return null
   }
-
-  const pathName = usePathname()
 
   return (
     pathName !== '/contact' &&
@@ -111,21 +109,21 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                             ) : (
                               <Link
                                 key={index}
-                                target={`${link?.type === '' ? '_blank' : '_self'}`}
+                                target={`${link?.type === 'custom' ? '_self' : '_blank'}`}
                                 href={`/${(link?.page?.value as Page)?.slug!}`}>
                                 {(link?.page?.value as Page)?.title}
                               </Link>
                             ),
                         )
-                      ) : footerLink?.menuLink?.externalLink ? (
+                      ) : footerLink?.menuLink?.type === 'custom' ? (
                         <Link
-                          target={`${footerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
-                          href={`/${footerLink?.menuLink?.link!}`}>
+                          target={`${footerLink?.menuLink?.page ? '_blank' : '_self'}`}
+                          href={`/${footerLink?.menuLink?.page!}`}>
                           {footerLink?.menuLink?.label}
                         </Link>
                       ) : (
                         <Link
-                          target={`${footerLink?.menuLink?.newPage ? '_blank' : '_self'}`}
+                          target={`${footerLink?.menuLink?.page ? '_blank' : '_self'}`}
                           href={`/${(footerLink?.menuLink?.page?.value as Page)
                             ?.slug!}`}>
                           {(footerLink?.menuLink?.page?.value as Page)?.title}
@@ -142,11 +140,15 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
               {footer?.copyright}
             </p>
             <div className='flex gap-5'>
-              {socialLinks?.map((link, index) => (
-                <Link key={index} href={link?.value || '/'}>
-                  {SocialIcons[link?.socialMedia]}
-                </Link>
-              ))}
+              {socialLinks?.map((link: SocialLinksType, index) => {
+                const IconComponent =
+                  SocialIcons[link?.platform as keyof typeof SocialIcons]
+                return (
+                  <Link key={index} href={link?.value || '/'}>
+                    {IconComponent ? <IconComponent /> : null}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </Container>

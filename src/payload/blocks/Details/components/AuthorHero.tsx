@@ -1,5 +1,5 @@
 import Button from '../../common/Button'
-import { User } from '@payload-types'
+import { Media, User } from '@payload-types'
 import { useState } from 'react'
 
 import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
@@ -18,17 +18,11 @@ const AuthorHero = ({ author }: { author: User }) => {
           <img
             onLoad={() => setImageLoaded(true)}
             alt='Author'
-            src={author?.imageUrl!}
+            src={(author?.imageUrl as Media)?.url!}
           />
         </div>
       </div>
       <div className='mt-6 text-xl font-bold'>{author?.displayName}</div>
-      <div className='mt-5 font-semibold text-neutral-content'>
-        {author?.city}
-      </div>
-      <p className='mt-5  max-w-sm text-center text-neutral-content'>
-        {author?.description}
-      </p>
       <div className='mt-5 flex gap-4'>
         <Button className='hover:bg-base-150 !rounded-full'>
           <Twitter /> @hedwick

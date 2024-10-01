@@ -8,7 +8,7 @@ import { publicProcedure, router } from '@/trpc'
 const payload = await getPayloadHMR({ config: configPromise })
 
 export const tagRouter = router({
-  getBlogs: publicProcedure
+  getTagBySlugAndItsBlogs: publicProcedure
     .input(
       z.object({
         tagSlug: z.string(),

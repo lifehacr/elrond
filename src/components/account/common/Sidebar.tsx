@@ -1,6 +1,6 @@
 'use client'
 
-import { User } from '@payload-types'
+import { Media, User } from '@payload-types'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link, { LinkProps } from 'next/link'
@@ -96,7 +96,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          'hidden h-full w-[300px]  flex-shrink-0 bg-base-200 px-4 py-4 text-base-content md:flex md:flex-col',
+          'bg-base-200 hidden h-full  w-[300px] flex-shrink-0 px-4 py-4 text-base-content md:flex md:flex-col',
           className,
         )}
         animate={{
@@ -276,7 +276,11 @@ export function SidebarView({ user }: { user: User }) {
                 href: '#',
                 icon: (
                   <Image
-                    src={user?.imageUrl || ''}
+                    src={
+                      typeof user?.imageUrl === 'string'
+                        ? user?.imageUrl
+                        : (user?.imageUrl as Media)?.url || ''
+                    }
                     className='h-7 w-7 flex-shrink-0 rounded-full'
                     width={50}
                     height={50}

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import KeyDownIcon from '@/svg/KeyDownIcon'
 
 interface Props {
-  headerLink: NonNullable<Required<SiteSetting>['header']['menuLinks']>[number]
+  headerLink: NonNullable<Required<SiteSetting>['navbar']['menuLinks']>[number]
 }
 
 const DropDown: React.FC<Props> = ({ headerLink }) => {
@@ -61,11 +61,11 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
         <div className='absolute left-1/2 z-20 mt-2 w-56 origin-top-left translate-x-[-50%] rounded-xl bg-white shadow-lg'>
           <ul className='py-1'>
             {headerLink?.menuLinkGroup?.groupLinks?.map((link, index) =>
-              link?.externalLink ? (
+              link?.type === 'custom' ? (
                 <li key={index}>
                   <Link
-                    href={`/${link?.link!}`}
-                    target={`${link?.newPage ? '_blank' : '_self'}`}
+                    href={`/${link?.page!}`}
+                    target={`${link?.page ? '_blank' : '_self'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
                     {capitalizeFirstLetter(link?.label!)}
                   </Link>
@@ -74,7 +74,7 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
                 <li key={index}>
                   <Link
                     href={`/${(link?.page?.value as Page)?.slug!}`}
-                    target={`${link?.newPage ? '_blank' : '_self'}`}
+                    target={`${link?.page ? '_blank' : '_self'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
                     {capitalizeFirstLetter((link?.page?.value as Page)?.title)}
                   </Link>

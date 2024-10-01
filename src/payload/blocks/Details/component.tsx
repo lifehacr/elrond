@@ -50,9 +50,11 @@ const Details: React.FC<DetailsProps> = ({ params, ...block }) => {
       if ((!tagDataAndBlogsData?.tagData && !isTagPending) || isTagError) {
         return <PageNotFound />
       }
+      const tagDetails = tagDataAndBlogsData?.tagData?.at(0)
+
       return (
         <TagDetails
-          tagDetails={tagDataAndBlogsData?.tagData}
+          tagDetails={tagDetails}
           blogs={tagDataAndBlogsData?.blogsData}
           isLoading={isLoading}
         />

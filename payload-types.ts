@@ -16,6 +16,7 @@ export interface Config {
     blogs: Blog;
     media: Media;
     pages: Page;
+    contacts: Contact;
     search: Search;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -410,6 +411,19 @@ export interface SubscribeType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: string;
+  name: string;
+  email?: string | null;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
  */
 export interface Search {
@@ -458,6 +472,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'contacts';
+        value: string | Contact;
       } | null)
     | ({
         relationTo: 'search';

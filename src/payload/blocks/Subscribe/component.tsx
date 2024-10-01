@@ -28,11 +28,11 @@ const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
         <div>
           <div className='relative h-5 w-24'>
             {!imageLoaded && <LogoSkeleton />}
-            {(data?.logoImage as Media)?.url && (
+            {(data?.navbar?.logo?.imageUrl as Media)?.url && (
               <Image
                 onLoad={() => setImageLoaded(true)}
                 alt='Logo'
-                src={(data?.logoImage as Media)?.url!}
+                src={(data?.navbar?.logo?.imageUrl as Media)?.url!}
                 fill
               />
             )}
@@ -41,7 +41,7 @@ const Subscribe: React.FC<SubscribeType> = ({ ...block }) => {
             {block?.title}
           </div>
           <div className='mt-4 text-[1.5rem] font-semibold leading-8 text-base-content'>
-            {data?.appDescription}
+            {data?.general?.description}
           </div>
           <form className='xs:mt-8 mt-6 pr-1'>
             <div className='flex flex-col gap-3.5'>

@@ -1,5 +1,5 @@
 import Container from '../../common/Container'
-import { User } from '@payload-types'
+import { Media, User } from '@payload-types'
 import Link from 'next/link'
 
 import {
@@ -27,7 +27,10 @@ const AuthorsList: React.FC<{ authors: AuthorsListProps[] }> = ({
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
                   <Avatar className='h-full w-full'>
-                    <AvatarImage alt='Post' src={author?.imageUrl!} />
+                    <AvatarImage
+                      alt='Post'
+                      src={(author?.imageUrl as Media)?.url!}
+                    />
                     <AvatarFallback />
                   </Avatar>
                 </div>

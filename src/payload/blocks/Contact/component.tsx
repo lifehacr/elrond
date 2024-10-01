@@ -66,11 +66,11 @@ const Contact: React.FC<ContactType> = ({ ...block }) => {
         <div>
           <div className='relative h-5 w-24'>
             {!imageLoaded && <LogoSkeleton />}
-            {(data?.logoImage as Media)?.url && (
+            {(data?.navbar?.logo?.imageUrl as Media)?.url && (
               <Image
                 onLoad={() => setImageLoaded(true)}
                 alt=''
-                src={(data?.logoImage as Media)?.url!}
+                src={(data?.navbar?.logo?.imageUrl as Media)?.url!}
                 fill
               />
             )}

@@ -4,6 +4,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { blocks } from '@/payload/blocks/index'
+import { Contacts } from '@/payload/collections/contact'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,6 +20,7 @@ export default cqlConfig({
   },
   cors: [env.PAYLOAD_URL],
   csrf: [env.PAYLOAD_URL],
+  collections: [Contacts],
 
   baseURL: env.PAYLOAD_URL,
 

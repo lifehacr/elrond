@@ -51,7 +51,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                     {(author?.value as User)?.imageUrl && (
                       <Image
                         alt='Author Image'
-                        src={(author?.value as User)?.imageUrl!}
+                        src={(author?.value as Media)?.url!}
                         height={26}
                         width={26}
                         onLoad={() => setImageLoaded(true)}

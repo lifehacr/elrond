@@ -65,9 +65,9 @@ const TagPosts = ({
                         key={index}
                         href={`/author/${(author?.value as User)?.username}`}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           alt='Author'
-                          src={(author?.value as User)?.imageUrl!}
+                          src={(author?.value as Media)?.url!}
                           height={26}
                           width={26}
                           className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
