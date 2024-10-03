@@ -1,8 +1,9 @@
-import { cqlConfig } from '@contentql/core'
+import { collectionSlug, cqlConfig } from '@contentql/core'
 import { env } from '@env'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { UserAccountVerification } from '@/emails/verify-email'
 import { blocks } from '@/payload/blocks/index'
 import { Contacts } from '@/payload/collections/contact'
 
@@ -20,7 +21,26 @@ export default cqlConfig({
   },
   cors: [env.PAYLOAD_URL],
   csrf: [env.PAYLOAD_URL],
-  collections: [Contacts],
+  collections: [
+    Contacts,
+    {
+      slug: collectionSlug['users'],
+      fields: [],
+      auth: {
+        verify: {
+          generateEmailHTML: ({ token, user }) => {
+            return UserAccountVerification({
+              actionLabel: 'verify your account',
+              buttonText: 'Verify Account',
+              userName: user.username,
+              image: user.imageUrl,
+              href: `${env.PAYLOAD_URL}/verify-email?token=${token}&id=${user.id}`,
+            })
+          },
+        },
+      },
+    },
+  ],
 
   baseURL: env.PAYLOAD_URL,
 

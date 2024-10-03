@@ -12,6 +12,7 @@ import {
   ResetPasswordSchema,
   SignInSchema,
   SignUpSchema,
+  VerifyEmailSchema,
 } from './validator'
 
 const payload = await getPayloadHMR({
@@ -232,24 +233,32 @@ export const authRouter = router({
   //     }
   //   }),
 
-  //   verifyEmail: publicProcedure
-  //     .input(VerifyEmailSchema)
-  //     .mutation(async ({ input }) => {
-  //       const { token } = input
+  verifyEmail: publicProcedure
+    .input(VerifyEmailSchema)
+    .query(async ({ input }) => {
+      const { token, userId } = input
 
-  //       try {
-  //         const result = await payload.verifyEmail({
-  //           collection: 'users',
-  //           token,
-  //         })
+      try {
+        const result = await payload.verifyEmail({
+          collection: 'users',
+          token,
+        })
 
-  //         return { success: result }
-  //       } catch (error: any) {
-  //         console.error('Error verifying email:', error)
-  //         throw new TRPCError({
-  //           code: 'INTERNAL_SERVER_ERROR',
-  //           message: error.message,
-  //         })
-  //       }
-  //     }),
+        await payload.update({
+          collection: 'users',
+          id: userId,
+          data: {
+            emailVerified: new Date().toDateString(),
+          },
+        })
+
+        return { success: result }
+      } catch (error: any) {
+        console.error('Error verifying email:', error)
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: error.message,
+        })
+      }
+    }),
 })
