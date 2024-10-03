@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '../../common/Button'
 import Container from '../../common/Container'
 import { env } from '@env'
 import { Blog, Media } from '@payload-types'
@@ -59,26 +58,24 @@ const PostScrollBar = ({ blog }: { blog: Blog }) => {
           <Container>
             <div className='flex h-16 w-full items-center justify-between sm:h-[74px]'>
               <div className='xs:gap-4 flex items-center justify-center gap-3'>
-                <div className='avatar'>
-                  <div className='w-10'>
-                    <Image
-                      alt='Author'
-                      fill
-                      className='rounded-full'
-                      src={(blog?.blogImage as Media)?.url!}
-                    />
-                  </div>
-                </div>
+                <Image
+                  alt='Author'
+                  width={40}
+                  height={40}
+                  className='!h-[40px] !w-[40px] rounded-full object-cover'
+                  src={(blog?.blogImage as Media)?.url!}
+                />
                 <div className='line-clamp-1 text-lg sm:font-semibold'>
                   {blog?.title}
                 </div>
               </div>
-              <Button
+
+              <button
                 onClick={() => copyText(pathName)}
-                className={`hover:bg-base-150 } !rounded-full`}>
+                className={`flex items-center gap-[0.5rem] !rounded-full bg-[#e3e3e3] px-3 py-2 text-sm font-bold`}>
                 {copied ? <TickMark /> : <Copy />}
                 {copied ? 'Copied' : 'Copy Link'}
-              </Button>
+              </button>
             </div>
           </Container>
         </motion.div>

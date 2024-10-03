@@ -20,9 +20,9 @@ const FAQ: React.FC<FAQType> = ({ ...block }) => {
     <div className='xs:px-6 mx-auto my-16 w-full px-4 md:w-full md:max-w-screen-lg'>
       <div className='mx-auto my-12 flex flex-col items-center justify-start gap-2 px-4 md:max-w-2xl'>
         <div className='my-14 flex justify-center'>
-          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-base-300'></span>
-          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-base-300'></span>
-          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-base-300'></span>
+          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-gray-300'></span>
+          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-gray-300'></span>
+          <span className='mx-2 inline-block h-1.5 w-1.5 rounded-full bg-gray-300'></span>
         </div>
         <div className='mx-auto'>
           <div className='mb-4 text-3xl font-bold'>{block?.title}</div>

@@ -23,7 +23,7 @@ const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
             <div className='flex flex-col items-center justify-center gap-2.5'>
               <div className='avatar'>
                 <div className='relative w-24 rounded-full'>
-                  <Avatar className='h-full w-full'>
+                  <Avatar className='h-full w-full !rounded-none'>
                     <AvatarImage
                       alt='Post'
                       src={(tag?.tagImage as Media)?.url!}

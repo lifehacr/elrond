@@ -1,13 +1,13 @@
 import { env } from '@env'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 import { Toaster } from 'sonner'
 
 import '@/app/(app)/globals.css'
 import Provider from '@/trpc/Provider'
 import { serverClient } from '@/trpc/serverClient'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Space_Grotesk({ subsets: ['latin'] })
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

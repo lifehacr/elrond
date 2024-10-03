@@ -66,33 +66,9 @@ export const authRouter = router({
             username,
             email,
             password,
-            imageUrl,
+            // imageUrl,
             role: ['user'],
           },
-          locale: undefined,
-          fallbackLocale: undefined,
-          overrideAccess: true,
-          disableVerificationEmail: true, // Set to false if you want to enable verification email
-        })
-
-        const loginResult = await payload.login({
-          collection: 'users',
-          data: {
-            email,
-            password,
-          },
-          depth: 2,
-          locale: undefined,
-          fallbackLocale: undefined,
-          overrideAccess: false,
-          showHiddenFields: true,
-        })
-        const cookieStore = cookies()
-        cookieStore.set('payload-token', loginResult.token || '', {
-          httpOnly: true,
-          secure: process.env.NODE_ENV !== 'development',
-          maxAge: 60 * 60 * 24 * 7,
-          path: '/',
         })
 
         return result

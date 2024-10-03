@@ -213,7 +213,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
             {' '}
             <Button
               onClick={() => setOpen(true)}
-              className='h-[34px] w-[34px] items-center !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
+              className='flex h-[34px] w-[34px] items-center justify-center !rounded-full bg-neutral-content bg-opacity-5 hover:bg-inherit'>
               <SearchIcon />
             </Button>
             {user ? (

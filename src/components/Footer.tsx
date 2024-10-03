@@ -74,10 +74,11 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
           <div className='flex flex-col justify-between gap-6 py-8 sm:py-12 md:flex-row md:gap-5'>
             <div className='flex flex-col justify-start gap-5'>
               <Link href={'/'} className='relative h-6 w-28'>
-                <Avatar className='h-full w-full'>
+                <Avatar className='h-full w-full !rounded-none'>
                   <AvatarImage
                     alt={logo?.description || ''}
                     src={(logo?.imageUrl as Media)?.url!}
+                    className='!rounded-none'
                   />
                   <AvatarFallback />
                 </Avatar>

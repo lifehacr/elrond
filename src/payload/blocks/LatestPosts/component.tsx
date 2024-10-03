@@ -51,7 +51,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                           src={(blog?.blogImage as Media)?.url!}
                           alt={(blog?.blogImage as Media)?.url! || 'Blog'}
                           fill
-                          className='rounded-xl md:rounded-full'
+                          className='rounded-xl object-cover md:rounded-full'
                         />
                       </Link>
                     </div>
@@ -112,19 +112,19 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                           <Link
                             key={index}
                             href={`/tag/${(tag?.value as Tag)?.slug}`}>
-                            <div className='badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-medium uppercase tracking-wider text-zinc-700 hover:opacity-80'>
+                            <div className='rounded-lg border border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-medium uppercase tracking-wider text-zinc-700 hover:opacity-80'>
                               {(tag?.value as Tag)?.title}
                             </div>
                           </Link>
                         ))}
                       </div>
                       {index === 0 && (
-                        <div className='badge badge-warning badge-lg rounded-lg border border-[#FEC896] text-xs font-semibold text-error '>
+                        <div className='rounded-lg border border-[#FEC896] bg-[#FFDEBE] px-3 py-[2px] text-xs font-semibold text-[#E56000]'>
                           ✦ PREMIUM
                         </div>
                       )}
                       {index === 2 && (
-                        <div className='badge badge-primary badge-lg rounded-lg border text-xs font-semibold text-base-100'>
+                        <div className='rounded-lg border bg-[#7248E6] px-3 py-[2px] text-xs font-semibold text-base-100'>
                           ✽ MEMBER
                         </div>
                       )}
@@ -189,11 +189,11 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                 />
               </div>
               <div>
-                <Button
+                <button
                   onClick={() => route?.push(block?.buttonPath)}
-                  className='btn-primary h-9 w-full font-medium text-white'>
+                  className='h-9 w-full rounded-lg bg-primary font-medium text-white'>
                   {block?.buttonName}
-                </Button>
+                </button>
               </div>
             </div>
           </div>

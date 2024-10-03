@@ -13,8 +13,8 @@ const TickMark = () => {
         d='M5 13L9 17L19 7'
         stroke='currentColor'
         strokeWidth='2'
-        stroke-linecap='round'
-        stroke-linejoin='round'></path>
+        strokeLinecap='round'
+        strokeLinejoin='round'></path>
     </svg>
   )
 }

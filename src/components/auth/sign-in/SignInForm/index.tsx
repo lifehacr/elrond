@@ -133,7 +133,7 @@ const SignInForm: React.FC = () => {
           <button
             type='button'
             onClick={() => router.push('/sign-up')}
-            className='h-10 w-full rounded-md border-[1px] bg-secondary text-[0.875rem]'>
+            className='h-10 w-full rounded-md border-[1px] border-[#E5E7EB] bg-secondary text-[0.875rem]'>
             ✦ &nbsp;Sign up
           </button>
         </div>

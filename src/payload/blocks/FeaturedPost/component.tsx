@@ -25,7 +25,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
         </h2>
         <div className='flex w-full flex-col items-center gap-6 md:flex-row md:gap-10'>
           <div className='avatar w-full'>
-            <div className='relative h-60 w-full rounded-xl md:h-80'>
+            <div className='relative h-60 w-full overflow-hidden rounded-xl md:h-80'>
               <Link href={`/${featuredPost?.slug!}`}>
                 <Image
                   alt='Featured Post'
@@ -51,7 +51,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                     {(author?.value as User)?.imageUrl && (
                       <Image
                         alt='Author Image'
-                        src={(author?.value as Media)?.url!}
+                        src={((author?.value as User)?.imageUrl as Media)?.url!}
                         height={26}
                         width={26}
                         onLoad={() => setImageLoaded(true)}
