@@ -4,7 +4,7 @@ import { FeaturesType } from '@payload-types'
 
 const Features: React.FC<FeaturesType> = ({ ...block }) => {
   return (
-    <Container className='my-12 px-4 sm:my-24 md:max-w-2xl lg:px-0'>
+    <Container className='my-12 px-4 sm:my-24 md:max-w-2xl lg:px-0 lg:pb-12'>
       {block?.features?.map((feature, index) => (
         <div key={index}>
           <div className='mb-4 text-[1.72rem] font-bold'>{feature?.title}</div>
