@@ -102,7 +102,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                           (link, index) =>
                             link?.type === 'reference' ? (
                               <Link
-                                target={`${link?.type === 'reference' ? '_blank' : '_self'}`}
+                                target={`${link?.type === 'reference' ? '_self' : '_blank'}`}
                                 key={index}
                                 href={`/${link?.url!}`}>
                                 {link?.label}
@@ -124,7 +124,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                         </Link>
                       ) : (
                         <Link
-                          target={`${footerLink?.menuLink?.page ? '_blank' : '_self'}`}
+                          target={`${footerLink?.menuLink?.page ? '_self' : '_blank'}`}
                           href={`/${(footerLink?.menuLink?.page?.value as Page)
                             ?.slug!}`}>
                           {(footerLink?.menuLink?.page?.value as Page)?.title}

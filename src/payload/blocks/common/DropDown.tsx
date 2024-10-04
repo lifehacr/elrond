@@ -74,7 +74,7 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
                 <li key={index}>
                   <Link
                     href={`/${(link?.page?.value as Page)?.slug!}`}
-                    target={`${link?.page ? '_blank' : '_self'}`}
+                    target={`${link?.page ? '_self' : '_blank'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
                     {capitalizeFirstLetter((link?.page?.value as Page)?.title)}
                   </Link>

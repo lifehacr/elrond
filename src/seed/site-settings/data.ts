@@ -38,6 +38,17 @@ export const siteSettingsData: siteSettingsDataType = {
         group: false,
         menuLink: {
           type: 'reference',
+          label: 'Membership',
+          page: {
+            relationTo: 'pages',
+            value: '',
+          },
+        },
+      },
+      {
+        group: false,
+        menuLink: {
+          type: 'reference',
           label: 'Authors',
           page: {
             relationTo: 'pages',
@@ -65,11 +76,6 @@ export const siteSettingsData: siteSettingsDataType = {
               type: 'reference',
               newTab: false,
               label: 'Subscribe',
-            },
-            {
-              type: 'reference',
-              newTab: false,
-              label: 'Membership',
             },
             {
               type: 'reference',
