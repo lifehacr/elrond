@@ -11,6 +11,7 @@ import {
 const payload = await getPayloadHMR({ config: configPromise })
 
 const seedSiteSettings = async () => {
+  console.log('site settings data is ', siteSettingsData?.navbar?.menuLinks)
   try {
     const logoImageResult = await payload.create({
       collection: 'media',
@@ -104,6 +105,11 @@ const seedSiteSettings = async () => {
         ),
       },
     }
+
+    console.log(
+      'formatted site settings ',
+      formattedSiteSettingsData?.navbar?.menuLinks,
+    )
 
     const result = await payload.updateGlobal({
       slug: collectionSlug['site-settings'],

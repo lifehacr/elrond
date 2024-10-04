@@ -85,7 +85,7 @@ export default function DeleteAccountSection() {
 
           <div className='fixed inset-0 z-[100] w-screen overflow-y-auto'>
             <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <div className='relative transform overflow-hidden rounded-rounded-box bg-base-300 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
+              <div className='relative transform overflow-hidden rounded-rounded-box bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
                 <div className='bg-base-300 px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
                   <div className='sm:flex sm:items-start'>
                     <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-error/10 sm:mx-0 sm:h-10 sm:w-10'>
@@ -121,7 +121,7 @@ export default function DeleteAccountSection() {
                           htmlFor='confirmDelete'
                           className='block p-2 text-sm font-medium'>
                           Type{' '}
-                          <span className='rounded-md border bg-base-200 p-0.5  italic '>
+                          <span className='rounded-md border p-0.5  italic '>
                             delete
                           </span>{' '}
                           to confirm.
@@ -140,7 +140,7 @@ export default function DeleteAccountSection() {
                               setIsAllowedToDelete(false)
                             }
                           }}
-                          className='mt-1 w-full rounded-rounded-btn bg-base-200 p-2 '
+                          className='mt-1 w-full rounded-rounded-btn border p-2'
                         />
                       </div>
                     </div>

@@ -1,10 +1,12 @@
 'use client'
 
 import type { User } from '@payload-types'
+import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import LeftArrow from '@/svg/LeftArrow'
 import { trpc } from '@/trpc/client'
 
 import DeleteAccountSection from './DeleteAccountSection'
@@ -64,9 +66,14 @@ const ProfileForm = ({ user }: { user: User }) => {
   return (
     <div className='p-2 md:p-4'>
       <div className='mt-8 w-full px-6 pb-8 sm:rounded-lg'>
-        <h2 className='pl-6 text-2xl font-bold text-base-content sm:text-xl'>
-          Personal Information
-        </h2>
+        <div className='flex items-center gap-2'>
+          <Link href={'/'} className='md:hidden'>
+            <LeftArrow />
+          </Link>
+          <h2 className='text-2xl font-bold text-base-content sm:text-xl'>
+            Personal Information
+          </h2>
+        </div>
 
         <div className='mx-auto mt-8 grid'>
           <div className='flex flex-col items-center justify-center space-y-5 sm:flex-row sm:space-y-0'>
@@ -89,7 +96,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                 placeholder='John'
                 value={user?.username || ''}
                 onChange={handleOnChange}
-                className='mt-1 w-full rounded-md bg-base-200 p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
+                className='bg-base-200 mt-1 w-full rounded-md p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
               />
             </div>
 
@@ -106,7 +113,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                 placeholder='john.doe@example.com'
                 value={user?.email}
                 disabled
-                className='mt-1 w-full rounded-md bg-base-200 p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
+                className='bg-base-200 mt-1 w-full rounded-md p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
               />
             </div>
             <div className='mb-4 flex w-full flex-col items-center space-x-0 space-y-2 sm:mb-6 sm:flex-row sm:space-x-4 sm:space-y-0'>
@@ -122,7 +129,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                   name='password'
                   placeholder='● ● ● ● ● ● ● ● ●'
                   onChange={handleOnChange}
-                  className='mt-1 w-full rounded-md bg-base-200 p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
+                  className='bg-base-200 mt-1 w-full rounded-md p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
                 />
               </div>
               <div className='w-full'>
@@ -137,7 +144,7 @@ const ProfileForm = ({ user }: { user: User }) => {
                   name='confirmPassword'
                   placeholder='● ● ● ● ● ● ● ● ●'
                   onChange={handleOnChange}
-                  className='mt-1 w-full rounded-md bg-base-200 p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
+                  className='bg-base-200 mt-1 w-full rounded-md p-2 text-base-content transition-colors duration-300 focus:border-base-content/40 focus:outline-none focus:ring-1 focus:ring-base-content/40 focus:ring-offset-1'
                 />
               </div>
             </div>
@@ -145,7 +152,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className='flex justify-end'>
               <button
                 type='submit'
-                className='w-full rounded-lg  bg-primary px-5 py-2.5 text-center text-sm font-medium text-base-content hover:bg-primary-focus focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
+                className='w-full rounded-full  bg-primary px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#805AE9] hover:bg-primary-focus focus:outline-none focus:ring-4 focus:ring-primary/30 sm:w-auto'>
                 {isUpdateUserPending ? 'Updating...' : 'Update Profile'}
               </button>
             </div>
