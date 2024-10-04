@@ -192,7 +192,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                     <DropDown headerLink={headerLink} />
                   ) : headerLink?.menuLink?.url ? (
                     <Link
-                      // target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
+                      target={`${headerLink?.menuLink?.page ? '_self' : '_blank'}`}
                       href={`/${headerLink?.menuLink?.url!}`}>
                       {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
                     </Link>

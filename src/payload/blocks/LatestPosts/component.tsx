@@ -75,13 +75,18 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
                               {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <Image
-                                alt='Author'
-                                src={(author?.value as Media)?.url!}
-                                height={24}
-                                width={24}
-                                className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
-                              />
+                              {(author?.value as User)?.imageUrl && (
+                                <Image
+                                  alt='Author'
+                                  src={
+                                    ((author?.value as User)?.imageUrl as Media)
+                                      ?.url!
+                                  }
+                                  height={24}
+                                  width={24}
+                                  className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110'
+                                />
+                              )}
                             </Link>
                           ))}
                         </div>
