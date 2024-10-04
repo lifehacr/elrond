@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
+import { Skeleton } from '@/utils/Skeleton'
 
 const Hero: React.FC<HeroType> = ({ ...block }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -20,7 +21,12 @@ const Hero: React.FC<HeroType> = ({ ...block }) => {
           <div className='avatar'>
             <div
               className={`relative ${pathName === '/' ? 'h-20 w-20' : 'h-24 w-24'} rounded-full`}>
-              {!imageLoaded && <HeroImageSkeleton />}
+              {!imageLoaded &&
+                (pathName === '/' ? (
+                  <Skeleton className={'relative h-20 w-20  rounded-full'} />
+                ) : (
+                  <HeroImageSkeleton />
+                ))}
               <Image
                 src={(block?.image as Media)?.url!}
                 alt={(block?.image as Media)?.alt || 'Hero Image'}

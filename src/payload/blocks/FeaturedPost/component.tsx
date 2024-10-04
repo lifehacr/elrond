@@ -84,7 +84,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                 <Link
                   key={index}
                   href={`/tag/${(tag?.value as Tag)?.slug}`}
-                  className={`badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80`}>
+                  className={`rounded-lg border border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-semibold text-secondary-content hover:opacity-80`}>
                   {(tag?.value as Tag)?.title?.toUpperCase()}
                 </Link>
               ))}
