@@ -52,7 +52,7 @@ const ResetPasswordTemplate = ({
             <Text style={infoText}>Hello, {userFirstName}</Text>
 
             <Text style={infoText}>
-              Here's the link to update your password
+              Here&apos;s the link to update your password
             </Text>
 
             <Button href={resetPasswordLink} style={button}>
