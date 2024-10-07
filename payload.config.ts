@@ -3,6 +3,7 @@ import { env } from '@env'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { ResetPassword } from '@/emails/reset-password'
 import { UserAccountVerification } from '@/emails/verify-email'
 import { blocks } from '@/payload/blocks/index'
 import { Contacts } from '@/payload/collections/contact'
@@ -27,6 +28,14 @@ export default cqlConfig({
       slug: collectionSlug['users'],
       fields: [],
       auth: {
+        forgotPassword: {
+          generateEmailHTML: args => {
+            return ResetPassword({
+              resetPasswordLink: `${env.PAYLOAD_URL}/reset-password?token=${args?.token}`,
+              userFirstName: args?.user.username,
+            })
+          },
+        },
         verify: {
           generateEmailHTML: ({ token, user }) => {
             return UserAccountVerification({

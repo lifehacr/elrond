@@ -52,8 +52,7 @@ const ResetPasswordTemplate = ({
             <Text style={infoText}>Hello, {userFirstName}</Text>
 
             <Text style={infoText}>
-              Someone recently requested a password change for your account. If
-              this was you, you can set a new password here:
+              Here's the link to update your password
             </Text>
 
             <Button href={resetPasswordLink} style={button}>
@@ -89,13 +88,13 @@ const header = {
 const title = {
   fontSize: '24px',
   fontWeight: 'bold',
-  color: '#f1f5f9',
+  color: '#18181B',
   marginLeft: '10px',
 }
 
 const main = {
   backgroundColor: '#fff',
-  color: '#f1f5f9',
+  color: '#18181B',
   margin: 'auto',
   padding: '10px 0px',
   fontFamily:
@@ -104,7 +103,7 @@ const main = {
 
 const container = {
   maxWidth: '600px',
-  backgroundColor: '#0f172a',
+  backgroundColor: '#FAFAFA',
   margin: 'auto',
   padding: '24px',
 }
@@ -117,14 +116,14 @@ const hr = {
 const infoText = {
   margin: '0 0 10px 0',
   fontSize: '14px',
-  color: '#f1f5f9',
+  color: '#18181B',
   textAlign: 'left' as const,
 }
 
 const button = {
   fontSize: '16px',
-  backgroundColor: '#8b5cf6',
-  color: '#f1f5f9',
+  backgroundColor: '#7248E6',
+  color: '#FAFAFA',
   lineHeight: 1.5,
   borderRadius: '8px',
   padding: '12px 24px',

@@ -114,7 +114,7 @@ const SignInForm: React.FC = () => {
             <div className='mt-2 text-secondary-content'>
               Forgot your password?{' '}
               <Link
-                href={'/reset-password'}
+                href={'/forgot-password'}
                 className='underline hover:text-primary'>
                 Reset it.
               </Link>
