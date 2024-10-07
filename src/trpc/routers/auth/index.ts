@@ -39,7 +39,7 @@ export const authRouter = router({
         if (emailExists.totalDocs > 0) {
           throw new TRPCError({
             code: 'CONFLICT',
-            message: `${email} already exists`,
+            message: `email '${email}' already exists`,
           })
         }
 
@@ -56,7 +56,7 @@ export const authRouter = router({
         if (usernameExists.totalDocs > 0) {
           throw new TRPCError({
             code: 'CONFLICT',
-            message: `${username} already exists`,
+            message: `username '${username}' already exists`,
           })
         }
 
@@ -66,7 +66,6 @@ export const authRouter = router({
             username,
             email,
             password,
-            // imageUrl,
             role: ['user'],
           },
         })

@@ -217,12 +217,6 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
               <SearchIcon />
             </Button>
             {user ? (
-              // <Button
-              //   className='h-[34px] !rounded-full bg-primary font-medium text-white'
-              //   onClick={handleLogOut}>
-              //   <span className='hidden text-inherit sm:inline'>✦</span>
-              //   <span className='sm:inline'> logout</span>
-              // </Button>
               <ProfileDropdown user={user} />
             ) : (
               <Button

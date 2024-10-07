@@ -47,8 +47,8 @@ const SignUpForm: React.FC = () => {
         toast.success('Successfully created, redirecting...')
         router.push('/')
       },
-      onError: () => {
-        toast.error('Unable to create an account, try again!')
+      onError: error => {
+        toast.error(error?.message)
       },
     })
 

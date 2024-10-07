@@ -44,9 +44,9 @@ const SignInForm: React.FC = () => {
         router.push('/profile')
         toast.success('Redirecting you to profile page.')
       },
-      onError: () => {
+      onError: error => {
         reset()
-        toast.error('Unable to sign in, please try again.')
+        toast.error(error?.message)
       },
     })
 
@@ -71,9 +71,9 @@ const SignInForm: React.FC = () => {
           {/* <Logo className={'flex h-[20px] w-fit items-center justify-start'} /> */}
           <div className='relative h-5 w-20'>
             {!imageLoaded && <LogoSkeleton />}
-            {(siteSettingsData?.general?.faviconUrl as Media)?.url && (
+            {(siteSettingsData?.navbar?.logo?.imageUrl as Media)?.url && (
               <Image
-                src={(siteSettingsData?.general?.faviconUrl as Media)?.url!}
+                src={(siteSettingsData?.navbar?.logo?.imageUrl as Media)?.url!}
                 alt='Logo'
                 fill
                 onLoad={() => setImageLoaded(true)}
