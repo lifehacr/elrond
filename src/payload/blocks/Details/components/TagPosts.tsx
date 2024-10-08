@@ -67,7 +67,9 @@ const TagPosts = ({
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <Image
                           alt='Author'
-                          src={(author?.value as Media)?.url!}
+                          src={
+                            ((author?.value as User)?.imageUrl as Media)?.url!
+                          }
                           height={26}
                           width={26}
                           className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
@@ -95,18 +97,18 @@ const TagPosts = ({
               <div className='flex gap-2'>
                 {post?.tags?.map((tag, index) => (
                   <Link key={index} href={`/tag/${(tag?.value as Tag)?.slug}`}>
-                    <div className='badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80'>
+                    <div className='badge-lg rounded-lg border border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-semibold hover:opacity-80'>
                       {(tag?.value as Tag)?.title?.toUpperCase()}
                     </div>
                   </Link>
                 ))}
                 {index === 0 && (
-                  <div className='badge badge-warning badge-lg rounded-lg border border-[#FEC896] text-xs font-semibold text-error '>
+                  <div className='badge-lg rounded-lg border border-[#FEC896] bg-[#FFDEBE] px-3 py-[2px] text-xs font-semibold text-error '>
                     ✦ PREMIUM
                   </div>
                 )}
                 {index === 2 && (
-                  <div className='border-black/0.1 badge badge-primary badge-lg rounded-lg border text-xs font-semibold text-base-100'>
+                  <div className='border-black/0.1 badge-lg rounded-lg border bg-[#7248E6] px-3 py-[2px] text-xs font-semibold text-base-100'>
                     ✽ MEMBER
                   </div>
                 )}
