@@ -28,6 +28,7 @@ const AuthorPosts = ({
                     fill
                     src={(post?.blogImage as Media)?.url!}
                     alt='BlogPost'
+                    className='rounded-full object-cover'
                   />
                 </Link>
               </div>
@@ -47,19 +48,19 @@ const AuthorPosts = ({
                     <Link
                       key={index}
                       href={`/tag/${(tag?.value as Tag)?.slug}`}>
-                      <div className='badge badge-secondary badge-lg rounded-lg border border-zinc-200 text-xs font-semibold hover:opacity-80'>
+                      <div className='badge badge-secondary badge-lg rounded-lg border  border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-semibold hover:opacity-80'>
                         {(tag?.value as Tag)?.title}
                       </div>
                     </Link>
                   ))}
                 </div>
                 {index === 0 && (
-                  <div className='badge badge-warning badge-lg rounded-lg border border-[#FEC896] text-xs font-semibold text-error '>
+                  <div className='rounded-lg border border-[#FEC896] bg-[#FFDEBE] px-3 py-[2px] text-xs font-semibold text-error'>
                     ✦ PREMIUM
                   </div>
                 )}
                 {index === 2 && (
-                  <div className='border-black/0.1 badge badge-primary badge-lg rounded-lg border text-xs font-semibold text-base-100'>
+                  <div className='border-black/0.1 rounded-lg border bg-primary px-3 py-[2px] text-xs font-semibold text-base-100'>
                     ✽ MEMBER
                   </div>
                 )}

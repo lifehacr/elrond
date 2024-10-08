@@ -24,10 +24,10 @@ const AuthorHero = ({ author }: { author: User }) => {
       </div>
       <div className='mt-6 text-xl font-bold'>{author?.displayName}</div>
       <div className='mt-5 flex gap-4'>
-        <Button className='hover:bg-base-150 !rounded-full'>
+        <Button className='hover:bg-base-150 flex items-center gap-2 !rounded-full'>
           <Twitter /> @hedwick
         </Button>
-        <Button className='hover:bg-base-150 !rounded-full'>
+        <Button className='hover:bg-base-150 flex items-center gap-2 !rounded-full'>
           <Globe /> cagatiya.io
         </Button>
       </div>

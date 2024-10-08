@@ -84,7 +84,7 @@ export const authorRouter = router({
           collection: 'users',
           draft: false,
           where: {
-            name: {
+            username: {
               equals: authorName,
             },
           },
