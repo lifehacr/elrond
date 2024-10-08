@@ -43,7 +43,8 @@ const BlogView = ({ blog }: { blog: Blog }) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <Image
                   alt='Author'
-                  src={(author?.value as Media)?.url!}
+                  src={((author?.value as User)?.imageUrl as Media)?.url!}
+                  fill
                   className='rounded-full border-2 border-white transition-transform duration-300 hover:scale-110 hover:transform'
                 />
               </Link>
