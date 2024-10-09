@@ -11,19 +11,23 @@ import { serverClient } from '@/trpc/serverClient'
 const payload = await getPayloadHMR({
   config: configPromise,
 })
+
 interface PageProps {
   params: Promise<{ route: string[] }>
 }
+
 const Page: NextPage<PageProps> = async ({ params }) => {
-  const parsedParams = await params
+  const syncParams = await params
+
   try {
     const pageData = await serverClient.page.getPageData({
-      path: parsedParams?.route,
+      path: syncParams?.route,
     })
+
     return (
       <RenderBlocks
         pageInitialData={pageData as PageType}
-        params={parsedParams}
+        params={syncParams}
       />
     )
   } catch (error) {
@@ -38,6 +42,7 @@ export async function generateMetadata({
   params: Promise<{ route: string[] }>
 }): Promise<Metadata | {}> {
   const parsedParams = await params
+
   try {
     // calling the site-settings to get all the data
     const pageData = await serverClient.page.getPageData({
@@ -47,6 +52,7 @@ export async function generateMetadata({
     const block = pageData.layout
       ?.filter(block => block.blockType === 'Details')
       ?.at(0)
+
     if (pageData?.isDynamic && block?.collectionSlug) {
       const { docs } = await payload.find({
         collection: block?.collectionSlug,
@@ -58,10 +64,13 @@ export async function generateMetadata({
       })
       const doc = docs?.at(0)
       const metadata = doc?.meta
+
       if (metadata) {
         let ogImage = []
+
         const title = metadata.title
         const description = metadata.description
+
         if (metadata.image && typeof metadata.image !== 'string') {
           ogImage.push({
             url: metadata.image.sizes?.blogImageSize2?.url!,
@@ -70,6 +79,7 @@ export async function generateMetadata({
             alt: `og image`,
           })
         }
+
         return {
           title,
           description,
@@ -86,10 +96,12 @@ export async function generateMetadata({
         }
       }
     }
+
     const metadata = pageData?.meta
 
     if (metadata) {
       let ogImage = []
+
       const title = metadata.title
       const description = metadata.description
 
