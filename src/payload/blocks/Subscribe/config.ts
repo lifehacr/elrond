@@ -2,7 +2,6 @@ import { Block } from 'payload'
 
 const SubscribeConfig: Block = {
   slug: 'Subscribe',
-  // imageURL: '',
   interfaceName: 'SubscribeType',
   labels: {
     singular: 'Subscribe Block',
@@ -13,6 +12,9 @@ const SubscribeConfig: Block = {
       name: 'title',
       label: 'Title',
       type: 'text',
+      admin: {
+        description: 'Enter the title for the subscribe section.',
+      },
     },
     {
       name: 'image',
@@ -20,7 +22,8 @@ const SubscribeConfig: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Upload subscribe image',
+        description:
+          'Upload an image to be displayed in the subscribe section.',
       },
     },
   ],

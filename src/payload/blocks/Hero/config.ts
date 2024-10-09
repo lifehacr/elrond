@@ -2,7 +2,6 @@ import { Block } from 'payload'
 
 const HeroConfig: Block = {
   slug: 'Hero',
-  // imageURL: '',
   interfaceName: 'HeroType',
   labels: {
     singular: 'Hero Block',
@@ -15,18 +14,24 @@ const HeroConfig: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Upload hero image',
+        description: 'Upload the image to be displayed in the hero section.',
       },
     },
     {
       name: 'title',
       label: 'Title',
       type: 'text',
+      admin: {
+        description: 'Enter the main title for the hero section.',
+      },
     },
     {
       name: 'description',
-      label: 'description',
+      label: 'Description',
       type: 'text',
+      admin: {
+        description: 'Enter a brief description for the hero section.',
+      },
     },
   ],
 }

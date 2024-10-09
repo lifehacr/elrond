@@ -2,17 +2,19 @@ import { Block } from 'payload'
 
 const RecommendationsListConfig: Block = {
   slug: 'RecommendationsList',
-  // imageURL: '',
   interfaceName: 'RecommendationsListType',
   labels: {
-    singular: 'RecommendationsList Block',
-    plural: 'RecommendationsList Blocks',
+    singular: 'Recommendations List Block',
+    plural: 'Recommendations List Blocks',
   },
   fields: [
     {
       name: 'recommendations',
       label: 'Recommendations',
       type: 'array',
+      admin: {
+        description: 'Add a list of recommendations to display.',
+      },
       fields: [
         {
           name: 'image',
@@ -21,7 +23,7 @@ const RecommendationsListConfig: Block = {
           required: true,
           relationTo: 'media',
           admin: {
-            description: 'Upload recommendations image',
+            description: 'Upload an image to represent the recommendation.',
           },
         },
         {
@@ -29,18 +31,28 @@ const RecommendationsListConfig: Block = {
           label: 'Title',
           type: 'text',
           required: true,
+          admin: {
+            description: 'Enter the title of the recommendation.',
+          },
         },
         {
           name: 'description',
           label: 'Description',
           type: 'text',
           required: true,
+          admin: {
+            description: 'Provide a brief description for the recommendation.',
+          },
         },
         {
           name: 'recommendationUrl',
           label: 'Recommendation URL',
           type: 'text',
           required: true,
+          admin: {
+            description:
+              'Enter the URL for more information about the recommendation.',
+          },
         },
       ],
     },

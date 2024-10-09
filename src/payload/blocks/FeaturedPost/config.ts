@@ -2,17 +2,19 @@ import { Block } from 'payload'
 
 const FeaturedPostConfig: Block = {
   slug: 'FeaturedPost',
-  // imageURL: '',
   interfaceName: 'FeaturedPostType',
   labels: {
-    singular: 'FeaturedPost Block',
-    plural: 'FeaturedPost Blocks',
+    singular: 'Featured Post Block',
+    plural: 'Featured Post Blocks',
   },
   fields: [
     {
       name: 'title',
       label: 'Title',
       type: 'text',
+      admin: {
+        description: 'Enter the title of the featured post.',
+      },
     },
   ],
 }
