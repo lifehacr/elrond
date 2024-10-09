@@ -24,7 +24,12 @@
     "tailwindcss",
     "tanstack",
     "trivago",
-    "trpc"
+    "trpc",
+    "yalc",
+    "pinterest",
+    "quora",
+    "tiktok",
+    "immer"
   ],
   "npm.packageManager": "pnpm",
   "editor.defaultFormatter": "esbenp.prettier-vscode",

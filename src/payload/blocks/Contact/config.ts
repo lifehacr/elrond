@@ -2,7 +2,6 @@ import { Block } from 'payload'
 
 const ContactConfig: Block = {
   slug: 'Contact',
-  // imageURL: '',
   interfaceName: 'ContactType',
   labels: {
     singular: 'Contact Block',
@@ -13,11 +12,18 @@ const ContactConfig: Block = {
       name: 'title',
       label: 'Title',
       type: 'text',
+      admin: {
+        description: 'Enter the title for the contact section.',
+      },
     },
     {
       name: 'description',
       label: 'Description',
       type: 'text',
+      admin: {
+        description:
+          'Provide a brief description or message for the contact section.',
+      },
     },
     {
       name: 'image',
@@ -25,7 +31,7 @@ const ContactConfig: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Upload contact image',
+        description: 'Upload an image to be displayed in the contact section.',
       },
     },
   ],

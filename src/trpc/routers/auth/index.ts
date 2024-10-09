@@ -96,7 +96,7 @@ export const authRouter = router({
           overrideAccess: false,
           showHiddenFields: true,
         })
-        const cookieStore = cookies()
+        const cookieStore = await cookies()
         cookieStore.set('payload-token', result.token || '', {
           httpOnly: true,
           secure: process.env.NODE_ENV !== 'development',
