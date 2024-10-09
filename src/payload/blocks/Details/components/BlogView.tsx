@@ -14,7 +14,10 @@ const BlogView = ({ blog }: { blog: Blog }) => {
   const formattedDate = `${day} ${month} ${year}`
 
   const html = slateToHtml(blog?.content)
-  const sanitizeHtml = DOMPurify.sanitize(html)
+  const sanitizeHtml = DOMPurify.sanitize(html, {
+    ADD_ATTR: ['target'], // Allow the "target" attribute
+    ADD_TAGS: ['iframe'], // You can also add other tags if needed (optional)
+  })
 
   const readingTime = require('reading-time')
   const postReadTime = readingTime(sanitizeHtml)
