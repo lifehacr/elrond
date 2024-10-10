@@ -1,6 +1,6 @@
 'use client'
 
-import { Media, User } from '@payload-types'
+import { User } from '@payload-types'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -73,7 +73,11 @@ const ProfileDropdown = ({ user }: { user: User }) => {
     <div className='profile-dropdown relative inline-block text-left'>
       <div onClick={handleImageClick}>
         <Image
-          src={(user?.imageUrl as Media)?.url!}
+          src={
+            user?.imageUrl
+              ? (user.imageUrl as string)
+              : '/images/default-profile.png'
+          }
           alt='Profile'
           width={36}
           height={36}

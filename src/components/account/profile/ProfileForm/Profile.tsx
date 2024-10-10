@@ -80,7 +80,11 @@ const Profile = ({ initialUser }: { initialUser: User | undefined }) => {
       <div className='max-w-sm rounded p-5 text-center text-base-content/70'>
         <div className='group relative z-0 mx-auto h-[141px] w-[141px]'>
           <Image
-            src={(user?.imageUrl as Media)?.url! as string}
+            src={
+              user?.imageUrl
+                ? (user.imageUrl as string)
+                : '/images/default-profile.png'
+            }
             alt='Profile'
             width={140}
             height={140}
