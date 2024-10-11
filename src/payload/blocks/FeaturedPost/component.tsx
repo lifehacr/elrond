@@ -31,6 +31,7 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
                   alt='Featured Post'
                   fill
                   src={(featuredPost?.blogImage as Media)?.url!}
+                  className='object-cover'
                 />
               </Link>
             </div>
