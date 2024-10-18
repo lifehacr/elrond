@@ -40,9 +40,13 @@ const SignInForm: React.FC = () => {
 
   const { mutate: signInMutation, isPending: isSignInPending } =
     trpc.auth.signIn.useMutation({
-      onSuccess: () => {
-        router.push('/profile')
-        toast.success('Redirecting you to profile page.')
+      onSuccess: result => {
+        const isAdmin = result?.user?.role?.includes('admin')
+        if (isAdmin) {
+          router.push('/admin')
+        } else {
+          router.push('/profile')
+        }
       },
       onError: error => {
         reset()
