@@ -23,7 +23,7 @@ const AuthorPosts = ({
           <div key={index} className='flex flex-col gap-7 md:flex-row'>
             <div className='avatar'>
               <div className='relative h-60 w-full rounded-xl md:h-28 md:w-28 md:rounded-full'>
-                <Link href={`/${post?.slug}`}>
+                <Link href={`/blog/${post?.slug}`}>
                   <Image
                     fill
                     src={(post?.blogImage as Media)?.url!}
@@ -36,7 +36,7 @@ const AuthorPosts = ({
             <div className='flex flex-col gap-2'>
               <div className='flex flex-col gap-2'>
                 <Link
-                  href={`/${post?.slug}`}
+                  href={`/blog/${post?.slug}`}
                   className='text-xl font-semibold text-base-content'>
                   {post?.title}
                 </Link>

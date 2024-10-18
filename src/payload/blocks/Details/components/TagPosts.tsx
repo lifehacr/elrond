@@ -23,6 +23,7 @@ const TagPosts = ({
       setLoading(false)
     }, 1000)
   }
+  console.log('tags page', blogPosts)
   return (
     <div className='mx-auto my-16 flex w-full flex-col gap-5 px-4 md:max-w-screen-sm md:px-0'>
       <div className='flex'>
@@ -38,18 +39,18 @@ const TagPosts = ({
       <div className='space-y-14'>
         {blogPosts?.slice(0, noOfPosts)?.map((post, index) => (
           <div key={index} className='flex flex-col gap-7 md:flex-row'>
-            <div className='avatar'>
-              <Link
-                href={`/blog/${post?.slug}`}
-                className='relative h-60 w-full md:h-28 md:w-28'>
-                <Image
-                  src={(post?.blogImage as Media)?.url!}
-                  alt='Post'
-                  fill
-                  className='rounded-xl md:rounded-full'
-                />
-              </Link>
-            </div>
+            {/* <div className='avatar'> */}
+            <Link
+              href={`/blog/${post?.slug}`}
+              className='relative h-60 w-full md:h-28 md:w-28'>
+              <Image
+                src={(post?.blogImage as Media)?.url!}
+                alt='Post'
+                fill
+                className='rounded-xl md:rounded-full'
+              />
+            </Link>
+            {/* </div> */}
 
             <div className='flex flex-col gap-2'>
               <div className='flex flex-col gap-2'>
