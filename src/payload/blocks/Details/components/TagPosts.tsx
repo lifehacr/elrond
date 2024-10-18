@@ -23,7 +23,6 @@ const TagPosts = ({
       setLoading(false)
     }, 1000)
   }
-  console.log('tags page', blogPosts)
   return (
     <div className='mx-auto my-16 flex w-full flex-col gap-5 px-4 md:max-w-screen-sm md:px-0'>
       <div className='flex'>

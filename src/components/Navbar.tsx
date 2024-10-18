@@ -220,11 +220,13 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
               <ProfileDropdown user={user} />
             ) : (
               <Button
-                className='h-[34px] !rounded-full bg-primary pl-4 pr-4 font-medium text-white'
+                className='flex h-[34px] w-[34px] items-center justify-center !rounded-full bg-primary pl-4 pr-4 font-medium text-white sm:w-full'
                 onClick={handleSignPage}>
                 <span className='hidden text-inherit sm:inline'>✦</span>
                 <span className='hidden sm:inline'> Sign in</span>
-                <LockIcon className='inline sm:hidden' />
+                <span className='xs:hidden block font-medium'>
+                  <LockIcon className='inline sm:hidden' />
+                </span>
               </Button>
             )}
             <Button
@@ -247,18 +249,18 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
               <div className='flex gap-x-3'>
                 <Button
                   onClick={() => setOpen(true)}
-                  className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 px-1 hover:bg-inherit'>
+                  className='flex h-[34px] w-[34px] items-center justify-center !rounded-full bg-neutral-content bg-opacity-5 hover:bg-inherit'>
                   <SearchIcon />
                 </Button>
                 <Button
-                  className='h-[34px] !rounded-full bg-primary font-medium text-white hover:bg-[#805AE9]'
+                  className='flex h-[34px] w-[34px] items-center justify-center !rounded-full bg-primary font-medium text-white hover:bg-[#805AE9] sm:w-full'
                   onClick={handleSignPage}>
                   <span className='hidden text-inherit sm:inline'>✦</span>
                   <span className='hidden sm:inline'> Sign in</span>
                   <LockIcon className='inline sm:hidden' />
                 </Button>
                 <Button
-                  className='h-[34px] w-[34px] !rounded-full bg-neutral-content bg-opacity-5 p-0'
+                  className='flex h-[34px] w-[34px] items-center justify-center !rounded-full bg-neutral-content bg-opacity-5 p-0'
                   onClick={toggleMenu}>
                   <MenuIcon />
                 </Button>

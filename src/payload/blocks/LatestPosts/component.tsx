@@ -22,9 +22,6 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
     trpc.tag.getAllTags.useQuery()
   const route = useRouter()
 
-  console.log('allBlogs ', AllBlogs)
-  console.log('allTags ', AllTags)
-
   const loadPosts = () => {
     setLoading(true)
     setTimeout(() => {

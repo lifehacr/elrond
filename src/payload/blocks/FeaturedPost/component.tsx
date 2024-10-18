@@ -15,8 +15,6 @@ const FeaturedPost: React.FC<FeaturedPostType> = ({ ...block }) => {
   const featuredPost = data?.at(0)
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  console.log('featured post data', data)
-
   return isLoading ? (
     <FeaturedPostSkeleton />
   ) : (
