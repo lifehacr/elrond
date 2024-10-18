@@ -124,7 +124,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                       <div
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
-                        <Link href={result?.path || ''}>
+                        <Link href={'/blog/' + result?.path || ''}>
                           <h2 className='text-neutral-800 text-[1.1rem] font-medium leading-tight'>
                             {result?.title}
                           </h2>
@@ -139,7 +139,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                       <div
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
-                        <Link href={result?.path || ''}>
+                        <Link href={'/tag/' + result?.path || ''}>
                           <h2 className='text-neutral-800 text-[1.1rem] font-medium leading-tight'>
                             # {result?.title}
                           </h2>
@@ -153,7 +153,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
                         <Link
                           className='flex items-center space-x-1'
-                          href={result?.path || ''}>
+                          href={'/author/' + result?.path || ''}>
                           <Image
                             alt='user image'
                             height={34}
