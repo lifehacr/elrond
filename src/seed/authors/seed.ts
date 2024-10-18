@@ -1,13 +1,16 @@
 import configPromise from '@payload-config'
 import { User } from '@payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { Ora } from 'ora'
 
 import { authorImageData, authorsData } from './data'
 
 const payload = await getPayloadHMR({ config: configPromise })
 
-const seed = async (): Promise<(string | User)[]> => {
+const seed = async (spinner: Ora): Promise<User[]> => {
   try {
+    spinner.start(`Started uploading author images...`)
+
     // Upload the images to the media collection and store their ObjectIds
     const uploadedImages = await Promise.all(
       authorImageData.map(image =>
@@ -24,7 +27,8 @@ const seed = async (): Promise<(string | User)[]> => {
     const formattedAuthorsData = authorsData.map((author, idx) => {
       return {
         ...author,
-        imageUrl: uploadedImages[idx].id, // Use the ObjectId of the uploaded image
+        imageUrl: uploadedImages[idx].id,
+        collection: 'users',
       }
     })
 
@@ -44,13 +48,15 @@ const seed = async (): Promise<(string | User)[]> => {
       ),
     )
 
-    const formattedResults = results.map(result =>
-      result.status === 'fulfilled'
-        ? result.value
-        : `Failed to seed: ${result.reason}`,
-    )
+    const successfulResults = results
+      .filter(result => result.status === 'fulfilled')
+      .map(result => (result as PromiseFulfilledResult<User>).value)
 
-    const errors = formattedResults.filter(result => typeof result === 'string')
+    const errors = results
+      .filter(result => result.status === 'rejected')
+      .map(
+        result => `Failed to seed: ${(result as PromiseRejectedResult).reason}`,
+      )
 
     if (errors.length > 0) {
       throw new Error(
@@ -58,8 +64,10 @@ const seed = async (): Promise<(string | User)[]> => {
       )
     }
 
-    return formattedResults
+    spinner.succeed(`Successfully created author accounts...`)
+    return successfulResults
   } catch (error) {
+    spinner.fail(`Failed creating author accounts...`)
     throw error
   }
 }

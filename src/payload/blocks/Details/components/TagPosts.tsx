@@ -40,12 +40,12 @@ const TagPosts = ({
           <div key={index} className='flex flex-col gap-7 md:flex-row'>
             <div className='avatar'>
               <Link
-                href={`/${post?.slug}`}
+                href={`/blog/${post?.slug}`}
                 className='relative h-60 w-full md:h-28 md:w-28'>
                 <Image
-                  fill
                   src={(post?.blogImage as Media)?.url!}
                   alt='Post'
+                  fill
                   className='rounded-xl md:rounded-full'
                 />
               </Link>
@@ -54,7 +54,7 @@ const TagPosts = ({
             <div className='flex flex-col gap-2'>
               <div className='flex flex-col gap-2'>
                 <Link
-                  href={`/${post?.slug}`}
+                  href={`/blog/${post?.slug}`}
                   className='text-xl font-semibold text-base-content'>
                   {post?.title}
                 </Link>

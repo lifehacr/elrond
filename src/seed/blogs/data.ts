@@ -1,19 +1,15 @@
 import path from 'path'
-import { RequiredDataFromCollectionSlug } from 'payload'
 
-export type BlogDataType = RequiredDataFromCollectionSlug<'blogs'>
-export type BlogImageType = {
-  alt: string
-  filePath: string
-}
-
-export const blogsData: BlogDataType[] = [
+export const blogsData = [
   {
     title: 'Aureate Serpent and Celestial Sojourn',
     description:
       "In the celestial ballet of myth, the Aureate Serpent's golden scales shimmer as heroes navigate cosmic realms. From East to West, the universal allure of mythical journeys echoes humanity's timeless quest for understanding.",
-    blogImage: '',
-
+    alt: 'Blog 1',
+    blogImage: path.join(
+      process.cwd(),
+      '/public/images/seed/blogs/blog-1.webp',
+    ),
     content: [
       {
         children: [
@@ -152,26 +148,19 @@ export const blogsData: BlogDataType[] = [
 
     _status: 'published',
 
-    author: [
-      {
-        relationTo: 'users',
-        value: '',
-      },
-    ],
-    tags: [
-      {
-        relationTo: 'tags',
-        value: '',
-      },
-    ],
+    author: ['celestia-lily'],
+    tags: ['Celestial', 'Arcane'],
   },
   {
     title: 'Celestial Felines and the Enigmatic Chalices of Eldoria',
 
     description:
       "Embark on an enchanting journey through Eldoria's skies, where celestial felines dance and enigmatic chalices hold tales of magic and mystery.",
-    blogImage: '',
-
+    alt: 'Blog 2',
+    blogImage: path.join(
+      process.cwd(),
+      '/public/images/seed/blogs/blog-2.webp',
+    ),
     content: [
       {
         children: [
@@ -301,26 +290,19 @@ export const blogsData: BlogDataType[] = [
 
     _status: 'published',
 
-    author: [
-      {
-        relationTo: 'users',
-        value: '',
-      },
-    ],
-    tags: [
-      {
-        relationTo: 'tags',
-        value: '',
-      },
-    ],
+    author: ['eldritch-thorn', 'evelyn-mitchell'],
+    tags: ['Nether'],
   },
   {
     title: 'Nesting Dragons in the Amethyst Depths of the Abyss',
 
     description:
       'Uncover the enigma of Amethyst Depths, where dragons nest among ancient secrets in the mystical abyss.',
-    blogImage: '',
-
+    alt: 'Blog 3',
+    blogImage: path.join(
+      process.cwd(),
+      '/public/images/seed/blogs/blog-3.webp',
+    ),
     content: [
       {
         children: [
@@ -452,25 +434,19 @@ export const blogsData: BlogDataType[] = [
 
     _status: 'published',
 
-    author: [
-      {
-        relationTo: 'users',
-        value: '',
-      },
-    ],
-    tags: [
-      {
-        relationTo: 'tags',
-        value: '',
-      },
-    ],
+    author: ['noah-cooper'],
+    tags: ['Elysium', 'Chronicles'],
   },
   {
     title: 'Enchanted Realms of Mushroom Monarchies',
 
     description:
       'This journey transcends ordinary boundaries, inviting you to explore a world where magic emanates from every cap and the air is alive with the hum of mystical kingdoms.',
-    blogImage: '',
+    alt: 'Blog 4',
+    blogImage: path.join(
+      process.cwd(),
+      '/public/images/seed/blogs/blog-4.webp',
+    ),
 
     content: [
       {
@@ -586,35 +562,7 @@ export const blogsData: BlogDataType[] = [
 
     _status: 'published',
 
-    author: [
-      {
-        relationTo: 'users',
-        value: '',
-      },
-    ],
-    tags: [
-      {
-        relationTo: 'tags',
-        value: '',
-      },
-    ],
-  },
-]
-export const blogsImagesData: BlogImageType[] = [
-  {
-    alt: 'Blog 1',
-    filePath: path.join(process.cwd(), '/public/images/seed/blogs/blog-1.webp'),
-  },
-  {
-    alt: 'Blog 2',
-    filePath: path.join(process.cwd(), '/public/images/seed/blogs/blog-2.webp'),
-  },
-  {
-    alt: 'Blog 3',
-    filePath: path.join(process.cwd(), '/public/images/seed/blogs/blog-3.webp'),
-  },
-  {
-    alt: 'Blog 4',
-    filePath: path.join(process.cwd(), '/public/images/seed/blogs/blog-4.webp'),
+    author: ['patricia-miles'],
+    tags: ['Arcane'],
   },
 ]

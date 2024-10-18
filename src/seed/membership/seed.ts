@@ -1,14 +1,16 @@
 import configPromise from '@payload-config'
 import { Page } from '@payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { Ora } from 'ora'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
 import { membershipImageData, membershipPageData } from './data'
 
 const payload = await getPayloadHMR({ config: configPromise })
 
-const seed = async (): Promise<Page> => {
+const seed = async (spinner: Ora): Promise<Page> => {
   try {
+    spinner.start(`Started creating membership page...`)
     const imageResult = await payload.create({
       collection: 'media',
       data: {
@@ -35,8 +37,10 @@ const seed = async (): Promise<Page> => {
       data: formattedMembership,
     })
 
+    spinner.succeed(`Successfully created membership page`)
     return result
   } catch (error) {
+    spinner.fail(`Failed creating membership page`)
     throw error
   }
 }

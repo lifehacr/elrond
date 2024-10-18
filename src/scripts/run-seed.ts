@@ -17,6 +17,7 @@ import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
+import { seedBlogsPage } from '@/seed/blogs-page'
 import { seedContactPage } from '@/seed/contact'
 import { seedFeaturePage } from '@/seed/features'
 import { seedHomePage } from '@/seed/home-page'
@@ -81,31 +82,52 @@ const executeSeeding = async (): Promise<void> => {
   }).start()
 
   try {
-    await seedAndLog('Seeding Tags Page', seedTagsPage, spinner)
-    await seedAndLog('Seeding Tag Details Page', seedTagDetailsPage, spinner)
-    await seedAndLog('Seeding Tags', seedTags, spinner)
-    await seedAndLog('Seeding Authors', seedAuthors, spinner)
-    await seedAndLog('Seeding Authors Page', seedAuthorsPage, spinner)
-    await seedAndLog(
-      'Seeding Author Details Page',
-      seedAuthorDetailsPage,
+    const tagsPage = await seedTagsPage(spinner)
+    const tags = await seedTags(spinner)
+    const tagsDetailsPage = await seedTagDetailsPage({
       spinner,
-    )
-    await seedAndLog('Seeding Blogs', seedBlogs, spinner)
-    console.log('completed blogs')
-    await seedAndLog('Seeding Home Page', seedHomePage, spinner)
-    await seedAndLog('Seeding Blog Details Page', seedBlogDetailsPage, spinner)
-    // await seedAndLog('Seeding Blogs Page', seedBlogsPage, spinner)
-    await seedAndLog('Seeding Features Page', seedFeaturePage, spinner)
-    await seedAndLog('Seeding Contact Page', seedContactPage, spinner)
-    await seedAndLog('Seeding Subscription Page', seedSubscriptionPage, spinner)
-    await seedAndLog('Seeding Membership Page', seedMembershipPage, spinner)
-    await seedAndLog(
-      'Seeding Recommendations Page',
-      seedRecommendations,
+      id: tagsPage.id,
+    })
+
+    const authors = await seedAuthors(spinner)
+    const authorsPage = await seedAuthorsPage(spinner)
+    const authorDetailsPage = await seedAuthorDetailsPage({
       spinner,
-    )
-    await seedAndLog('Seeding site-settings', seedSiteSetting, spinner)
+      id: authorsPage.id,
+    })
+
+    await seedBlogs({ spinner, tags, authors })
+    const blogsPage = await seedBlogsPage({ spinner })
+    const blogsDetailsPage = await seedBlogDetailsPage({
+      spinner,
+      id: blogsPage.id,
+    })
+
+    await seedHomePage(spinner)
+
+    const featuresPage = await seedFeaturePage(spinner)
+
+    const recommendationPage = await seedRecommendations(spinner)
+
+    const contactPage = await seedContactPage(spinner)
+
+    const membershipPage = await seedMembershipPage(spinner)
+
+    const subscriptionPage = await seedSubscriptionPage(spinner)
+
+    await seedSiteSetting({
+      featuresPages: featuresPage,
+      spinner,
+      authorsPages: authorsPage,
+      tagsPages: tagsPage,
+      subscribePages: subscriptionPage,
+      membershipPages: membershipPage,
+      contactPages: contactPage,
+      recommendationPages: recommendationPage,
+      tagsDetailsPages: tagsDetailsPage,
+      authorsDetailsPages: authorDetailsPage,
+      blogsDetailsPages: blogsDetailsPage,
+    })
   } catch (error) {
     console.error(chalk.red('Error running seeds:'), error)
   } finally {

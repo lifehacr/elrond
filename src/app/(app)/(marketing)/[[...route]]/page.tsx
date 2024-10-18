@@ -52,11 +52,17 @@ export async function generateMetadata({
       path: parsedParams?.route,
     })
 
+    let metadata = pageData.meta
+
     const block = pageData.layout
       ?.filter(block => block.blockType === 'Details')
       ?.at(0)
 
-    if (pageData?.isDynamic && block?.collectionSlug) {
+    if (
+      pageData?.isDynamic &&
+      block?.collectionSlug &&
+      block?.collectionSlug !== 'users'
+    ) {
       const { docs } = await payload.find({
         collection: block?.collectionSlug,
         where: {
@@ -66,7 +72,7 @@ export async function generateMetadata({
         },
       })
       const doc = docs?.at(0)
-      const metadata = doc?.meta
+      metadata = doc?.meta || {}
 
       if (metadata) {
         let ogImage = []
@@ -99,8 +105,6 @@ export async function generateMetadata({
         }
       }
     }
-
-    const metadata = pageData?.meta
 
     if (metadata) {
       let ogImage = []

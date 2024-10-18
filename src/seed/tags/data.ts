@@ -5,6 +5,7 @@ export type TagDataType = RequiredDataFromCollectionSlug<'tags'>
 export type TagImageType = {
   alt: string
   filePath: string
+  name: string
 }
 
 export const tagsData: TagDataType[] = [
@@ -54,21 +55,26 @@ export const tagsImagesData: TagImageType[] = [
   {
     alt: 'Tag 1',
     filePath: path.join(process.cwd(), '/public/images/seed/tags/tag-1.webp'),
+    name: 'Arcane',
   },
   {
     alt: 'Tag 2',
     filePath: path.join(process.cwd(), '/public/images/seed/tags/tag-2.webp'),
+    name: 'Celestial',
   },
   {
     alt: 'Tag 3',
     filePath: path.join(process.cwd(), '/public/images/seed/tags/tag-3.webp'),
+    name: 'Elysium',
   },
   {
     alt: 'Tag 4',
     filePath: path.join(process.cwd(), '/public/images/seed/tags/tag-4.webp'),
+    name: 'Chronicles',
   },
   {
     alt: 'Tag 5',
     filePath: path.join(process.cwd(), '/public/images/seed/tags/tag-5.webp'),
+    name: 'Nether',
   },
 ]

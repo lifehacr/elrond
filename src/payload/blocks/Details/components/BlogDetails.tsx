@@ -18,6 +18,8 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({
   blogsData,
   isLoading,
 }) => {
+  console.log('blog is ', blog)
+  console.log('blogsData is ', blogsData)
   return (
     <div>
       <PostScrollBar blog={blog} />

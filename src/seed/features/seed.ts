@@ -1,14 +1,16 @@
 import configPromise from '@payload-config'
 import { Page } from '@payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { Ora } from 'ora'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
 import { featureHeroImageData, featurePageData } from './data'
 
 const payload = await getPayloadHMR({ config: configPromise })
 
-const seed = async (): Promise<Page> => {
+const seed = async (spinner: Ora): Promise<Page> => {
   try {
+    spinner.start(`Started created features-page...`)
     const imageResult = await payload.create({
       collection: 'media',
       data: {
@@ -35,8 +37,10 @@ const seed = async (): Promise<Page> => {
       data: formattedFeature,
     })
 
+    spinner.succeed(`Successfully created features-page`)
     return result
   } catch (error) {
+    spinner.fail(`Failed creating features-page`)
     throw error
   }
 }

@@ -1,12 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { TRPCError } from '@trpc/server'
+import ora from 'ora'
 
 import { seedAuthorDetailsPage } from '@/seed/author-details-page'
 import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
+import { seedBlogsPage } from '@/seed/blogs-page'
 import { seedContactPage } from '@/seed/contact'
 import { seedFeaturePage } from '@/seed/features'
 import { seedHomePage } from '@/seed/home-page'
@@ -23,49 +25,73 @@ const payload = await getPayloadHMR({ config: configPromise })
 
 export const seedRouter = router({
   runSeed: publicProcedure.mutation(async () => {
+    const spinner = ora({
+      text: 'Starting the seeding process...',
+      color: 'cyan',
+      spinner: 'dots',
+    }).start()
+
     try {
       // Ensure that the seeding functions are called in the correct order.
       // The blogs seeding depends on tags and authors being seeded first.
       // Therefore, make sure to seed tags and authors before seeding blogs.
+      const pages = await payload.count({
+        collection: 'pages',
+      })
+
+      if (pages.totalDocs > 1) {
+        return
+      }
 
       console.log('seeding staretd...')
-      await seedTagsPage()
-      await seedTags() // Seed tags first
-      await seedTagDetailsPage()
-      console.log('seeding tags completed')
+      const tagsPage = await seedTagsPage(spinner)
+      const tags = await seedTags(spinner)
+      const tagsDetailsPage = await seedTagDetailsPage({
+        spinner,
+        id: tagsPage.id,
+      })
 
-      await seedAuthors() // Then seed authors
-      await seedAuthorsPage()
-      await seedAuthorDetailsPage()
-      console.log('seeding authors completed')
+      const authors = await seedAuthors(spinner)
+      const authorsPage = await seedAuthorsPage(spinner)
+      const authorDetailsPage = await seedAuthorDetailsPage({
+        spinner,
+        id: authorsPage.id,
+      })
 
-      await seedBlogs() // Finally, seed blogs, which depend on tags and authors
-      await seedBlogDetailsPage()
-      console.log('seeding blogs completed')
+      await seedBlogs({ spinner, tags, authors })
+      const blogsPage = await seedBlogsPage({ spinner })
+      const blogsDetailsPage = await seedBlogDetailsPage({
+        spinner,
+        id: blogsPage.id,
+      })
 
-      await seedHomePage()
-      console.log('seeding homepage completed')
+      await seedHomePage(spinner)
 
-      await seedFeaturePage()
-      console.log('seeding feature completed')
+      const featuresPage = await seedFeaturePage(spinner)
 
-      await seedRecommendations()
-      console.log('seeding recommendations completed')
+      const recommendationPage = await seedRecommendations(spinner)
 
-      await seedContactPage()
-      console.log('seeding contact page completed')
+      const contactPage = await seedContactPage(spinner)
 
-      await seedMembershipPage()
-      console.log('seeding membership page completed')
+      const membershipPage = await seedMembershipPage(spinner)
 
-      await seedSubscriptionPage()
-      console.log('seeding subscription page completed')
+      const subscriptionPage = await seedSubscriptionPage(spinner)
 
-      await seedSiteSetting()
-      console.log('seeding site setting completed')
+      await seedSiteSetting({
+        featuresPages: featuresPage,
+        spinner,
+        authorsPages: authorsPage,
+        tagsPages: tagsPage,
+        subscribePages: subscriptionPage,
+        membershipPages: membershipPage,
+        contactPages: contactPage,
+        recommendationPages: recommendationPage,
+        tagsDetailsPages: tagsDetailsPage,
+        authorsDetailsPages: authorDetailsPage,
+        blogsDetailsPages: blogsDetailsPage,
+      })
 
       console.log('seeding completed!!')
-      // await seedBlogsPage()
 
       return { success: true }
     } catch (error: any) {
