@@ -42,12 +42,12 @@ const TagPosts = ({
             {/* <div className='avatar'> */}
             <Link
               href={`/blog/${post?.slug}`}
-              className='relative h-60 w-full md:h-28 md:w-28'>
+              className='relative h-60 w-full flex-shrink-0 md:h-28 md:w-28'>
               <Image
                 src={(post?.blogImage as Media)?.url!}
                 alt='Post'
                 fill
-                className='rounded-xl md:rounded-full'
+                className='rounded-xl object-cover md:rounded-full'
               />
             </Link>
             {/* </div> */}
