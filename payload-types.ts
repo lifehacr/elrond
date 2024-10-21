@@ -74,6 +74,7 @@ export interface Page {
         | RecommendationsListType
         | FeaturesType
         | SubscribeType
+        | FormType
         | DisqusCommentsType
       )[]
     | null;
@@ -323,130 +324,17 @@ export interface SubscribeType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DisqusCommentsType".
+ * via the `definition` "FormType".
  */
-export interface DisqusCommentsType {
-  title?: string | null;
-  shortName: string;
+export interface FormType {
+  title: string;
+  form: {
+    relationTo: 'forms';
+    value: string | Form;
+  };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'DisqusComments';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs".
- */
-export interface Blog {
-  id: string;
-  blogImage: string | Media;
-  title: string;
-  description: string;
-  tags?:
-    | {
-        relationTo: 'tags';
-        value: string | Tag;
-      }[]
-    | null;
-  author?:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }[]
-    | null;
-  content: {
-    [k: string]: unknown;
-  }[];
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: (string | null) | Media;
-  };
-  slug?: string | null;
-  publishOn?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  tagImage: string | Media;
-  title: string;
-  description: string;
-  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink') | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: (string | null) | Media;
-  };
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  displayName?: string | null;
-  username: string;
-  imageUrl?: (string | null) | Media;
-  role: ('admin' | 'author' | 'user')[];
-  emailVerified?: string | null;
-  socialLinks?:
-    | {
-        platform:
-          | 'website'
-          | 'facebook'
-          | 'instagram'
-          | 'twitter'
-          | 'linkedin'
-          | 'youtube'
-          | 'tiktok'
-          | 'pinterest'
-          | 'snapchat'
-          | 'reddit'
-          | 'tumblr'
-          | 'whatsapp'
-          | 'telegram'
-          | 'github'
-          | 'medium'
-          | 'quora'
-          | 'discord';
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  _verified?: boolean | null;
-  _verificationToken?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
- */
-export interface Contact {
-  id: string;
-  name: string;
-  email?: string | null;
-  message: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  blockType: 'FormBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -572,6 +460,133 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisqusCommentsType".
+ */
+export interface DisqusCommentsType {
+  title?: string | null;
+  shortName: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'DisqusComments';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs".
+ */
+export interface Blog {
+  id: string;
+  blogImage: string | Media;
+  title: string;
+  description: string;
+  tags?:
+    | {
+        relationTo: 'tags';
+        value: string | Tag;
+      }[]
+    | null;
+  author?:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }[]
+    | null;
+  content: {
+    [k: string]: unknown;
+  }[];
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  slug?: string | null;
+  publishOn?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  tagImage: string | Media;
+  title: string;
+  description: string;
+  color?: ('blue' | 'gray' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink') | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  displayName?: string | null;
+  username: string;
+  imageUrl?: (string | null) | Media;
+  role: ('admin' | 'author' | 'user')[];
+  emailVerified?: string | null;
+  socialLinks?:
+    | {
+        platform:
+          | 'website'
+          | 'facebook'
+          | 'instagram'
+          | 'twitter'
+          | 'linkedin'
+          | 'youtube'
+          | 'tiktok'
+          | 'pinterest'
+          | 'snapchat'
+          | 'reddit'
+          | 'tumblr'
+          | 'whatsapp'
+          | 'telegram'
+          | 'github'
+          | 'medium'
+          | 'quora'
+          | 'discord';
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: string;
+  name: string;
+  email?: string | null;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

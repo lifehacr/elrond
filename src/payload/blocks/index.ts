@@ -6,6 +6,7 @@ import { DetailsConfig } from './Details'
 import { FAQConfig } from './FAQ'
 import { FeaturedPostConfig } from './FeaturedPost'
 import { FeaturesConfig } from './Features'
+import { FormConfig } from './Form'
 import { HeroConfig } from './Hero'
 import { HomeConfig } from './Home'
 import { LatestPostsConfig } from './LatestPosts'
@@ -29,4 +30,5 @@ export const blocks = [
   RecommendationsListConfig,
   FeaturesConfig,
   SubscribeConfig,
+  FormConfig,
 ]

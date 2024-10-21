@@ -67,7 +67,6 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
   }
 
   return (
-    pathName !== '/contact' &&
     pathName !== '/subscribe' && (
       <div className='border-t border-[#E5E7EB]'>
         <Container className='md:max-w-screen-[940px] w-full px-4 pt-2'>

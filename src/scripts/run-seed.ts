@@ -18,8 +18,10 @@ import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
 import { seedBlogsPage } from '@/seed/blogs-page'
-import { seedContactPage } from '@/seed/contact'
+// import { seedContactPage } from '@/seed/contact';
+import { seedContactPage } from '@/seed/contact-page'
 import { seedFeaturePage } from '@/seed/features'
+import { seedForm } from '@/seed/forms'
 import { seedHomePage } from '@/seed/home-page'
 import { seedMembershipPage } from '@/seed/membership'
 import { seedRecommendations } from '@/seed/recommendations'
@@ -88,7 +90,7 @@ const executeSeeding = async (): Promise<void> => {
       spinner,
       id: tagsPage.id,
     })
-
+    const forms = await seedForm(spinner)
     const authors = await seedAuthors(spinner)
     const authorsPage = await seedAuthorsPage(spinner)
     const authorDetailsPage = await seedAuthorDetailsPage({
@@ -109,11 +111,11 @@ const executeSeeding = async (): Promise<void> => {
 
     const recommendationPage = await seedRecommendations(spinner)
 
-    const contactPage = await seedContactPage(spinner)
-
     const membershipPage = await seedMembershipPage(spinner)
 
     const subscriptionPage = await seedSubscriptionPage(spinner)
+
+    const contactPage = await seedContactPage({ spinner, forms })
 
     await seedSiteSetting({
       featuresPages: featuresPage,

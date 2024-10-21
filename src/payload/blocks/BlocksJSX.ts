@@ -5,6 +5,7 @@ import { Details } from './Details'
 import { FAQ } from './FAQ'
 import { FeaturedPost } from './FeaturedPost'
 import { Features } from './Features'
+import { FormBlock } from './Form'
 import { Hero } from './Hero'
 import { Home } from './Home'
 import { LatestPosts } from './LatestPosts'
@@ -29,4 +30,5 @@ export const blocksJSX = {
   Features,
   Subscribe,
   DisqusComments,
+  FormBlock,
 }

@@ -81,6 +81,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      domhandler:
+        specifier: ^5.0.3
+        version: 5.0.3
       execa:
         specifier: ^9.3.1
         version: 9.4.0

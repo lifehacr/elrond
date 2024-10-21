@@ -83,7 +83,6 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
   }
 
   return (
-    pathName !== '/contact' &&
     pathName !== '/subscribe' && (
       <header className='bg-base-100'>
         <Modal
