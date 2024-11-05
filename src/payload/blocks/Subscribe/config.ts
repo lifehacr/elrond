@@ -7,6 +7,7 @@ const SubscribeConfig: Block = {
     singular: 'Subscribe Block',
     plural: 'Subscribe Blocks',
   },
+  imageURL: '/images/blocks/SubscribeBlock.png',
   fields: [
     {
       name: 'title',

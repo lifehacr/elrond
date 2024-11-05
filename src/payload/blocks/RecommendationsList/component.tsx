@@ -8,7 +8,7 @@ const RecommendationsList: React.FC<RecommendationsListType> = ({
 }) => {
   return (
     <Container className='my-16 w-full px-4 sm:max-w-lg md:px-0'>
-      <div className='flex flex-col gap-8 md:gap-12'>
+      <div className='mb-20 flex flex-col gap-8 md:gap-12'>
         {block?.recommendations?.map((recommendation, index) => (
           <Link
             key={index}

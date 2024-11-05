@@ -7,6 +7,7 @@ const RecommendationsListConfig: Block = {
     singular: 'Recommendations List Block',
     plural: 'Recommendations List Blocks',
   },
+  imageURL: '/images/blocks/RecommendationsBlock.png',
   fields: [
     {
       name: 'recommendations',

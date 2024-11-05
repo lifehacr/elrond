@@ -7,6 +7,7 @@ const FAQConfig: Block = {
     singular: 'FAQ Block',
     plural: 'FAQ Blocks',
   },
+  imageURL: '/images/blocks/FAQBlock.png',
   fields: [
     {
       name: 'title',

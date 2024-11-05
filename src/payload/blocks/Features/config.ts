@@ -7,6 +7,7 @@ const FeaturesConfig: Block = {
     singular: 'Features Block',
     plural: 'Features Blocks',
   },
+  imageURL: '/images/blocks/FeaturesBlock.png',
   fields: [
     {
       name: 'features',

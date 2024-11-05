@@ -7,6 +7,7 @@ const LatestPostsConfig: Block = {
     singular: 'Latest Posts Block',
     plural: 'Latest Posts Blocks',
   },
+  imageURL: '/images/blocks/LatestPostsBlock.png',
   fields: [
     {
       name: 'titleOne',

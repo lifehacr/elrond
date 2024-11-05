@@ -8,6 +8,7 @@ const DetailsConfig: Block = {
     singular: 'Dynamic Content Block',
     plural: 'Dynamic Content Blocks',
   },
+  imageURL: '/images/blocks/DynamicBlock.png',
   fields: [
     {
       type: 'select',

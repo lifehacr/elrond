@@ -62,7 +62,6 @@ export interface Page {
   title: string;
   layout?:
     | (
-        | HomeType
         | DetailsType
         | ListType
         | HeroType
@@ -101,17 +100,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HomeType".
- */
-export interface HomeType {
-  heading?: string | null;
-  subHeading?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Home';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

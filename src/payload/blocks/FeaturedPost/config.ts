@@ -7,6 +7,7 @@ const FeaturedPostConfig: Block = {
     singular: 'Featured Post Block',
     plural: 'Featured Post Blocks',
   },
+  imageURL: '/images/blocks/FeaturedPost.png',
   fields: [
     {
       name: 'title',

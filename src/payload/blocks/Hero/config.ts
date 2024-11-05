@@ -7,6 +7,7 @@ const HeroConfig: Block = {
     singular: 'Hero Block',
     plural: 'Hero Blocks',
   },
+  imageURL: '/images/blocks/HeroBlock.png',
   fields: [
     {
       name: 'image',

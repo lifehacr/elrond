@@ -44,8 +44,7 @@ const SignUpForm: React.FC = () => {
     trpc.auth.signUp.useMutation({
       onSuccess: () => {
         reset()
-        toast.success('Successfully created, redirecting...')
-        router.push('/')
+        toast.success('Verify your account...')
       },
       onError: error => {
         toast.error(error?.message)
@@ -140,6 +139,9 @@ const SignUpForm: React.FC = () => {
               </button>
             </div>
           </form>
+          <div className='mt-2 border-success text-center'>
+            We've sent a verification email to you.
+          </div>
           <div className='relative py-6'>
             <div className='absolute inset-0 flex items-center'>
               <span className='w-full border-t border-zinc-200'></span>
