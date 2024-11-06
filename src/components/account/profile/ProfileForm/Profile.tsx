@@ -82,7 +82,7 @@ const Profile = ({ initialUser }: { initialUser: User | undefined }) => {
           <Image
             src={
               user?.imageUrl
-                ? (user.imageUrl as string)
+                ? (user.imageUrl as Media)?.url!
                 : '/images/default-profile.png'
             }
             alt='Profile'

@@ -1,4 +1,3 @@
-import { env } from '@env'
 import { Media } from '@payload-types'
 import { toast } from 'sonner'
 
@@ -10,7 +9,8 @@ async function uploadMedia(files: FileList | null): Promise<Media | undefined> {
   }
   formData.append('file', files[0])
   try {
-    const response = await fetch(env.NEXT_PUBLIC_PUBLIC_URL + '/api/media', {
+    const url = typeof window !== 'undefined' ? window.location.origin : ''
+    const response = await fetch(url + '/api/media', {
       method: 'POST',
       body: formData,
     })
