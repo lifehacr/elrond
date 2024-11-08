@@ -140,7 +140,7 @@ const SignUpForm: React.FC = () => {
             </div>
           </form>
           <div className='mt-2 border-success text-center'>
-            We've sent a verification email to you.
+            We&apos;ve sent a verification email to you.
           </div>
           <div className='relative py-6'>
             <div className='absolute inset-0 flex items-center'>
