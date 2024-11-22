@@ -17,6 +17,7 @@ const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
         {tags?.map((tag, index) => (
           <Link
+            prefetch
             key={index}
             href={`tag/${tag?.slug}`}
             className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>

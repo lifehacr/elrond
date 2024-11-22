@@ -123,7 +123,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                       <div
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
-                        <Link href={'/blog/' + result?.path || ''}>
+                        <Link prefetch href={'/blog/' + result?.path || ''}>
                           <h2 className='text-neutral-800 text-[1.1rem] font-medium leading-tight'>
                             {result?.title}
                           </h2>
@@ -138,7 +138,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                       <div
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
-                        <Link href={'/tag/' + result?.path || ''}>
+                        <Link prefetch href={'/tag/' + result?.path || ''}>
                           <h2 className='text-neutral-800 text-[1.1rem] font-medium leading-tight'>
                             # {result?.title}
                           </h2>
@@ -151,6 +151,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
                         <Link
+                          prefetch
                           className='flex items-center space-x-1'
                           href={'/author/' + result?.path || ''}>
                           <Image

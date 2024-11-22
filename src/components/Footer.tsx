@@ -72,7 +72,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
         <Container className='md:max-w-screen-[940px] w-full px-4 pt-2'>
           <div className='flex flex-col justify-between gap-6 py-8 sm:py-12 md:flex-row md:gap-5'>
             <div className='flex flex-col justify-start gap-5'>
-              <Link href={'/'} className='relative h-6 w-28'>
+              <Link prefetch href={'/'} className='relative h-6 w-28'>
                 <Avatar className='h-full w-full !rounded-none'>
                   <AvatarImage
                     alt={logo?.description || ''}
@@ -101,6 +101,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                           (link, index) =>
                             link?.type === 'reference' ? (
                               <Link
+                                prefetch
                                 target={`${link?.type === 'reference' ? '_self' : '_blank'}`}
                                 key={index}
                                 href={`/${link?.url!}`}>
@@ -108,6 +109,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                               </Link>
                             ) : (
                               <Link
+                                prefetch
                                 key={index}
                                 target={`${link?.type === 'custom' ? '_self' : '_blank'}`}
                                 href={`/${(link?.page?.value as Page)?.slug!}`}>
@@ -117,12 +119,14 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                         )
                       ) : footerLink?.menuLink?.type === 'custom' ? (
                         <Link
+                          prefetch
                           target={`${footerLink?.menuLink?.page ? '_blank' : '_self'}`}
                           href={`/${footerLink?.menuLink?.page!}`}>
                           {footerLink?.menuLink?.label}
                         </Link>
                       ) : (
                         <Link
+                          prefetch
                           target={`${footerLink?.menuLink?.page ? '_self' : '_blank'}`}
                           href={`/${(footerLink?.menuLink?.page?.value as Page)
                             ?.slug!}`}>
@@ -144,7 +148,7 @@ const Footer = ({ metadata }: { metadata: SiteSetting }) => {
                 const IconComponent =
                   SocialIcons[link?.platform as keyof typeof SocialIcons]
                 return (
-                  <Link key={index} href={link?.value || '/'}>
+                  <Link prefetch key={index} href={link?.value || '/'}>
                     {IconComponent ? <IconComponent /> : null}
                   </Link>
                 )

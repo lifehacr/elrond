@@ -20,6 +20,7 @@ const AuthorsList: React.FC<{ authors: AuthorsListProps[] }> = ({
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
         {authors?.map((author, index) => (
           <Link
+            prefetch
             key={index}
             href={`author/${author?.username}`}
             className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>

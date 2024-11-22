@@ -25,6 +25,7 @@ const BlogsList: React.FC<BlogsListProps> = ({ blogs }) => {
           Get Started with src/app/(app)/(marketing)/blog
         </p>
         <Link
+          prefetch
           href={`/blog/${blogs?.at(0)?.slug!}`}
           className='border-neutral-800 rounded-rounded-box border-base-content/10 bg-base-content/20 px-4 py-2'>
           View blog details

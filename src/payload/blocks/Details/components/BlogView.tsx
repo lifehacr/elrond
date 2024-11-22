@@ -40,6 +40,7 @@ const BlogView = ({ blog }: { blog: Blog }) => {
           <div className='flex -space-x-2'>
             {blog?.author?.slice(0, 2)?.map((author, index) => (
               <Link
+                prefetch
                 key={index}
                 href={`/author/${(author?.value as User)?.username}`}
                 className='relative h-8 w-8'>
@@ -57,6 +58,7 @@ const BlogView = ({ blog }: { blog: Blog }) => {
             {blog?.author?.slice(0, 2)?.map((author, index) => (
               <div key={index}>
                 <Link
+                  prefetch
                   className='ml-2 hover:text-primary'
                   href={`/author/${(author?.value as User)?.username}`}>
                   {(author?.value as User)?.displayName}

@@ -17,11 +17,11 @@ interface PageProps {
 }
 
 const Page: NextPage<PageProps> = async ({ params }) => {
-  const syncParams = await params
+  const syncParams = (await params).route
 
   try {
     const pageData = await serverClient.page.getPageData({
-      path: syncParams?.route,
+      path: syncParams,
     })
 
     return (
@@ -32,7 +32,9 @@ const Page: NextPage<PageProps> = async ({ params }) => {
             const Block = blocksJSX[block.blockType] as React.FC<any>
 
             if (Block) {
-              return <Block {...block} params={params} key={index} />
+              return (
+                <Block {...block} params={{ route: syncParams }} key={index} />
+              )
             }
 
             return <h3 key={block.id}>Block does not exist </h3>
