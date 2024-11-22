@@ -174,7 +174,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
           </div>
         </Modal>
         <Container className='z-50 flex h-20 items-center justify-between bg-base-100 px-4 xl:px-0'>
-          <Link href={'/'} className='relative h-5 w-24'>
+          <Link prefetch href={'/'} className='relative h-5 w-24'>
             <Image
               alt={logo?.description || ''}
               src={(logo?.imageUrl as Media)?.url!}
@@ -191,12 +191,14 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                     <DropDown headerLink={headerLink} />
                   ) : headerLink?.menuLink?.url ? (
                     <Link
+                      prefetch
                       target={`${headerLink?.menuLink?.page ? '_self' : '_blank'}`}
                       href={`/${headerLink?.menuLink?.url!}`}>
                       {capitalizeFirstLetter(headerLink?.menuLink?.label!)}
                     </Link>
                   ) : (
                     <Link
+                      prefetch
                       // target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
                       href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
                       {capitalizeFirstLetter(
@@ -238,7 +240,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
         {isMenuOpen && (
           <div className='fixed inset-0 z-50 flex flex-col bg-white'>
             <div className='flex h-20 w-full items-center justify-between px-4 py-4'>
-              <Link href={'/'} className='relative h-5 w-24'>
+              <Link prefetch href={'/'} className='relative h-5 w-24'>
                 <Image
                   alt={logo?.description || ''}
                   src={(logo?.imageUrl as Media)?.url!}
@@ -274,6 +276,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                     <DropDown headerLink={headerLink} />
                   ) : headerLink?.menuLink?.url ? (
                     <Link
+                      prefetch
                       onClick={toggleMenu}
                       target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
                       href={headerLink?.menuLink?.url!}>
@@ -281,6 +284,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                     </Link>
                   ) : (
                     <Link
+                      prefetch
                       onClick={toggleMenu}
                       target={`${headerLink?.menuLink?.page ? '_blank' : '_self'}`}
                       href={`/${(headerLink?.menuLink?.page?.value as Page)?.slug!}`}>
