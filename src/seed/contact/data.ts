@@ -17,7 +17,7 @@ export const contactPageData: RequiredDataFromCollectionSlug<'pages'> = {
       blockType: 'Contact',
       title: 'CONTACT',
       description: "Got something to say? Reach out - We're all ears!",
-      image: '',
+      image: null,
     },
   ],
 }

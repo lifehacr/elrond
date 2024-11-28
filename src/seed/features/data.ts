@@ -18,7 +18,7 @@ export const featurePageData: RequiredDataFromCollectionSlug<'pages'> = {
       title: 'Features',
       description:
         'Explore our features for a seamless, powerful, and enjoyable user experience. Discover the essence of our design below.',
-      image: '',
+      image: null,
     },
     {
       blockType: 'Features',

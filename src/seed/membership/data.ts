@@ -21,7 +21,7 @@ export const membershipPageData: RequiredDataFromCollectionSlug<'pages'> = {
       title: 'Membership',
       description:
         'Enhance your reading with our membership. Gain exclusive access to in-depth blog articles. Explore the perks of joining below.',
-      image: '',
+      image: null,
     },
     {
       blockType: 'Pricing',

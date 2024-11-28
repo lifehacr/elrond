@@ -50,7 +50,7 @@ const seed = async ({
           }
         })
         .filter(
-          (author): author is { relationTo: 'users'; value: string } =>
+          (author): author is { relationTo: 'users'; value: number } =>
             !!author,
         )
 
@@ -65,7 +65,7 @@ const seed = async ({
             }
           }
         })
-        .filter((tag): tag is { relationTo: 'tags'; value: string } => !!tag)
+        .filter((tag): tag is { relationTo: 'tags'; value: number } => !!tag)
 
       await payload.create({
         collection: 'blogs',

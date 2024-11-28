@@ -18,7 +18,7 @@ export const authorsPageData: AuthorsPageDataType = {
       title: 'Discover Authors',
       description:
         'Discover the talented individuals shaping our content. Meet our authors, the creative minds bringing our blog to life.',
-      image: '',
+      image: null,
     },
     {
       blockType: 'List',

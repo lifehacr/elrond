@@ -20,7 +20,7 @@ export const subscriptionPageData: RequiredDataFromCollectionSlug<'pages'> = {
       blockType: 'Subscribe',
       title: 'SUBSCRIBE',
 
-      image: '',
+      image: null,
     },
   ],
 }

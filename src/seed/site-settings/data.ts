@@ -1,5 +1,5 @@
 import path from 'path'
-import { SiteSetting } from 'payload-types'
+import { Media, Page, SiteSetting } from 'payload-types'
 
 export type siteSettingsDataType = Omit<SiteSetting, 'id'>
 
@@ -12,12 +12,14 @@ export const siteSettingsData: siteSettingsDataType = {
   general: {
     title: 'Emerald Theme',
     description: 'Theme created by ContentQL team.',
-    faviconUrl: '/public/favicon.ico',
-    ogImageUrl: '',
+    faviconUrl: '/public/favicon.ico' as unknown as number | Media,
+    ogImageUrl: '' as unknown as number | Media,
   },
   navbar: {
     logo: {
-      imageUrl: '/public/images/seed/home/logo.svg',
+      imageUrl: '/public/images/seed/home/logo.svg' as unknown as
+        | number
+        | Media,
       description: 'Emerald Theme',
       height: 24,
       width: 24,
@@ -30,7 +32,7 @@ export const siteSettingsData: siteSettingsDataType = {
           label: 'Features',
           page: {
             relationTo: 'pages',
-            value: '',
+            value: '' as unknown as number | Page,
           },
         },
       },
@@ -41,7 +43,7 @@ export const siteSettingsData: siteSettingsDataType = {
           label: 'Membership',
           page: {
             relationTo: 'pages',
-            value: '',
+            value: '' as unknown as number | Page,
           },
         },
       },
@@ -52,7 +54,7 @@ export const siteSettingsData: siteSettingsDataType = {
           label: 'Authors',
           page: {
             relationTo: 'pages',
-            value: '',
+            value: '' as unknown as number | Page,
           },
         },
       },
@@ -63,7 +65,7 @@ export const siteSettingsData: siteSettingsDataType = {
           label: 'Tags',
           page: {
             relationTo: 'pages',
-            value: '',
+            value: '' as unknown as number | Page,
           },
         },
       },
@@ -94,7 +96,7 @@ export const siteSettingsData: siteSettingsDataType = {
   },
   footer: {
     logo: {
-      imageUrl: '/images/seed/home/logo.svg',
+      imageUrl: '/images/seed/home/logo.svg' as unknown as number | Media,
     },
     footerLinks: [
       {
@@ -102,7 +104,7 @@ export const siteSettingsData: siteSettingsDataType = {
         menuLink: {
           type: 'reference',
           label: 'Features',
-          page: { relationTo: 'pages', value: '' },
+          page: { relationTo: 'pages', value: '' as unknown as number | Page },
         },
       },
       {
@@ -110,7 +112,7 @@ export const siteSettingsData: siteSettingsDataType = {
         menuLink: {
           type: 'reference',
           label: 'Authors',
-          page: { relationTo: 'pages', value: '' },
+          page: { relationTo: 'pages', value: '' as unknown as number | Page },
         },
       },
     ],

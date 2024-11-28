@@ -14,7 +14,7 @@ export const authorsData: AuthorDataType[] = [
     email: 'author.1@gmail.com',
     password: 'Welcome@123',
     role: ['author'],
-    imageUrl: '',
+    imageUrl: null,
     displayName: 'Celestia Lily',
   },
   {
@@ -22,7 +22,7 @@ export const authorsData: AuthorDataType[] = [
     email: 'author.2@gmail.com',
     password: 'Welcome@123',
     role: ['author'],
-    imageUrl: '',
+    imageUrl: null,
     displayName: 'Eldritch Thorn',
   },
   {
@@ -30,7 +30,7 @@ export const authorsData: AuthorDataType[] = [
     email: 'author.3@gmail.com',
     password: 'Welcome@123',
     role: ['author'],
-    imageUrl: '',
+    imageUrl: null,
     displayName: 'Evelyn Mitchell',
   },
   {
@@ -38,7 +38,7 @@ export const authorsData: AuthorDataType[] = [
     email: 'author.4@gmail.com',
     password: 'Welcome@123',
     role: ['author'],
-    imageUrl: '',
+    imageUrl: null,
     displayName: 'Noah Cooper',
   },
   {
@@ -46,7 +46,7 @@ export const authorsData: AuthorDataType[] = [
     email: 'author.5@gmail.com',
     password: 'Welcome@123',
     role: ['author'],
-    imageUrl: '',
+    imageUrl: null,
     displayName: 'Patricia Miles',
   },
 ]

@@ -92,7 +92,7 @@ export async function generateMetadata({
         const title = metadata.title
         const description = metadata.description
 
-        if (metadata.image && typeof metadata.image !== 'string') {
+        if (metadata.image && typeof metadata.image === 'object') {
           ogImage.push({
             url: metadata.image.sizes?.blogImageSize2?.url!,
             height: 630,
@@ -124,7 +124,7 @@ export async function generateMetadata({
       const title = metadata.title
       const description = metadata.description
 
-      if (metadata.image && typeof metadata.image !== 'string') {
+      if (metadata.image && typeof metadata.image === 'object') {
         ogImage.push({
           url: metadata.image.sizes?.blogImageSize2?.url!,
           height: 630,
