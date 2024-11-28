@@ -13,7 +13,7 @@ const changeBasedOnENV = (env: any) => {
 export const env = createEnv({
   server: {
     DATABASE_URI: z.string().min(1),
-    DATABASE_SECRET: z.string(),
+    DATABASE_SECRET: z.string().min(1),
     PAYLOAD_SECRET: z.string().min(1),
     PAYLOAD_URL: z.string().url(),
     S3_ENDPOINT: z.string().min(1),

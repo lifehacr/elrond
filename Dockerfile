@@ -8,10 +8,12 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+
+
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i @libsql/linux-x64-musl && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -30,6 +32,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 ARG DATABASE_URI
+ARG DATABASE_SECRET
 ARG PAYLOAD_SECRET
 ARG NEXT_PUBLIC_PUBLIC_URL
 ARG PAYLOAD_URL
@@ -45,6 +48,7 @@ ARG OPENAPI_KEY
 ARG SUBSCRIPTION_PLAN
 
 ENV DATABASE_URI=$DATABASE_URI
+ENV DATABASE_SECRET=$DATABASE_SECRET
 ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 ENV NEXT_PUBLIC_PUBLIC_URL=$NEXT_PUBLIC_PUBLIC_URL
 ENV PAYLOAD_URL=$PAYLOAD_URL
@@ -77,8 +81,9 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Adding @libsql/linux-x64-musl again
+RUN corepack enable pnpm &&  pnpm i @libsql/linux-x64-musl
 COPY --from=builder /app/public ./public
-# COPY --from=builder /app/media ./media
 
 # Set the correct permission for prerender cache
 RUN mkdir .next

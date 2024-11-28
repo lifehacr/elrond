@@ -54,6 +54,7 @@
     "immer": "^10.1.1",
     "isomorphic-dompurify": "^2.15.0",
     "kbar": "0.1.0-beta.45",
+    "libsql": "0.5.0-pre.2",
     "lucide-react": "^0.446.0",
     "mongodb": "^6.8.0",
     "next": "15.0.0-canary.173",
@@ -103,5 +104,10 @@
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+  },
+  "optionalDependencies": {
+    "@libsql/darwin-arm64": "0.5.0-pre.2",
+    "@libsql/linux-x64-gnu": "0.5.0-pre.2",
+    "@libsql/linux-x64-musl": "0.5.0-pre.2"
   }
 }
