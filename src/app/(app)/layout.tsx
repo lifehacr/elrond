@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const generalSettings = metadata.general
 
     const ogImageUrl =
-      typeof generalSettings.ogImageUrl === 'string'
+      typeof generalSettings.ogImageUrl !== 'object'
         ? generalSettings.ogImageUrl
         : generalSettings.ogImageUrl.sizes?.blogImageSize3?.url!
 
@@ -44,12 +44,12 @@ export async function generateMetadata(): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        images: ogImage,
+        images: `${ogImage}`,
       },
       twitter: {
         title,
         description,
-        images: ogImage,
+        images: `${ogImage}`,
       },
       keywords: generalSettings.keywords,
     }
@@ -71,7 +71,7 @@ export default async function RootLayout({
   const generalSettings = metadata.general
 
   const faviconUrl =
-    typeof generalSettings?.faviconUrl === 'string'
+    typeof generalSettings?.faviconUrl !== 'object'
       ? generalSettings?.faviconUrl
       : generalSettings?.faviconUrl?.url!
 
@@ -79,7 +79,7 @@ export default async function RootLayout({
     <html lang='en' className='dark'>
       <head>
         {/* added a explicit link tag because favicon is coming from site-settings */}
-        <link rel='icon' type='image/x-icon' href={faviconUrl} />
+        <link rel='icon' type='image/x-icon' href={`${faviconUrl}`} />
         <GoogleAnalytics metadata={metadata} />
         <GoogleAdsense metadata={metadata} />
       </head>

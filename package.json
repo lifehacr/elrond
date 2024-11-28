@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "@contentql/core": "^0.3.3",
+    "@contentql/core": "^0.3.5",
     "@hookform/resolvers": "^3.4.0",
+    "@libsql/client": "^0.14.0",
+    "@payloadcms/db-sqlite": "3.0.0-beta.111",
     "@payloadcms/live-preview-react": "3.0.0-beta.111",
     "@payloadcms/next": "3.0.0-beta.111",
     "@payloadcms/plugin-seo": "3.0.0-beta.111",
@@ -52,6 +54,8 @@
     "immer": "^10.1.1",
     "isomorphic-dompurify": "^2.15.0",
     "kbar": "0.1.0-beta.45",
+    "libsql": "0.5.0-pre.2",
+    "lucide-react": "^0.446.0",
     "mongodb": "^6.8.0",
     "next": "15.0.0-canary.173",
     "next-nprogress-bar": "^2.3.14",
@@ -68,7 +72,6 @@
     "reading-time": "^1.5.0",
     "resend": "^3.2.0",
     "sharp": "0.33.5",
-    "lucide-react": "^0.446.0",
     "slugify": "^1.6.6",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0",
@@ -101,5 +104,10 @@
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+  },
+  "optionalDependencies": {
+    "@libsql/darwin-arm64": "0.5.0-pre.2",
+    "@libsql/linux-x64-gnu": "0.5.0-pre.2",
+    "@libsql/linux-x64-musl": "0.5.0-pre.2"
   }
 }

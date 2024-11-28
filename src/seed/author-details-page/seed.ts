@@ -12,7 +12,7 @@ const seed = async ({
   id,
 }: {
   spinner: Ora
-  id: string
+  id: number
 }): Promise<Page> => {
   try {
     spinner.start(`Started created author-details-page...`)

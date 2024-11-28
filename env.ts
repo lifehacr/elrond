@@ -13,6 +13,7 @@ const changeBasedOnENV = (env: any) => {
 export const env = createEnv({
   server: {
     DATABASE_URI: z.string().min(1),
+    DATABASE_SECRET: z.string().min(1),
     PAYLOAD_SECRET: z.string().min(1),
     PAYLOAD_URL: z.string().url(),
     S3_ENDPOINT: z.string().min(1),
@@ -47,5 +48,6 @@ export const env = createEnv({
     RESEND_SENDER_EMAIL: process.env.RESEND_SENDER_EMAIL,
     RESEND_SENDER_NAME: process.env.RESEND_SENDER_NAME,
     SUBSCRIPTION_PLAN: process.env.SUBSCRIPTION_PLAN,
+    DATABASE_SECRET: process.env.DATABASE_SECRET,
   },
 })

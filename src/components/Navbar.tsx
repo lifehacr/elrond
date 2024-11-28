@@ -38,12 +38,12 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
 
   const navLinks = menuLinks?.length ? generateMenuLinks(menuLinks) : []
 
-  if (Object.keys(logo).length && logo?.imageUrl === 'string') {
+  if (Object.keys(logo).length && typeof logo?.imageUrl === 'string') {
     logoDetails = {
       url: logo?.imageUrl,
       alt: `${metadata.general?.title} logo`,
     }
-  } else if (Object.keys(logo).length && typeof logo?.imageUrl !== 'string') {
+  } else if (Object.keys(logo).length && typeof logo?.imageUrl === 'object') {
     logoDetails = {
       url: logo.imageUrl?.url!,
       alt: logo.imageUrl?.alt || `${metadata.general?.title} logo`,

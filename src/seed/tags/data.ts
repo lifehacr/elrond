@@ -1,3 +1,4 @@
+import { Media } from '@payload-types'
 import path from 'path'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
@@ -14,7 +15,7 @@ export const tagsData: TagDataType[] = [
     color: 'blue',
     description:
       'Enter the Arcane, where ancient knowledge and mystical arts converge, revealing the secrets that lie beneath the surface of reality.',
-    tagImage: '',
+    tagImage: '' as unknown as number | Media,
     _status: 'published',
   },
 
@@ -23,7 +24,7 @@ export const tagsData: TagDataType[] = [
     color: 'purple',
     description:
       'Explore the Celestial category, where the celestial bodies align to create breathtaking scenes and cosmic phenomena beyond imagination.',
-    tagImage: '',
+    tagImage: '' as unknown as number | Media,
     _status: 'published',
   },
   {
@@ -31,7 +32,7 @@ export const tagsData: TagDataType[] = [
     color: 'indigo',
     description:
       'Step into Elysium, where blissful retreats and paradisiacal landscapes offer solace and tranquility for the wandering soul.',
-    tagImage: '',
+    tagImage: '' as unknown as number | Media,
     _status: 'published',
   },
   {
@@ -39,7 +40,7 @@ export const tagsData: TagDataType[] = [
     color: 'green',
     description:
       'Open the Chronicles to journey through the annals of time, discovering tales that transcend eras and unfold the epic sagas of fantastical worlds.',
-    tagImage: '',
+    tagImage: '' as unknown as number | Media,
     _status: 'published',
   },
   {
@@ -47,7 +48,7 @@ export const tagsData: TagDataType[] = [
     color: 'green',
     description:
       'Explore the Nether realms, where unseen dimensions and otherworldly landscapes blur the boundaries between reality and the unknown.',
-    tagImage: '',
+    tagImage: '' as unknown as number | Media,
     _status: 'published',
   },
 ]

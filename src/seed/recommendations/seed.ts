@@ -64,7 +64,7 @@ const seed = async (spinner: Ora): Promise<Page> => {
               (recommendation, idx) => {
                 return {
                   ...recommendation,
-                  image: formattedImagesResult.at(idx)?.id as string,
+                  image: formattedImagesResult.at(idx)?.id as number,
                 }
               },
             ),

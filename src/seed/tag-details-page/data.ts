@@ -9,7 +9,7 @@ export const tagDetailsPageData: TagDetailsPageDataType = {
   title: 'Tag Page',
   isDynamic: true,
   slug: 'tag/[-name]',
-  parent: '',
+  parent: null,
   _status: 'published',
   layout: [
     {

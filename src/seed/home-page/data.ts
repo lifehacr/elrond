@@ -18,7 +18,7 @@ export const homePageData: HomePageDataType = {
 
       description:
         'A super minimal & lightweight theme with Premium Membership and fully PayloadCMS-compatible.',
-      image: '',
+      image: null,
     },
     {
       blockType: 'FeaturedPost',
