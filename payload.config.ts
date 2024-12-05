@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 
 import { ResetPassword } from '@/emails/reset-password'
 import { UserAccountVerification } from '@/emails/verify-email'
-import { blocks } from '@/payload/blocks/index'
+import { blocksConfig } from '@/payload/blocks/index'
 import { Contacts } from '@/payload/collections/contact'
 
 const filename = fileURLToPath(import.meta.url)
@@ -79,6 +79,5 @@ export default cqlConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-
-  blocks,
+  blocks: blocksConfig,
 })
