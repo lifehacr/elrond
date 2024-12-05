@@ -1,17 +1,15 @@
-'use client'
-
-import { Params } from '../types'
-import { Blog, DetailsType, Tag, User } from '@payload-types'
+import { Blog, ListType, Tag, User } from '@payload-types'
 import React from 'react'
+import { Params } from '../types'
 
-import AllAuthorsTagsSkeleton from '@/components/skeletons/AllAuthorsTagsSkeleton'
-import { trpc } from '@/trpc/client'
 
+import payloadConfig from '@payload-config'
+import { getPayload } from 'payload'
 import AuthorsList from './components/AuthorsList'
 import BlogsList from './components/BlogsList'
 import TagsList from './components/TagsList'
 
-interface ListProps extends DetailsType {
+interface ListProps extends ListType {
   params: Params
 }
 
@@ -23,31 +21,46 @@ interface AuthorsListProps extends User {
   totalDocs: number
 }
 
-const List: React.FC<ListProps> = ({ params, ...block }) => {
+const List: React.FC<ListProps> = async ({ params, ...block }) => {
+  const payload = await getPayload({
+    config: payloadConfig
+  })
+
   switch (block?.collectionSlug) {
     case 'blogs': {
-      const { data: blogs } = trpc.blog.getAllBlogs.useQuery()
-      return <BlogsList blogs={blogs as Blog[]} />
+      const { docs: blogs = [] } = await payload.find({
+        collection: 'blogs',
+        depth: 5,
+        draft: false,
+        limit: 1000,
+      })
+
+      return <BlogsList blogs={blogs as Blog[]} title={block['title']} />
     }
 
     case 'tags': {
-      const { data: tags, isLoading } = trpc.tag.getAllTags.useQuery()
-      return isLoading ? (
-        <AllAuthorsTagsSkeleton />
-      ) : (
-        <TagsList tags={tags as GetAllBlogsWithCount[]} />
-      )
+      const { docs: tags = [] } = await payload.find({
+        collection: 'tags',
+        depth: 5,
+        draft: false,
+        limit: 1000,
+      })
+
+      return <TagsList tags={tags.map(tag => ({ ...tag, count: 0 }))} title={block?.title || ''} />
     }
 
     case 'users': {
-      const { data: authors, isLoading } =
-        trpc.author.getAllAuthorsWithCount.useQuery()
+      const { docs: authors = [] } = await payload.find({
+        collection: 'users',
+        where: {
+          role: {
+            equals: 'author',
+          },
+        },
+        limit: 1000,
+      })
 
-      return isLoading ? (
-        <AllAuthorsTagsSkeleton />
-      ) : (
-        <AuthorsList authors={authors as AuthorsListProps[]} />
-      )
+      return <AuthorsList authors={authors as AuthorsListProps[]} block={block} />
     }
   }
 }

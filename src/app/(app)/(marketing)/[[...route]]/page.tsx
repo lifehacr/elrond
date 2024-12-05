@@ -1,68 +1,125 @@
+import { env } from '@env'
 import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import type { Metadata, NextPage } from 'next'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
+import { getPayload } from 'payload'
+import { cache } from 'react'
 
-import WelcomePage from '@/components/Welcome'
 import { blocksJSX } from '@/payload/blocks/BlocksJSX'
 import { serverClient } from '@/trpc/serverClient'
+import { ensurePath } from '@/utils/ensurePath'
+import { matchNextJsPath } from '@/utils/matchNextJsPath'
 
-const payload = await getPayloadHMR({
-  config: configPromise,
-})
+type StaticRoute = { route: string | string[] | null }
 
-interface PageProps {
-  params: Promise<{ route: string[] }>
-}
+// revalidates every 10mins
+export const revalidate = 600
+// allows dynamic params static generation
+export const dynamicParams = true
 
-const Page: NextPage<PageProps> = async ({ params }) => {
-  const syncParams = (await params).route
-
-  try {
-    const pageData = await serverClient.page.getPageData({
-      path: syncParams,
+// moved the TRPC logic to function
+const queryPageBySlug = cache(
+  async ({ path }: { path?: string[] | string }) => {
+    const payload = await getPayload({
+      config: configPromise,
     })
 
-    return (
-      <Suspense fallback={null}>
-        <div className='space-y-20'>
-          {pageData?.layout?.map((block, index) => {
-            // Casting to 'React.FC<any>' to bypass TypeScript error related to 'Params' type incompatibility.
-            const Block = blocksJSX[block.blockType] as React.FC<any>
+    if (!path) path = '/'
+    if (Array.isArray(path)) path = path.join('/')
+    if (path !== '/') path = ensurePath(path).replace(/\/$/, '')
 
-            if (Block) {
-              return (
-                <Block {...block} params={{ route: syncParams }} key={index} />
-              )
-            }
+    const { docs: pageData } = await payload.find({
+      collection: 'pages',
+      depth: 5,
+      overrideAccess: true,
+      draft: false,
+      where: {
+        path: {
+          equals: path,
+        },
+      },
+    })
 
-            return <h3 key={block.id}>Block does not exist </h3>
-          })}
-        </div>
-      </Suspense>
-    )
-  } catch (error: any) {
-    if (error?.message === 'Pages not found') {
-      return <WelcomePage />
+    if (pageData.length) {
+      return pageData?.[0]
+    } else {
+      const { docs: allPages } = await payload.find({
+        collection: 'pages',
+        depth: 5,
+        overrideAccess: true,
+        draft: false,
+      })
+
+      if (!allPages?.length) {
+        return undefined
+      }
+
+      const correctMatching = allPages.find(page => page.path === path)
+
+      const matchingPage =
+        correctMatching ??
+        allPages.find(page => matchNextJsPath(path, page.path!))
+
+      if (!matchingPage) {
+        return undefined
+      }
+
+      return matchingPage
     }
-    console.error('Error: Page not found')
-    notFound()
+  },
+)
+
+const Page = async ({ params }: { params: Promise<{ route: string[] }> }) => {
+  const resolvedParams = (await params).route
+
+  const pageData = await queryPageBySlug({
+    path: resolvedParams,
+  })
+
+  if (!pageData) {
+    return notFound()
   }
+
+  const layoutData = pageData.layout ?? []
+
+  return (
+    <div className='relative space-y-20'>
+      {layoutData?.map((block, index) => {
+        // Casting to 'React.FC<any>' to bypass TypeScript error related to 'Params' type incompatibility.
+        const Block = blocksJSX[block.blockType] as React.FC<any>
+
+        if (Block) {
+          return (
+            <Block {...block} params={{ route: resolvedParams }} key={index} />
+          )
+        }
+
+        return <h3 key={block.id}>Block does not exist </h3>
+      })}
+    </div>
+  )
 }
 
+export default Page
+
+// generates metadata
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ route: string[] }>
 }): Promise<Metadata | {}> {
-  const parsedParams = await params
+  const payload = await getPayload({
+    config: configPromise,
+  })
+
+  const { route } = await params
 
   try {
-    // calling the site-settings to get all the data
-    const pageData = await serverClient.page.getPageData({
-      path: parsedParams?.route,
-    })
+    const pageData = await queryPageBySlug({ path: route })
+
+    if (!pageData) {
+      return {}
+    }
 
     let metadata = pageData.meta
 
@@ -70,6 +127,7 @@ export async function generateMetadata({
       ?.filter(block => block.blockType === 'Details')
       ?.at(0)
 
+    // checking for dynamic page
     if (
       pageData?.isDynamic &&
       block?.collectionSlug &&
@@ -79,54 +137,34 @@ export async function generateMetadata({
         collection: block?.collectionSlug,
         where: {
           slug: {
-            equals: parsedParams?.route.at(-1),
+            equals: route.at(-1) ?? '',
           },
         },
+        depth: 5,
       })
+
       const doc = docs?.at(0)
+
       metadata = doc?.meta || {}
-
-      if (metadata) {
-        let ogImage = []
-
-        const title = metadata.title
-        const description = metadata.description
-
-        if (metadata.image && typeof metadata.image === 'object') {
-          ogImage.push({
-            url: metadata.image.sizes?.blogImageSize2?.url!,
-            height: 630,
-            width: 1200,
-            alt: `og image`,
-          })
-        }
-
-        return {
-          title,
-          description,
-          openGraph: {
-            title,
-            description,
-            images: ogImage,
-          },
-          twitter: {
-            title,
-            description,
-            images: ogImage,
-          },
-        }
-      }
     }
 
-    if (metadata) {
+    if (metadata && Object.keys(metadata).length) {
       let ogImage = []
+      const title = metadata.title ?? ''
+      const description = metadata.description ?? ''
 
-      const title = metadata.title
-      const description = metadata.description
+      const titleAndDescription = {
+        ...(title ? { title } : {}),
+        ...(description ? { description } : {}),
+      }
 
-      if (metadata.image && typeof metadata.image === 'object') {
+      if (
+        metadata.image &&
+        typeof metadata.image === 'object' &&
+        metadata.image?.url
+      ) {
         ogImage.push({
-          url: metadata.image.sizes?.blogImageSize2?.url!,
+          url: metadata.image.url,
           height: 630,
           width: 1200,
           alt: `og image`,
@@ -134,29 +172,81 @@ export async function generateMetadata({
       }
 
       return {
-        title,
-        description,
+        ...titleAndDescription,
+        // we're appending the http|https int the env variable
+        metadataBase: env.PAYLOAD_URL as unknown as URL,
         openGraph: {
-          title,
-          description,
+          ...titleAndDescription,
           images: ogImage,
         },
         twitter: {
-          title,
-          description,
+          ...titleAndDescription,
           images: ogImage,
         },
       }
     }
 
     return {}
-  } catch (error: any) {
-    if (error?.message === 'Pages not found') {
-      return <WelcomePage />
-    }
-    console.error('Error: Page not found')
-    notFound()
+  } catch (error) {
+    // in error case returning empty object
+    return {}
   }
 }
 
-export default Page
+// generate static-pages
+const staticGenerationMapping = {
+  blogs: serverClient.blog.getAllBlogs(),
+  tags: serverClient.tag.getAllTags(),
+  users: serverClient.author.getAllAuthorsWithCount(),
+} as const
+
+export async function generateStaticParams(): Promise<StaticRoute[]> {
+  const allPagesData = await serverClient.page.getAllPages()
+  const staticParams: StaticRoute[] = []
+
+  for (const page of allPagesData) {
+    if (!page) {
+      continue // Skip invalid pages
+    }
+
+    // If the route is dynamic (contains `[`)
+    if (page?.path?.includes('[') && page.layout) {
+      const blockData = page.layout.find(block => block.blockType === 'Details')
+
+      // If it has a Details block with a valid collectionSlug
+      if (blockData?.blockType === 'Details' && blockData.collectionSlug) {
+        const slug = blockData.collectionSlug
+
+        // Fetch all slugs for the given collection (e.g., blogs, tags, users)
+        const data = await staticGenerationMapping[slug]
+
+        if (data && Array.isArray(data)) {
+          let path = ''
+          for (const item of data) {
+            if ('username' in item) {
+              path = item.username
+            } else if ('slug' in item) {
+              path = `${item.slug}`
+            }
+
+            // Dynamically replace `[parameter]` with actual slug
+            const dynamicPath = page.path.replace(/\[(.*?)\]/, path)
+
+            staticParams.push({
+              route: dynamicPath.split('/').filter(Boolean),
+            })
+          }
+        }
+        continue
+      }
+    }
+
+    // Statics (non-dynamic paths)
+    const nonDynamicPath = page?.path?.split('/').filter(Boolean)[0]
+    if (nonDynamicPath) {
+      staticParams.push({ route: [nonDynamicPath] })
+    }
+  }
+
+  return staticParams
+}

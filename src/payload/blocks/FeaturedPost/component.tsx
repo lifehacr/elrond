@@ -1,10 +1,10 @@
 'use client'
 
-import Container from '../common/Container'
 import { FeaturedPostType, Media, Tag, User } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import Container from '../common/Container'
 
 import FeaturedPostSkeleton from '@/components/skeletons/FeaturedPostSkeleton'
 import PostsAuthorSkeleton from '@/components/skeletons/PostsAuthorSkeleton'
