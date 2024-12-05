@@ -1,10 +1,10 @@
 import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 
 import { ContactFormValidator } from '@/payload/blocks/Contact/validators/contactValidator'
 import { publicProcedure, router } from '@/trpc'
 
-const payload = await getPayloadHMR({ config: configPromise })
+const payload = await getPayload({ config: configPromise })
 export const contactRouter = router({
   ContactFormPostData: publicProcedure
     .input(ContactFormValidator)
