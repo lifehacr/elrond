@@ -1,3 +1,5 @@
+'use client'
+
 import Button from '../../common/Button'
 import { Media, User } from '@payload-types'
 import { useState } from 'react'

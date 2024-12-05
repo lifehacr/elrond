@@ -1,12 +1,10 @@
-'use client'
-
-import { Blog, DetailsType, User } from '@payload-types'
 import { Params } from '../types'
+import configPromise from '@payload-config'
+import { Blog, DetailsType, User } from '@payload-types'
+import { getPayload } from 'payload'
 
 import PageNotFound from '@/components/404'
 
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import AuthorDetails from './components/AuthorDetails'
 import BlogDetails from './components/BlogDetails'
 import TagDetails from './components/TagDetails'
@@ -17,7 +15,7 @@ interface DetailsProps extends DetailsType {
 
 const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
   const payload = await getPayload({
-    config: configPromise
+    config: configPromise,
   })
 
   switch (block?.collectionSlug) {
@@ -41,11 +39,10 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
       const blog = docs.at(0)
 
       return !!blog ? (
-        <BlogDetails
-          blog={blog as Blog}
-          blogsData={blogsData as Blog[]}
-        />
-      ) : <PageNotFound/>
+        <BlogDetails blog={blog as Blog} blogsData={blogsData as Blog[]} />
+      ) : (
+        <PageNotFound />
+      )
     }
 
     case 'tags': {
@@ -73,12 +70,7 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
         return <PageNotFound />
       }
 
-      return (
-        <TagDetails
-          tagDetails={tagDetails}
-          blogs={blogsData}
-        />
-      )
+      return <TagDetails tagDetails={tagDetails} blogs={blogsData} />
     }
 
     case 'users': {
@@ -101,7 +93,7 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
             )
           })[0]?.value
         : undefined
-      
+
       if (typeof author === 'object') {
         return (
           <AuthorDetails
