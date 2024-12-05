@@ -8,7 +8,7 @@ import HeroImageSkeleton from '@/components/skeletons/HeroImageSkeleton'
 import Globe from '@/svg/Globe'
 import Twitter from '@/svg/Twitter'
 
-const AuthorHero = ({ author }: { author: User }) => {
+const AuthorHero: React.FC<{ author: User }> = ({ author }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   return (
