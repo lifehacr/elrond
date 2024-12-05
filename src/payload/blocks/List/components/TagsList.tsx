@@ -1,6 +1,6 @@
-import Container from '../../common/Container'
-import { Media, Tag } from '@payload-types'
+import { ListType, Media, Tag } from '@payload-types'
 import Link from 'next/link'
+import Container from '../../common/Container'
 
 import {
   Avatar,
@@ -11,7 +11,10 @@ import {
 interface TagsListProps extends Tag {
   count: number
 }
-const TagsList: React.FC<{ tags: TagsListProps[] }> = ({ tags }) => {
+const TagsList: React.FC<{ 
+  tags: TagsListProps[] 
+  title: ListType['title'] 
+}> = ({ tags, title }) => {
   return (
     <Container className='py-24'>
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>

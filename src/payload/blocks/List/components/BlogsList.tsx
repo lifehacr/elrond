@@ -1,4 +1,4 @@
-import { Blog } from '@payload-types'
+import { Blog, ListType } from '@payload-types'
 import Link from 'next/link'
 import { LiaBlogSolid } from 'react-icons/lia'
 
@@ -6,8 +6,9 @@ import TabComponent, { TabContent } from '@/payload/blocks/common/Tabs'
 
 interface BlogsListProps {
   blogs: Blog[]
+  title?: ListType['title']
 }
-const BlogsList: React.FC<BlogsListProps> = ({ blogs }) => {
+const BlogsList: React.FC<BlogsListProps> = ({ blogs, title }) => {
   const tabs = [
     {
       title: 'Blogs Data',
