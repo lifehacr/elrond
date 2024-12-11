@@ -56,12 +56,7 @@ const List: React.FC<ListProps> = async ({ params, ...block }) => {
         { tags: ['list-tags'] },
       )()
 
-      return (
-        <TagsList
-          tags={tags.map(tag => ({ ...tag, count: 0 }))}
-          title={block?.title || ''}
-        />
-      )
+      return <TagsList tags={tags} title={block?.title || ''} />
     }
 
     case 'users': {
