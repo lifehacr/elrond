@@ -6,7 +6,7 @@ import { LatestPostsType, Media, Tag, User } from '@payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import BlogPostsSkeleton from '@/components/skeletons/BlogPostsSkeleton'
 import LatestTagsSkeleton from '@/components/skeletons/LatestTagsSkeleton'
@@ -46,7 +46,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                   className='flex w-full flex-col items-start gap-6 sm:flex-row'>
                   <div className='avatar w-full md:w-auto'>
                     <div className='relative h-60 w-full md:h-28 md:w-28'>
-                      <Link prefetch href={`/blog/${blog?.slug}`}>
+                      <Link href={`/blog/${blog?.slug}`}>
                         <Image
                           src={(blog?.blogImage as Media)?.url!}
                           alt={(blog?.blogImage as Media)?.url! || 'Blog'}
@@ -58,7 +58,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                   </div>
                   <div className='flex flex-col gap-3 sm:mt-1'>
                     <div className='flex flex-col gap-2'>
-                      <Link prefetch href={`/blog/${blog?.slug}`}>
+                      <Link href={`/blog/${blog?.slug}`}>
                         <div className='text-lg font-semibold text-base-content'>
                           {blog?.title}
                           {index === 1 ? (
@@ -72,7 +72,6 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                         <div className='flex -space-x-2'>
                           {blog?.author?.slice(0, 2)?.map((author, index) => (
                             <Link
-                              prefetch
                               key={index}
                               href={`/author/${(author?.value as User)?.username}`}>
                               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,9 +92,8 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                         </div>
                         <div className='ml-2 flex items-center'>
                           {blog?.author?.slice(0, 2)?.map((author, index) => (
-                            <>
+                            <React.Fragment key={index}>
                               <Link
-                                prefetch
                                 key={index}
                                 href={`/author/${(author?.value as User)?.username}`}>
                                 <p className='text-sm font-normal text-[#3F3F46] hover:text-primary'>
@@ -105,7 +103,7 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                               {index === 0 && blog?.author?.length! > 1 && (
                                 <span className='mx-1'>&</span>
                               )}
-                            </>
+                            </React.Fragment>
                           ))}
                         </div>
                       </div>
@@ -117,7 +115,6 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
                       <div className='flex space-x-3'>
                         {blog?.tags?.slice(0, 2)?.map((tag, index) => (
                           <Link
-                            prefetch
                             key={index}
                             href={`/tag/${(tag?.value as Tag)?.slug}`}>
                             <div className='rounded-lg border border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-medium uppercase tracking-wider text-zinc-700 hover:opacity-80'>
@@ -166,7 +163,6 @@ const LatestPosts: React.FC<LatestPostsType> = ({ ...block }) => {
               <div className=' grid grid-cols-2 gap-2 md:gap-4 lg:grid-cols-1'>
                 {AllTags?.map((tag, index) => (
                   <Link
-                    prefetch
                     href={`/tag/${tag?.slug}`}
                     key={index}
                     className='flex w-fit select-none flex-row items-center justify-start gap-3.5 rounded-xl p-2 transition-all duration-300 ease-in-out hover:bg-secondary'>
