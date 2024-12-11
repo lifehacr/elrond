@@ -19,7 +19,7 @@ const SidebarView = () => {
   return (
     <aside className='hidden border-r border-slate-200 md:block md:w-1/3 lg:w-1/4'>
       <div className='sticky top-10 flex flex-col gap-2  p-4 text-sm'>
-        <Link prefetch href={'/'} className='relative mb-4 h-5 w-24'>
+        <Link href={'/'} className='relative mb-4 h-5 w-24'>
           <Image
             src={(siteSettingsData?.navbar?.logo?.imageUrl as Media)?.url!}
             alt=''

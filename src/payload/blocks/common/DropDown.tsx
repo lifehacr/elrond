@@ -64,7 +64,6 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
               link?.type === 'custom' ? (
                 <li key={index}>
                   <Link
-                    prefetch
                     href={`/${link?.page!}`}
                     target={`${link?.page ? '_blank' : '_self'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>
@@ -74,7 +73,6 @@ const DropDown: React.FC<Props> = ({ headerLink }) => {
               ) : (
                 <li key={index}>
                   <Link
-                    prefetch
                     href={`/${(link?.page?.value as Page)?.slug!}`}
                     target={`${link?.page ? '_self' : '_blank'}`}
                     className='block px-4 py-2 text-base text-gray-700 hover:bg-gray-100'>

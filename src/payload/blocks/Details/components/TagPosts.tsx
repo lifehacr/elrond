@@ -40,7 +40,6 @@ const TagPosts = ({
           <div key={index} className='flex flex-col gap-7 md:flex-row'>
             {/* <div className='avatar'> */}
             <Link
-              prefetch
               href={`/blog/${post?.slug}`}
               className='relative h-60 w-full flex-shrink-0 md:h-28 md:w-28'>
               <Image
@@ -55,7 +54,6 @@ const TagPosts = ({
             <div className='flex flex-col gap-2'>
               <div className='flex flex-col gap-2'>
                 <Link
-                  prefetch
                   href={`/blog/${post?.slug}`}
                   className='text-xl font-semibold text-base-content'>
                   {post?.title}
@@ -64,7 +62,6 @@ const TagPosts = ({
                   <div className='flex -space-x-2'>
                     {post?.author?.slice(0, 2)?.map((author, index) => (
                       <Link
-                        prefetch
                         key={index}
                         href={`/author/${(author?.value as User)?.username}`}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -84,7 +81,6 @@ const TagPosts = ({
                     {post?.author?.slice(0, 2)?.map((author, index) => (
                       <div key={index}>
                         <Link
-                          prefetch
                           className='ml-2 hover:text-primary'
                           href={`/author/${(author?.value as User)?.username}`}>
                           {(author?.value as User)?.displayName}
@@ -100,10 +96,7 @@ const TagPosts = ({
               </div>
               <div className='flex gap-2'>
                 {post?.tags?.map((tag, index) => (
-                  <Link
-                    prefetch
-                    key={index}
-                    href={`/tag/${(tag?.value as Tag)?.slug}`}>
+                  <Link key={index} href={`/tag/${(tag?.value as Tag)?.slug}`}>
                     <div className='badge-lg rounded-lg border border-zinc-200 bg-secondary px-3 py-[2px] text-xs font-semibold hover:opacity-80'>
                       {(tag?.value as Tag)?.title?.toUpperCase()}
                     </div>
