@@ -1,6 +1,6 @@
+import Container from '../../common/Container'
 import { ListType, Media, Tag } from '@payload-types'
 import Link from 'next/link'
-import Container from '../../common/Container'
 
 import {
   Avatar,
@@ -11,16 +11,15 @@ import {
 interface TagsListProps extends Tag {
   count: number
 }
-const TagsList: React.FC<{ 
-  tags: TagsListProps[] 
-  title: ListType['title'] 
+const TagsList: React.FC<{
+  tags: TagsListProps[]
+  title: ListType['title']
 }> = ({ tags, title }) => {
   return (
     <Container className='py-24'>
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
         {tags?.map((tag, index) => (
           <Link
-            prefetch
             key={index}
             href={`tag/${tag?.slug}`}
             className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>

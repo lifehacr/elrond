@@ -1,6 +1,6 @@
+import Container from '../../common/Container'
 import { Media, User } from '@payload-types'
 import Link from 'next/link'
-import Container from '../../common/Container'
 
 import {
   Avatar,
@@ -12,24 +12,21 @@ interface AuthorsListProps extends User {
   totalDocs: number
 }
 
-const AuthorsList: React.FC<{ 
-  authors: AuthorsListProps[] 
+const AuthorsList: React.FC<{
+  authors: AuthorsListProps[]
   block: {
     title?: string | null
     collectionSlug?: ('blogs' | 'tags' | 'users') | null
     id?: string | null
     blockName?: string | null
     blockType: 'List'
-  } }> = ({
-  authors,
-  block
-}) => {
+  }
+}> = ({ authors, block }) => {
   return (
     <Container className='py-24'>
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
         {authors?.map((author, index) => (
           <Link
-            prefetch
             key={index}
             href={`author/${author?.username}`}
             className='rounded-2xl p-4 transition duration-300 ease-in-out hover:bg-secondary'>
