@@ -127,11 +127,11 @@ importers:
         specifier: ^6.8.0
         version: 6.12.0
       next:
-        specifier: ^15.0.2
+        specifier: ^15.0.4
         version: 15.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4)
       next-nprogress-bar:
         specifier: ^2.3.14
-        version: 2.3.15
+        version: 2.3.16
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -3698,8 +3698,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  jsesc@3.0.2:
-    resolution: {integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==}
+  jsesc@3.1.0:
+    resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
     hasBin: true
 
@@ -3931,8 +3931,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-nprogress-bar@2.3.15:
-    resolution: {integrity: sha512-8s8slKMUXvDrl7wWzKyWt6BJQThOJREpCicdbi66xAOzQ23DeIauEzMGPg1BMixnqlIRY3ayUO/ey9dafkgWcA==}
+  next-nprogress-bar@2.3.16:
+    resolution: {integrity: sha512-/otM20uuAvLZdnPStx12Qc/aZT7EwSMZX3VyQfIbrxOaNr8Lg0YzzS9TRw4HG5XfqfEoad0dpRV2M1sn6H/yfQ==}
 
   next@15.1.0:
     resolution: {integrity: sha512-QKhzt6Y8rgLNlj30izdMbxAwjHMFANnLwDwZ+WQh5sMhyt4lEBqDK9QpvWHtIM4rINKPoJ8aiRZKg5ULSybVHw==}
@@ -5653,7 +5653,7 @@ snapshots:
       '@babel/types': 7.26.3
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
-      jsesc: 3.0.2
+      jsesc: 3.1.0
 
   '@babel/helper-environment-visitor@7.24.7':
     dependencies:
@@ -9124,7 +9124,7 @@ snapshots:
 
   jsesc@2.5.2: {}
 
-  jsesc@3.0.2: {}
+  jsesc@3.1.0: {}
 
   json-buffer@3.0.1: {}
 
@@ -9335,7 +9335,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-nprogress-bar@2.3.15:
+  next-nprogress-bar@2.3.16:
     dependencies:
       nprogress: 0.2.0
 
