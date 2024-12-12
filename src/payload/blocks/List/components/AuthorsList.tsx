@@ -1,6 +1,7 @@
 import Container from '../../common/Container'
 import configPromise from '@payload-config'
 import { Media, User } from '@payload-types'
+import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
@@ -32,14 +33,19 @@ const AuthorsList: React.FC<{
     <Container className='py-24'>
       <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
         {authors?.map(async (author, index) => {
-          const { totalDocs: authorBlogsCount } = await payload.find({
-            collection: 'blogs',
-            where: {
-              'author.value': {
-                equals: author.id,
-              },
-            },
-          })
+          const { totalDocs: authorBlogsCount } = await unstable_cache(
+            async () =>
+              await payload.count({
+                collection: 'blogs',
+                where: {
+                  'author.value': {
+                    equals: author.id,
+                  },
+                },
+              }),
+            [`author-${author.id}`, 'list', 'blogs', 'count'],
+            { tags: [`author-${author.id}-list-blogs-count`] },
+          )()
 
           return (
             <Link
