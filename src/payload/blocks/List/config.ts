@@ -21,10 +21,6 @@ const ListConfig: Block = {
       label: 'Collection Slug',
       options: [
         {
-          label: 'Blogs',
-          value: 'blogs',
-        },
-        {
           label: 'Tags',
           value: 'tags',
         },

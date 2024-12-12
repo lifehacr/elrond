@@ -139,7 +139,7 @@ export interface DetailsType {
  */
 export interface ListType {
   title?: string | null;
-  collectionSlug?: ('blogs' | 'tags' | 'users') | null;
+  collectionSlug?: ('tags' | 'users') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'List';
