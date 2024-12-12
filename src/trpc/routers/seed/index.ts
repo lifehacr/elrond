@@ -1,14 +1,13 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { TRPCError } from '@trpc/server'
 import ora from 'ora'
+import { getPayload } from 'payload'
 
 import { seedAuthorDetailsPage } from '@/seed/author-details-page'
 import { seedAuthors } from '@/seed/authors'
 import { seedAuthorsPage } from '@/seed/authors-page'
 import { seedBlogDetailsPage } from '@/seed/blog-details-page'
 import { seedBlogs } from '@/seed/blogs'
-import { seedBlogsPage } from '@/seed/blogs-page'
 // import { seedContactPage } from '@/seed/contact';
 import { seedContactPage } from '@/seed/contact-page'
 import { seedFeaturePage } from '@/seed/features'
@@ -62,13 +61,13 @@ export const seedRouter = router({
       })
 
       await seedBlogs({ spinner, tags, authors })
-      const blogsPage = await seedBlogsPage({ spinner })
+
+      const homePage = await seedHomePage(spinner)
+
       const blogsDetailsPage = await seedBlogDetailsPage({
         spinner,
-        id: blogsPage.id,
+        id: homePage.id,
       })
-
-      await seedHomePage(spinner)
 
       const featuresPage = await seedFeaturePage(spinner)
 
