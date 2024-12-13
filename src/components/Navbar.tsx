@@ -123,7 +123,7 @@ const Navbar = ({ metadata }: { metadata: SiteSetting }) => {
                       <div
                         key={index}
                         className='cursor-pointer space-y-[1px] px-4 py-2 hover:bg-[#f5f5f5]'>
-                        <Link href={'/blog/' + result?.path || ''}>
+                        <Link href={'/' + result?.path || ''}>
                           <h2 className='text-neutral-800 text-[1.1rem] font-medium leading-tight'>
                             {result?.title}
                           </h2>

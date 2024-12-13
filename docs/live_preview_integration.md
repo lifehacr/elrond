@@ -21,7 +21,7 @@ livePreview: {
         const baseUrl = env.NEXT_PUBLIC_PUBLIC_URL
 
         if (collectionConfig?.slug === 'blogs') {
-          return `${baseUrl}/blog/${data.slug}`
+          return `${baseUrl}/${data.slug}`
         } else {
           return `${baseUrl}/${data.slug}${locale ? `?locale=${locale.code}` : ''}`
         }

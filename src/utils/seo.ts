@@ -123,7 +123,7 @@ export const generateImage: GenerateImage = (data: any): string => {
  * @example
  * ```
  * const seoURL = generateURL({ locale: 'en', collectionSlug: 'blog', id: '123' });
- * // Example output: 'https://example.com/en/blog/123'
+ * // Example output: 'https://example.com/en/123'
  * ```
  */
 export const generateURL: GenerateURL = (data: any): string => {

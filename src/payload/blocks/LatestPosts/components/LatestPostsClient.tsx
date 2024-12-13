@@ -35,7 +35,7 @@ const LatestPostsClient: React.FC<{
                 className='flex w-full flex-col items-start gap-6 sm:flex-row'>
                 <div className='avatar w-full md:w-auto'>
                   <div className='relative h-60 w-full md:h-28 md:w-28'>
-                    <Link href={`/blog/${blog?.slug}`}>
+                    <Link href={`/${blog?.slug}`}>
                       <Image
                         src={(blog?.blogImage as Media)?.url!}
                         alt={(blog?.blogImage as Media)?.url! || 'Blog'}
@@ -47,7 +47,7 @@ const LatestPostsClient: React.FC<{
                 </div>
                 <div className='flex flex-col gap-3 sm:mt-1'>
                   <div className='flex flex-col gap-2'>
-                    <Link href={`/blog/${blog?.slug}`}>
+                    <Link href={`/${blog?.slug}`}>
                       <div className='text-lg font-semibold text-base-content'>
                         {blog?.title}
                         {index === 1 ? (

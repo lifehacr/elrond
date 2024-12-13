@@ -27,7 +27,7 @@ import { mergeOpenGraph } from './merge-open-graph'
  * //   openGraph: {
  * //     title: 'Blog Title',
  * //     description: 'Blog Description',
- * //     url: 'http://localhost:3000/blog/[id]',
+ * //     url: 'http://localhost:3000/[id]',
  * //     images: [{ url: 'http://example.com/image.jpg' }]
  * //   }
  * // }
@@ -37,7 +37,7 @@ export const generateMeta = async (args: {
   doc: Page | null
   collectionSlug: string
 }): Promise<Metadata> => {
-  // ? collectionSlug is the name of the page eg.: http://localhost:3000/blog/[id] (`blog` is the collectionSlug)
+  // ? collectionSlug is the name of the page eg.: http://localhost:3000/[id] (`blog` is the collectionSlug)
   const { doc, collectionSlug } = args || {}
 
   const ogImage =
