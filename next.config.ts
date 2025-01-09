@@ -1,5 +1,5 @@
-import { withPayload } from '@payloadcms/next/withPayload';
-import type { NextConfig } from 'next';
+import { withPayload } from '@payloadcms/next/withPayload'
+import type { NextConfig } from 'next'
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
@@ -22,6 +22,15 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     reactCompiler: false,
+    serverActions: {
+      // Allow Server Actions to be called from these domains
+      allowedOrigins: [
+        'contentql.io',
+        '*.contentql.io',
+        'up.railway.app',
+        '*.up.railway.app',
+      ],
+    },
   },
   output: 'standalone',
   reactStrictMode: true,
@@ -30,10 +39,9 @@ const nextConfig: NextConfig = {
   },
   logging: {
     fetches: {
-      fullUrl: true
-    }
-  }
-  ,
+      fullUrl: true,
+    },
+  },
   images: {
     remotePatterns: [
       {
