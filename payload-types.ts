@@ -102,11 +102,17 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
   isHome?: boolean | null;
   isDynamic?: boolean | null;
   slugMode?: ('generate' | 'custom') | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -149,8 +155,17 @@ export interface ListType {
  * via the `definition` "HeroType".
  */
 export interface HeroType {
+  /**
+   * Upload the image to be displayed in the hero section.
+   */
   image?: (number | null) | Media;
+  /**
+   * Enter the main title for the hero section.
+   */
   title?: string | null;
+  /**
+   * Enter a brief description for the hero section.
+   */
   description?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -206,6 +221,9 @@ export interface Media {
  * via the `definition` "FeaturedPostType".
  */
 export interface FeaturedPostType {
+  /**
+   * Enter the title of the featured post.
+   */
   title?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -216,10 +234,25 @@ export interface FeaturedPostType {
  * via the `definition` "LatestPostsType".
  */
 export interface LatestPostsType {
+  /**
+   * Enter the first title to be displayed in the latest posts section.
+   */
   titleOne?: string | null;
+  /**
+   * Enter the second title to be displayed in the latest posts section.
+   */
   titleTwo?: string | null;
+  /**
+   * Enter the third title to be displayed in the latest posts section.
+   */
   titleThree?: string | null;
+  /**
+   * Enter the text for the button in the latest posts section.
+   */
   buttonName: string;
+  /**
+   * Enter the URL or path for the button.
+   */
   buttonPath: string;
   id?: string | null;
   blockName?: string | null;
@@ -230,8 +263,17 @@ export interface LatestPostsType {
  * via the `definition` "ContactType".
  */
 export interface ContactType {
+  /**
+   * Enter the title for the contact section.
+   */
   title?: string | null;
+  /**
+   * Provide a brief description or message for the contact section.
+   */
   description?: string | null;
+  /**
+   * Upload an image to be displayed in the contact section.
+   */
   image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
@@ -242,11 +284,26 @@ export interface ContactType {
  * via the `definition` "FAQType".
  */
 export interface FAQType {
+  /**
+   * Enter the main title for the FAQ section.
+   */
   title: string;
+  /**
+   * Provide a brief description or introduction for the FAQ section (optional).
+   */
   description?: string | null;
+  /**
+   * Add frequently asked questions with their corresponding answers.
+   */
   questions?:
     | {
+        /**
+         * Enter the question.
+         */
         question?: string | null;
+        /**
+         * Provide the answer for the corresponding question.
+         */
         answer?: string | null;
         id?: string | null;
       }[]
@@ -260,17 +317,47 @@ export interface FAQType {
  * via the `definition` "PricingType".
  */
 export interface PricingType {
+  /**
+   * Configure the pricing plans to display.
+   */
   pricingPlan?:
     | {
+        /**
+         * Select an icon for the plan.
+         */
         planIcon: 'free' | 'gold' | 'goldPlus';
+        /**
+         * Enter the title of the pricing plan (e.g., "Free", "Gold", etc.).
+         */
         planTitle: string;
+        /**
+         * Specify the duration of the free plan (optional).
+         */
         freeDuration?: string | null;
+        /**
+         * Provide a brief description of the plan.
+         */
         planDescription: string;
+        /**
+         * Enter the monthly price for the plan.
+         */
         monthlyPlanPrice: number;
+        /**
+         * Enter the yearly price for the plan.
+         */
         yearlyPlanPrice: number;
+        /**
+         * Enter the text for the call-to-action button.
+         */
         planBtnText: string;
+        /**
+         * List the benefits included in this plan.
+         */
         planBenefits?:
           | {
+              /**
+               * Enter a specific benefit of the plan.
+               */
               benefit: string;
               id?: string | null;
             }[]
@@ -287,11 +374,26 @@ export interface PricingType {
  * via the `definition` "RecommendationsListType".
  */
 export interface RecommendationsListType {
+  /**
+   * Add a list of recommendations to display.
+   */
   recommendations?:
     | {
+        /**
+         * Upload an image to represent the recommendation.
+         */
         image: number | Media;
+        /**
+         * Enter the title of the recommendation.
+         */
         title: string;
+        /**
+         * Provide a brief description for the recommendation.
+         */
         description: string;
+        /**
+         * Enter the URL for more information about the recommendation.
+         */
         recommendationUrl: string;
         id?: string | null;
       }[]
@@ -305,11 +407,23 @@ export interface RecommendationsListType {
  * via the `definition` "FeaturesType".
  */
 export interface FeaturesType {
+  /**
+   * Add the main features with points to highlight.
+   */
   features?:
     | {
+        /**
+         * Enter the title of the feature.
+         */
         title?: string | null;
+        /**
+         * Add specific points or benefits under this feature.
+         */
         points?:
           | {
+              /**
+               * Enter the description of the point.
+               */
               point?: string | null;
               id?: string | null;
             }[]
@@ -326,7 +440,13 @@ export interface FeaturesType {
  * via the `definition` "SubscribeType".
  */
 export interface SubscribeType {
+  /**
+   * Enter the title for the subscribe section.
+   */
   title?: string | null;
+  /**
+   * Upload an image to be displayed in the subscribe section.
+   */
   image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
@@ -443,6 +563,9 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
+  /**
+   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?:
     | {
@@ -452,6 +575,9 @@ export interface Form {
   redirect?: {
     url: string;
   };
+  /**
+   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+   */
   emails?:
     | {
         emailTo?: string | null;
@@ -460,6 +586,9 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
+        /**
+         * Enter the message that should be sent in this email.
+         */
         message?:
           | {
               [k: string]: unknown;
@@ -477,6 +606,9 @@ export interface Form {
  */
 export interface DisqusCommentsType {
   title?: string | null;
+  /**
+   * To find your Disqus shortname, log into Disqus, access the Admin panel, and check the URL or General Site Settings.
+   */
   shortName: string;
   id?: string | null;
   blockName?: string | null;
@@ -488,8 +620,14 @@ export interface DisqusCommentsType {
  */
 export interface Blog {
   id: number;
+  /**
+   * Upload blog image
+   */
   blogImage: number | Media;
   title: string;
+  /**
+   * Add the summary of the blog post
+   */
   description: string;
   tags?:
     | {
@@ -503,15 +641,27 @@ export interface Blog {
         value: number | User;
       }[]
     | null;
+  /**
+   * Main content of the blog post. Use the rich text editor for formatting.
+   */
   content: {
     [k: string]: unknown;
   }[];
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
+  /**
+   * Save it as draft to schedule.
+   */
   publishOn?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -523,6 +673,9 @@ export interface Blog {
  */
 export interface Tag {
   id: number;
+  /**
+   * Upload tag image
+   */
   tagImage: number | Media;
   title: string;
   description: string;
@@ -530,8 +683,14 @@ export interface Tag {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -544,6 +703,9 @@ export interface Tag {
 export interface User {
   id: number;
   displayName?: string | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   username: string;
   imageUrl?: (number | null) | Media;
   role: ('admin' | 'author' | 'user')[];
@@ -616,6 +778,8 @@ export interface FormSubmission {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
  */
@@ -733,153 +897,19 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        Details?:
-          | T
-          | {
-              collectionSlug?: T;
-              id?: T;
-              blockName?: T;
-            };
-        List?:
-          | T
-          | {
-              title?: T;
-              collectionSlug?: T;
-              id?: T;
-              blockName?: T;
-            };
-        Hero?:
-          | T
-          | {
-              image?: T;
-              title?: T;
-              description?: T;
-              id?: T;
-              blockName?: T;
-            };
-        FeaturedPost?:
-          | T
-          | {
-              title?: T;
-              id?: T;
-              blockName?: T;
-            };
-        LatestPosts?:
-          | T
-          | {
-              titleOne?: T;
-              titleTwo?: T;
-              titleThree?: T;
-              buttonName?: T;
-              buttonPath?: T;
-              id?: T;
-              blockName?: T;
-            };
-        Contact?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              image?: T;
-              id?: T;
-              blockName?: T;
-            };
-        FAQ?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              questions?:
-                | T
-                | {
-                    question?: T;
-                    answer?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        Pricing?:
-          | T
-          | {
-              pricingPlan?:
-                | T
-                | {
-                    planIcon?: T;
-                    planTitle?: T;
-                    freeDuration?: T;
-                    planDescription?: T;
-                    monthlyPlanPrice?: T;
-                    yearlyPlanPrice?: T;
-                    planBtnText?: T;
-                    planBenefits?:
-                      | T
-                      | {
-                          benefit?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        RecommendationsList?:
-          | T
-          | {
-              recommendations?:
-                | T
-                | {
-                    image?: T;
-                    title?: T;
-                    description?: T;
-                    recommendationUrl?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        Features?:
-          | T
-          | {
-              features?:
-                | T
-                | {
-                    title?: T;
-                    points?:
-                      | T
-                      | {
-                          point?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        Subscribe?:
-          | T
-          | {
-              title?: T;
-              image?: T;
-              id?: T;
-              blockName?: T;
-            };
-        FormBlock?:
-          | T
-          | {
-              title?: T;
-              form?: T;
-              id?: T;
-              blockName?: T;
-            };
-        DisqusComments?:
-          | T
-          | {
-              title?: T;
-              shortName?: T;
-              id?: T;
-              blockName?: T;
-            };
+        Details?: T | DetailsTypeSelect<T>;
+        List?: T | ListTypeSelect<T>;
+        Hero?: T | HeroTypeSelect<T>;
+        FeaturedPost?: T | FeaturedPostTypeSelect<T>;
+        LatestPosts?: T | LatestPostsTypeSelect<T>;
+        Contact?: T | ContactTypeSelect<T>;
+        FAQ?: T | FAQTypeSelect<T>;
+        Pricing?: T | PricingTypeSelect<T>;
+        RecommendationsList?: T | RecommendationsListTypeSelect<T>;
+        Features?: T | FeaturesTypeSelect<T>;
+        Subscribe?: T | SubscribeTypeSelect<T>;
+        FormBlock?: T | FormTypeSelect<T>;
+        DisqusComments?: T | DisqusCommentsTypeSelect<T>;
       };
   meta?:
     | T
@@ -906,6 +936,179 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DetailsType_select".
+ */
+export interface DetailsTypeSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListType_select".
+ */
+export interface ListTypeSelect<T extends boolean = true> {
+  title?: T;
+  collectionSlug?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroType_select".
+ */
+export interface HeroTypeSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedPostType_select".
+ */
+export interface FeaturedPostTypeSelect<T extends boolean = true> {
+  title?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsType_select".
+ */
+export interface LatestPostsTypeSelect<T extends boolean = true> {
+  titleOne?: T;
+  titleTwo?: T;
+  titleThree?: T;
+  buttonName?: T;
+  buttonPath?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactType_select".
+ */
+export interface ContactTypeSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQType_select".
+ */
+export interface FAQTypeSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  questions?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingType_select".
+ */
+export interface PricingTypeSelect<T extends boolean = true> {
+  pricingPlan?:
+    | T
+    | {
+        planIcon?: T;
+        planTitle?: T;
+        freeDuration?: T;
+        planDescription?: T;
+        monthlyPlanPrice?: T;
+        yearlyPlanPrice?: T;
+        planBtnText?: T;
+        planBenefits?:
+          | T
+          | {
+              benefit?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RecommendationsListType_select".
+ */
+export interface RecommendationsListTypeSelect<T extends boolean = true> {
+  recommendations?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        description?: T;
+        recommendationUrl?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesType_select".
+ */
+export interface FeaturesTypeSelect<T extends boolean = true> {
+  features?:
+    | T
+    | {
+        title?: T;
+        points?:
+          | T
+          | {
+              point?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscribeType_select".
+ */
+export interface SubscribeTypeSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormType_select".
+ */
+export interface FormTypeSelect<T extends boolean = true> {
+  title?: T;
+  form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisqusCommentsType_select".
+ */
+export interface DisqusCommentsTypeSelect<T extends boolean = true> {
+  title?: T;
+  shortName?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1235,18 +1438,55 @@ export interface SiteSetting {
   general: {
     title: string;
     description: string;
+    /**
+     * We recommend a maximum size of 256 * 256 pixels
+     */
     faviconUrl: number | Media;
+    /**
+     * We recommend a maximum size of 1200 * 630 pixels
+     */
     ogImageUrl: number | Media;
     keywords?: string[] | null;
+    /**
+     * This field is used to format currency values & used as default currency for ecommerce-theme
+     */
+    currency:
+      | 'usd'
+      | 'eur'
+      | 'inr'
+      | 'gbp'
+      | 'jpy'
+      | 'cad'
+      | 'aud'
+      | 'chf'
+      | 'cny'
+      | 'hkd'
+      | 'sgd'
+      | 'mxn'
+      | 'brl'
+      | 'rub'
+      | 'krw'
+      | 'zar'
+      | 'try'
+      | 'sar'
+      | 'aed'
+      | 'pln';
   };
   navbar: {
     logo: BrandLogo;
     menuLinks?:
       | {
+          /**
+           * Check to create group of links
+           */
           group?: boolean | null;
           menuLink?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
+            /**
+             * Upload an svg or logo to be displayed with link
+             */
+            icon?: (number | null) | Media;
             label: string;
             page?: {
               relationTo: 'pages';
@@ -1261,6 +1501,10 @@ export interface SiteSetting {
               | {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
+                  /**
+                   * Upload an svg or logo to be displayed with link
+                   */
+                  icon?: (number | null) | Media;
                   label: string;
                   page?: {
                     relationTo: 'pages';
@@ -1279,10 +1523,17 @@ export interface SiteSetting {
     logo: BrandLogo;
     footerLinks?:
       | {
+          /**
+           * Check to create group of links
+           */
           group?: boolean | null;
           menuLink?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
+            /**
+             * Upload an svg or logo to be displayed with link
+             */
+            icon?: (number | null) | Media;
             label: string;
             page?: {
               relationTo: 'pages';
@@ -1297,6 +1548,10 @@ export interface SiteSetting {
               | {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
+                  /**
+                   * Upload an svg or logo to be displayed with link
+                   */
+                  icon?: (number | null) | Media;
                   label: string;
                   page?: {
                     relationTo: 'pages';
@@ -1337,22 +1592,77 @@ export interface SiteSetting {
     copyright?: string | null;
   };
   redirectionLinks?: {
+    /**
+     * This redirects to a blog details page
+     */
     blogLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
+    /**
+     * This redirect to a product details page
+     */
+    productLink?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    /**
+     * This redirects to a author details page
+     */
     authorLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
+    /**
+     * This redirects to a tag details page
+     */
     tagLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
   };
   monetization?: {
+    /**
+     * Add the publisher-id from Google AdSense Console
+     */
     adSenseId?: string | null;
+    /**
+     * Add the measurement id from Google Analytics dashboard
+     */
     measurementId?: string | null;
+  };
+  themeSettings: {
+    lightMode: {
+      primary: string;
+      background: string;
+      text: string;
+      foreground: string;
+      popover: string;
+      border: string;
+    };
+    darkMode: {
+      primary: string;
+      background: string;
+      text: string;
+      foreground: string;
+      popover: string;
+      border: string;
+    };
+    fonts: {
+      display: {
+        type: 'customFont' | 'googleFont';
+        customFont?: (number | null) | Media;
+        remoteFont?: string | null;
+        fontName?: string | null;
+      };
+      body: {
+        type: 'customFont' | 'googleFont';
+        customFont?: (number | null) | Media;
+        remoteFont?: string | null;
+        fontName?: string | null;
+      };
+    };
+    radius: 'none' | 'small' | 'medium' | 'large' | 'full';
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1363,8 +1673,17 @@ export interface SiteSetting {
  */
 export interface BrandLogo {
   imageUrl: number | Media;
+  /**
+   * Adjust to the height of the logo
+   */
   height?: number | null;
+  /**
+   * Adjust to the width of the logo
+   */
   width?: number | null;
+  /**
+   * This text appears below the footer image
+   */
   description?: string | null;
 }
 /**
@@ -1380,17 +1699,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         faviconUrl?: T;
         ogImageUrl?: T;
         keywords?: T;
+        currency?: T;
       };
   navbar?:
     | T
     | {
-        logo?:
-          | T
-          | {
-              imageUrl?: T;
-              height?: T;
-              width?: T;
-            };
+        logo?: T | BrandLogoSelect<T>;
         menuLinks?:
           | T
           | {
@@ -1400,6 +1714,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     label?: T;
                     page?: T;
                     url?: T;
@@ -1414,6 +1729,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                       | {
                           type?: T;
                           newTab?: T;
+                          icon?: T;
                           label?: T;
                           page?: T;
                           url?: T;
@@ -1426,14 +1742,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   footer?:
     | T
     | {
-        logo?:
-          | T
-          | {
-              imageUrl?: T;
-              height?: T;
-              width?: T;
-              description?: T;
-            };
+        logo?: T | BrandLogoSelect<T>;
         footerLinks?:
           | T
           | {
@@ -1443,6 +1752,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     label?: T;
                     page?: T;
                     url?: T;
@@ -1457,6 +1767,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                       | {
                           type?: T;
                           newTab?: T;
+                          icon?: T;
                           label?: T;
                           page?: T;
                           url?: T;
@@ -1478,6 +1789,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | T
     | {
         blogLink?: T;
+        productLink?: T;
         authorLink?: T;
         tagLink?: T;
       };
@@ -1487,9 +1799,64 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         adSenseId?: T;
         measurementId?: T;
       };
+  themeSettings?:
+    | T
+    | {
+        lightMode?:
+          | T
+          | {
+              primary?: T;
+              background?: T;
+              text?: T;
+              foreground?: T;
+              popover?: T;
+              border?: T;
+            };
+        darkMode?:
+          | T
+          | {
+              primary?: T;
+              background?: T;
+              text?: T;
+              foreground?: T;
+              popover?: T;
+              border?: T;
+            };
+        fonts?:
+          | T
+          | {
+              display?:
+                | T
+                | {
+                    type?: T;
+                    customFont?: T;
+                    remoteFont?: T;
+                    fontName?: T;
+                  };
+              body?:
+                | T
+                | {
+                    type?: T;
+                    customFont?: T;
+                    remoteFont?: T;
+                    fontName?: T;
+                  };
+            };
+        radius?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogo_select".
+ */
+export interface BrandLogoSelect<T extends boolean = true> {
+  imageUrl?: T;
+  height?: T;
+  width?: T;
+  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
