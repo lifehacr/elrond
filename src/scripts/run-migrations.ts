@@ -4,8 +4,6 @@ import 'dotenv/config'
 const databaseURI = process.env.DATABASE_URI ?? ''
 const isMongo = databaseURI && databaseURI.startsWith('mongodb')
 
-console.log({ databaseURI, isMongo })
-
 // Skipping migrations on preview-deployment
 if (!isMongo) {
   if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production') {
